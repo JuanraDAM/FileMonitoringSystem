@@ -10,19 +10,7 @@ object Reader {
   private val spark = SparkSessionProvider.getSparkSession
   spark.conf.set("spark.sql.json.inferLong", "false")
 
-  def readDf(tableLink: String): DataFrame = {
-    val query = s"(SELECT * FROM $tableLink LIMIT 4000000) as subquery"
-    val df = spark.read
-      .format("jdbc")
-      .option("url", DbConfig.getJdbcUrl)
-      .option("dbtable", query)
-      .option("user", DbConfig.getUsername)
-      .option("password", DbConfig.getPassword)
-      .load()
-    df
-  }
-
-  def readTableDf(tableLink: String, checkpoint: Boolean = false): DataFrame = {
+  def readDf(tableLink: String, checkpoint: Boolean = false): DataFrame = {
     val numPartitions = 12
     val fetchSize = 10000
 
@@ -66,32 +54,56 @@ object Reader {
       val query = s"(SELECT * FROM $tableLink) AS subquery"
       spark.read
         .format("jdbc")
+        .option("driver", "org.postgresql.Driver")
         .option("url", DbConfig.getJdbcUrl)
         .option("dbtable", query)
         .option("user", DbConfig.getUsername)
         .option("password", DbConfig.getPassword)
-        .option("fetchsize", fetchSize)
+        //.option("fetchsize", fetchSize)
         .load()
     }
   }
 
+  /**
+   * Lee cualquier fichero soportado:
+   *  - csv  ⇒ Header=true, sep="," por defecto
+   *  - json ⇒ inferSchema=true
+   *  - parquet, avro, etc. ⇒ sin opciones por defecto
+   *
+   * @param path    ruta (HDFS o local) al fichero
+   * @param opts    opciones extra / overrides
+   * @return        DataFrame
+   */
+  def readFile(path: String, opts: Map[String, String] = Map.empty): DataFrame = {
+    // 1) inferir formato por extensión
+    val ext = path.reverse.takeWhile(_!='.').reverse.toLowerCase
+    val format = ext match {
+      case "csv"     => "csv"
+      case "json"    => "json"
+      case "parquet" => "parquet"
+      case other     => other
+    }
 
+    // 2) opciones por defecto según formato
+    val defaults: Map[String, String] = format match {
+      case "csv" =>
+        Map(
+          "header"      -> "true",
+          "sep"         -> ",",
+          "inferSchema" -> "true"
+        )
+      case "json" =>
+        Map("inferSchema" -> "true")
+      case _ =>
+        Map.empty
+    }
 
+    // 3) construir reader
+    val reader = spark.read.format(format)
+    (defaults ++ opts).foreach { case (k, v) => reader.option(k, v) }
 
-  def readerPartitioned (tableLink: String, partitions: Int): DataFrame = {
-    val query = s"(SELECT CAST(row_y AS BIGINT) AS row_y, * FROM $tableLink LIMIT 4000000) as subquery"
-    val df = spark.read
-      .format("jdbc")
-      .option("url", DbConfig.getJdbcUrl)
-      .option("dbtable", query)
-      .option("user", DbConfig.getUsername)
-      .option("password", DbConfig.getPassword)
-      // Opciones de particionamiento:
-      .option("partitionColumn", "row_y")
-      .option("lowerBound", "1")
-      .option("upperBound", "40000000000")
-      .option("numPartitions", partitions)
-      .load()
-    df
+    // 4) cargar
+    reader.load(path)
   }
+
 }

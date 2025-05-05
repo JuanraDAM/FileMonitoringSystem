@@ -1,12 +1,18 @@
 package config
 
-object DbConfig {
-  // URL de conexión a PostgreSQL en el contenedor superset-db
-  private val jdbcUrl   = "jdbc:postgresql://localhost:5432/superset"
-  private val username  = "superset"
-  private val password  = "superset"
+import java.io.IOException
+import java.util.Properties
 
-  def getJdbcUrl: String  = jdbcUrl
-  def getUsername: String = username
-  def getPassword: String = password
+object DbConfig {
+  val props = new java.util.Properties()
+  props.load(new java.io.FileInputStream("db.properties"))
+  private val url      = props.getProperty("url")
+  private val user     = props.getProperty("user")
+  private val passwd   = props.getProperty("password")
+
+
+  // Getters
+  def getJdbcUrl: String   = url
+  def getUsername: String  = user
+  def getPassword: String  = passwd
 }

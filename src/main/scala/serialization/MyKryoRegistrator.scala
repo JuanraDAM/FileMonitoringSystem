@@ -51,5 +51,7 @@ class MyKryoRegistrator extends KryoRegistrator {
     kryo.register(StructField.getClass)
     kryo.register(ArrayType.getClass)
     kryo.register(DecimalType.getClass)
+    kryo.register(classOf[Array[DataType]])
+    kryo.register(NullType.getClass)
   }
 }

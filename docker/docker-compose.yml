@@ -112,6 +112,8 @@ services:
       - "8080:8080"
     networks:
       - superset-net
+    volumes:
+      - ./target/scala-2.12:/app/target/scala-2.12
 
   spark-worker-1:
     image: bitnami/spark:3.3.1
@@ -131,6 +133,8 @@ services:
       - "8081:8081"
     networks:
       - superset-net
+    volumes:
+      - ./target/scala-2.12:/app/target/scala-2.12
 
   spark-worker-2:
     image: bitnami/spark:3.3.1
@@ -150,6 +154,8 @@ services:
       - "8082:8082"
     networks:
       - superset-net
+    volumes:
+      - ./target/scala-2.12:/app/target/scala-2.12
 
 volumes:
   superset-db-data:

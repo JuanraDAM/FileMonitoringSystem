@@ -13,7 +13,7 @@ object SparkSessionProvider {
     .config("spark.hadoop.fs.defaultFS", hdfsUrl)
     .config("spark.sql.shuffle.partitions", "200")
     .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-    .config("spark.kryo.registrationRequired", "true")
+    .config("spark.kryo.registrationRequired", "false")
     // Es importante especificar tu registrator personalizado
     .config("spark.kryo.registrator", "serialization.MyKryoRegistrator")
     .config("spark.default.parallelism", "12")
