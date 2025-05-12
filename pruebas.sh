@@ -23,14 +23,20 @@ else
   echo "❌ FALLÓ" && exit 1
 fi
 
-## 2) Subir carpeta bank_accounts al HDFS
-#echo -n "⬆️ Subiendo carpeta bank_accounts a HDFS... "
-#docker cp "$CSV_LOCAL_DIR" hadoop-namenode:/tmp/bank_accounts
-#docker exec hadoop-namenode bash -c "\
-#  hdfs dfs -mkdir -p $HDFS_CSV_DIR && \
-#  hdfs dfs -put -f /tmp/bank_accounts/* $HDFS_CSV_DIR/
-#"
-#echo "✅ Subida completada"
+# 2) Subir carpeta bank_accounts al HDFS
+echo -n "⬆️ Subiendo carpeta bank_accounts a HDFS... "
+
+# 2.1) Asegurarnos de que existe /data/bank_accounts en el contenedor
+docker exec hadoop-namenode mkdir -p /data/bank_accounts
+
+# 2.2) Copiar los CSV desde el host al contenedor
+docker cp "$CSV_LOCAL_DIR"/. hadoop-namenode:/data/bank_accounts
+
+# 2.3) Mover de /data/bank_accounts (FS local del contenedor) a HDFS
+docker exec hadoop-namenode bash -c \
+  "hdfs dfs -mkdir -p $HDFS_CSV_DIR && hdfs dfs -put -f /data/bank_accounts/* $HDFS_CSV_DIR/"
+
+echo "✅ Subida completada"
 
 # 3) Verificar existencia del CSV en HDFS
 echo -n "📁 Probando existencia de $HDFS_CSV_DIR en HDFS... "
@@ -61,7 +67,7 @@ START_NS=$(date +%s%N)
   --conf spark.driver.host=host.docker.internal \
   "$JAR"
 
-  END_NS=$(date +%s%N)
+END_NS=$(date +%s%N)
 
 echo "✅ Job finalizado."
 ELAPSED_NS=$((END_NS - START_NS))

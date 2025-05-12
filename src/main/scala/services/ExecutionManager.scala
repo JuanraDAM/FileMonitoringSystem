@@ -8,6 +8,7 @@ import validators.{FunctionalValidator, ReferentialIntegrityValidator, TypeValid
 
 object ExecutionManager {
 
+
   def executeEngine(): Unit = {
     println("Ejecutando validaciones")
 
@@ -23,7 +24,7 @@ object ExecutionManager {
       val props = Map(
         "header"      -> fc.has_header.toString,
         "sep"         -> fc.delimiter,
-        "inferSchema" -> "true"
+        "inferSchema" -> "false"    // <- antes era "true"
       )
       val path = fc.path + fc.file_name
       val dataDf = Reader.readFile(path, props)

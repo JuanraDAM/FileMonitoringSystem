@@ -21,5 +21,7 @@ object SparkSessionProvider {
     .getOrCreate()
 
 
+  sparkSession.sparkContext.setLogLevel("ERROR")
+
   def getSparkSession: SparkSession = sparkSession
 }
