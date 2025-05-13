@@ -140,22 +140,59 @@ object TypeValidator {
    */
   def verifyTyping(
                     df: DataFrame,
-                    fileConf: FileConfigurationCaseClass,
+                    fc: FileConfigurationCaseClass,
                     semDs: Dataset[SemanticLayerCaseClass]
-                  ): Boolean = {
-    println("=== Iniciando verificación de tipado completa ===")
+                  ): (String, Boolean, Option[String], Option[String]) = {
+    println("=== Verificación de tipado completa ===")
     val semList = semDs.collect().sortBy(_.field_position)
 
-    val basicOk   = validateBasicTypes(df,     semList)
-    val nullOk    = validateNullability(df,    semList)
-    val lengthOk  = validateLengths(df,        semList)
-    val textOk    = validateTextFormat(df,     semList,
-      fileConf.delimiter,
-      fileConf.quote_char,
-      fileConf.escape_char)
+    // 1️⃣ Basic types
+    semList.foreach { sl =>
+      val c = col(sl.field_name)
+      val casted = sl.data_type.toLowerCase match {
+        case t if t.startsWith("int")     => c.cast(IntegerType)
+        case t if t.startsWith("bigint")  => c.cast(LongType)
+        case t if t.startsWith("decimal") =>
+          val Array(p, s) = sl.length.get.split(",").map(_.toInt)
+          c.cast(DecimalType(p, s))
+        case "date"      => to_date(c, sl.decimal_symbol)
+        case "timestamp" => to_timestamp(c, sl.decimal_symbol)
+        case _           => c
+      }
+      if (df.filter(c.isNotNull && casted.isNull).limit(1).count() > 0)
+        return ("35", false, Some("Tipo inválido"), Some(sl.field_name))
+    }
+    println("Tipos básicos OK")
 
-    val allOk = Seq(basicOk, nullOk, lengthOk, textOk).forall(identity)
-    println(s"=== Resultado FINAL de tipado: ${if (allOk) "✅ PASADO" else "❌ FALLÓ"} ===")
-    allOk
+    // 2️⃣ Nullability
+    semList.filter(!_.nullable).foreach { sl =>
+      if (df.filter(col(sl.field_name).isNull).limit(1).count() > 0)
+        return ("36", false, Some("Nulo indebido"), Some(sl.field_name))
+    }
+    println("Nullability OK")
+
+    // 3️⃣ Longitudes
+    semList.filter(sl => {
+      val dt = sl.data_type.toLowerCase
+      (dt.startsWith("char")||dt.startsWith("varchar")) && sl.length.exists(_.forall(_.isDigit))
+    }).foreach { sl =>
+      val max = sl.length.get.toInt
+      if (df.filter(length(col(sl.field_name)) > max).limit(1).count() > 0)
+        return ("37", false, Some("Longitud excedida"), Some(sl.field_name))
+    }
+    println("Longitudes OK")
+
+    // 4️⃣ Formato de texto
+    semList.filterNot(sl => Seq("int","bigint","decimal","date","timestamp")
+      .exists(sl.data_type.toLowerCase.startsWith)).foreach { sl =>
+      val c = col(sl.field_name)
+      if (df.filter(c.contains(fc.delimiter) ||
+          c.rlike(s"(?<!\\${fc.escape_char})\\${fc.quote_char}"))
+        .limit(1).count() > 0)
+        return ("38", false, Some("Formato texto inválido"), Some(sl.field_name))
+    }
+    println("Formato texto OK")
+
+    ("1.21", true, None, None)
   }
 }

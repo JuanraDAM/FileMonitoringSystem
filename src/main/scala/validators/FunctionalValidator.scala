@@ -1,106 +1,58 @@
+// src/main/scala/validators/FunctionalValidator.scala
 package validators
 
 import models.FileConfigurationCaseClass
 import org.apache.spark.sql.{Column, DataFrame}
 import org.apache.spark.sql.functions._
 
-/**
- * Objeto que agrupa las validaciones funcionales y cross-field sobre un DataFrame.
- * Utiliza la configuración de fichero para formatos de fecha y delimitadores.
- */
 object FunctionalValidator {
 
-  /**
-   * Evalúa que no haya ningún registro “inválido” según la columna booleana invalidCol.
-   * @param df DataFrame a evaluar
-   * @param invalidCol Columna booleana que marca registros inválidos
-   * @return true si NO existe ningún true en invalidCol
-   */
-  private def noneInvalid(df: DataFrame, invalidCol: Column): Boolean = {
-    val bad = df
-      .select(max(when(invalidCol, lit(1)).otherwise(lit(0))).alias("bad"))
-      .first()
-      .getAs[Int]("bad")
-    val result = bad == 0
-    println(s"🔍 noneInvalid resultado: $result (bad flag=$bad)")
-    result
+  private def noneInvalid(df: DataFrame, invalid: Column): Boolean = {
+    val bad = df.select(max(when(invalid, 1).otherwise(0)).alias("bad"))
+      .first().getAs[Int]("bad")
+    val res = bad == 0
+    println(s"🔍 noneInvalid resultado: $res (bad=$bad)")
+    res
   }
 
-  /**
-   * Ejecuta todas las validaciones funcionales y cross-field, devolviendo true si TODO es válido.
-   * Además, imprime el resultado de cada comprobación.
-   * @param df DataFrame con los datos a validar
-   * @param fileConf Configuración de fichero (delimitador, formatos de fecha, etc.)
-   * @return true si todas las validaciones pasan
-   */
-  def verifyFunctional(df: DataFrame, fileConf: FileConfigurationCaseClass): Boolean = {
-    println("🚀 Iniciando validaciones funcionales...")
+  def verifyFunctional(
+                        df: DataFrame,
+                        fc: FileConfigurationCaseClass
+                      ): (String, Boolean, Option[String], Option[String]) = {
+    println("🚀 Validaciones funcionales...")
 
-    // 1. Formato identificadores
-    val idValid = noneInvalid(df, !col("account_number").rlike("^[A-Za-z0-9]{10}$"))
-    println(s"🆔 Formato identificadores: $idValid")
+    if (!noneInvalid(df, !col("account_number").rlike("^[A-Za-z0-9]{10}$")))
+      return ("40", false, Some("Formato inválido"), Some("account_number"))
 
-    // 2. Rangos numéricos
-    val creditValid = noneInvalid(df, !col("credit_score").between(300, 850))
-    val riskValid   = noneInvalid(df, !col("risk_score").between(0, 100))
-    println(s"💳 Rango credit_score: $creditValid, ⚖️ rango risk_score: $riskValid")
+    if (!noneInvalid(df, !col("credit_score").between(300, 850)))
+      return ("41", false, Some("Fuera de rango"), Some("credit_score"))
 
-    // 3. Fechas lógicas
-    val dobDate     = to_date(col("date_of_birth"), fileConf.date_format)
-    val createdDate = to_date(col("created_date"), fileConf.date_format)
-    val dobNotFuture = noneInvalid(df, dobDate > current_date())
-    val datesLogic   = noneInvalid(df, createdDate < dobDate)
-    println(s"📅 date_of_birth no futura: $dobNotFuture, 🕒 created_date >= date_of_birth: $datesLogic")
+    if (!noneInvalid(df, !col("risk_score").between(0, 100)))
+      return ("42", false, Some("Fuera de rango"), Some("risk_score"))
 
-    // 4. Validación de contacto
-    val emailValid = noneInvalid(df, !col("email").rlike("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"))
-    val phoneValid = noneInvalid(df, !col("phone").cast("string").rlike("^\\+?[0-9]{10,15}$"))
-    println(s"📧 Email válido: $emailValid, 📱 teléfono válido: $phoneValid")
+    val dob = to_date(col("date_of_birth"), fc.date_format)
+    if (!noneInvalid(df, months_between(current_date(), dob) < lit(18*12)))
+      return ("43", false, Some("Menor de edad"), Some("date_of_birth"))
 
-    // 5. Estados y categorías válidas
-    val typeValid   = noneInvalid(df, !col("account_type").isin("Checking", "Savings", "Business", "Investment"))
-    val statusValid = noneInvalid(df, !col("status").isin("Active", "Closed"))
-    println(s"🏷️ account_type válido: $typeValid, 🔓 status válido: $statusValid")
+    if (!noneInvalid(df, col("status")==="Active" && col("balance")<0))
+      return ("44", false, Some("Negativo en Active"), Some("balance"))
+    if (!noneInvalid(df, col("status")==="Closed" && col("balance")=!=0))
+      return ("45", false, Some("No cero en Closed"), Some("balance"))
 
-    // 6. Cross-Field
-    val ageValid = noneInvalid(df, months_between(dobDate, current_date()) >= lit(18 * 12))
-    println(s"🔞 Edad mínima 18 años: $ageValid")
+    if (!noneInvalid(df, col("account_type")==="Checking" && col("interest_rate")=!=0))
+      return ("46", false, Some("Interest ≠0"), Some("interest_rate"))
 
-    val balanceActiveValid = noneInvalid(df, when(col("status") === "Active" && col("balance") < 0, true).otherwise(false))
-    val balanceClosedValid = noneInvalid(df, when(col("status") === "Closed" && col("balance") =!= 0, true).otherwise(false))
-    println(s"💰 Balance activo >=0: $balanceActiveValid, 🚫 balance cerrado =0: $balanceClosedValid")
+    if (!noneInvalid(df, col("overdraft_limit")<0 ||
+      (col("overdraft_limit")>0 && col("status")=!= "Active")))
+      return ("47", false, Some("Overdraft inválido"), Some("overdraft_limit"))
 
-    val interestValid = noneInvalid(df, when(col("account_type") === "Checking" && col("interest_rate") =!= 0, true).otherwise(false))
-    println(s"🏦 Checking interest_rate =0: $interestValid")
+    if (!noneInvalid(df, col("is_joint_account")==="Yes" && col("num_transactions")<2))
+      return ("48", false, Some("Pocas tx en joint"), Some("num_transactions"))
 
-    val overdraftValid = noneInvalid(df,
-      when(col("overdraft_limit") < 0 || (col("overdraft_limit") > 0 && col("status") =!= "Active"), true).otherwise(false)
-    )
-    println(s"🔒 Overdraft válido: $overdraftValid")
+    if (!noneInvalid(df, col("num_transactions")===0 && col("avg_transaction_amount")=!=0))
+      return ("49", false, Some("Avg tx ≠0 con 0 tx"), Some("avg_transaction_amount"))
 
-    val jointValid = noneInvalid(df,
-      when(col("is_joint_account") === "Yes" && col("num_transactions") < 2, true).otherwise(false)
-    )
-    println(s"🤝 Joint account >=2 transacciones: $jointValid")
-
-    val avgTransValid = noneInvalid(df,
-      when(col("num_transactions") === 0 && col("avg_transaction_amount") =!= 0, true).otherwise(false)
-    )
-    println(s"📊 avg_transaction_amount con num_transactions=0: $avgTransValid")
-
-    // Combinamos todos los resultados
-    val allValid = Seq(
-      idValid, creditValid, riskValid,
-      dobNotFuture, datesLogic,
-      emailValid, phoneValid,
-      typeValid, statusValid,
-      ageValid,
-      balanceActiveValid, balanceClosedValid,
-      interestValid, overdraftValid,
-      jointValid, avgTransValid
-    ).forall(identity)
-
-    println(s"✅ Resultado final validaciones funcionales: $allValid 🎉")
-    allValid
+    println("Validaciones funcionales OK")
+    ("1.41", true, None, None)
   }
 }
