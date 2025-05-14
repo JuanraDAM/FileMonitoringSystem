@@ -1,0 +1,49 @@
+# ── Stage 1: Compilar el JAR con sbt ────────────────────────────────────────
+FROM openjdk:11-slim AS builder
+WORKDIR /app
+
+# 1) Instalar sbt
+RUN apt-get update && \
+    apt-get install -y curl gnupg && \
+    echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" \
+      > /etc/apt/sources.list.d/sbt.list && \
+    curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x99E82A75642AC823" \
+      | apt-key add - && \
+    apt-get update && \
+    apt-get install -y sbt && \
+    rm -rf /var/lib/apt/lists/*
+
+# 2) Copiar código y recursos
+COPY ../project                project/
+COPY ../build.sbt              .
+COPY ../src                    src/
+COPY ../db.properties          .
+COPY ../src/main/resources/application.conf \
+                                 src/main/resources/
+
+# 3) Ensamblar el fat JAR
+RUN sbt clean assembly
+
+# ── Stage 2: Imagen Spark con tu JAR ────────────────────────────────────────
+FROM bitnami/spark:3.3.1
+USER root
+WORKDIR /app
+
+# Copiar el JAR generado y la configuración
+COPY --from=builder /app/target/scala-2.12/Fin_de_Grado-assembly-0.1.0-SNAPSHOT.jar app.jar
+COPY ../db.properties          db.properties
+COPY ../src/main/resources/application.conf application.conf
+
+# Variables de entorno por defecto (pueden sobrescribirse en docker-compose)
+ENV INPUT_DIR=/data/bank_accounts
+ENV OUTPUT_TABLE=trigger_control
+ENV POLL_INTERVAL_MS=10000
+
+# ENTRYPOINT en modo shell
+ENTRYPOINT spark-submit \
+  --class Main \
+  --master spark://spark-master:7077 \
+  --deploy-mode client \
+  --conf spark.driver.host=validation-engine \
+  --conf spark.hadoop.fs.defaultFS=hdfs://hadoop-namenode:9000 \
+  /app/app.jar

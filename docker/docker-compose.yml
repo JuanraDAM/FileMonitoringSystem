@@ -157,6 +157,40 @@ services:
     volumes:
       - ./target/scala-2.12:/app/target/scala-2.12
 
+  validation-engine:
+    build:
+      context: ..                # contexto: la raíz del repositorio
+      dockerfile: docker/Dockerfile.engine
+    container_name: validation-engine
+    depends_on:
+      - spark-master
+      - hadoop-namenode
+      - superset-db
+    environment:
+      INPUT_DIR: "/data/bank_accounts"
+      OUTPUT_TABLE: "trigger_control"
+      POLL_INTERVAL_MS: "10000"
+    extra_hosts:
+      - "validation-engine:host-gateway"
+    networks:
+      - superset-net
+    volumes:
+      - ../src/main/resources/files/bank_accounts:/local_bank_accounts
+    command: >
+      bash -c "
+        hdfs dfs -mkdir -p /data/bank_accounts &&
+        hdfs dfs -put -f /local_bank_accounts/* /data/bank_accounts &&
+        hdfs dfs -chmod -R 777 /data/bank_accounts &&
+        spark-submit \
+          --class Main \
+          --master spark://spark-master:7077 \
+          --deploy-mode client \
+          --conf spark.driver.host=validation-engine \
+          --conf spark.hadoop.fs.defaultFS=hdfs://hadoop-namenode:9000 \
+          /app/app.jar
+      "
+
+
 volumes:
   superset-db-data:
   hadoop-namenode:

@@ -1,11 +1,13 @@
 # Motor de Validaciones con Scala y Apache Spark
 
+Este proyecto implementa un motor de validaciones distribuido para procesar ficheros bancarios en HDFS, utilizando **Scala**, **Apache Spark** y **PostgreSQL** dentro de un entorno **Docker Compose**.
+
 ## Índice
 
 1. [Introducción](#introducción)
 2. [Especificación de Requisitos](#especificación-de-requisitos)
 3. [Diseño (Diagramas)](#diseño-diagramas)
-4. [Implementación (GIT)](#implementación-git)
+4. [Implementación (Git & Docker)](#implementación-git--docker)
 5. [Resultado (Manual de usuario)](#resultado-manual-de-usuario)
 6. [Conclusiones](#conclusiones)
 
@@ -80,7 +82,7 @@ Esta arquitectura modular permite extender o sustituir validadores, cambiar back
 
 ### 2.2 Requisitos no funcionales
 
-* **Rendimiento**: procesar >1M filas/partición en <2 min, uso óptimo de particiones Spark.
+* **Rendimiento**: procesar >1M filas/partición en <2 min, uso óptimo de particiones Spark.
 * **Escalabilidad**: aumentar nodos executor sin cambios en el código.
 * **Disponibilidad**: capaz de funcionar 24/7 con reinicio automático.
 * **Configurabilidad**: parámetros (rutas, credenciales, intervalos de polling) configurables sin recompilar.
@@ -92,7 +94,7 @@ Esta arquitectura modular permite extender o sustituir validadores, cambiar back
 
 ## 3. Diseño (Diagramas)
 
-> A continuación se describen los diagramas que acompañarán esta sección; se incluirán en la versión PDF.
+> A continuación se describen los diagramas que acompañarán esta sección; se incluirán en la versión PDF final.
 
 ### 3.1 Casos de uso
 
@@ -108,7 +110,7 @@ Casos de uso:
 2. **Procesar fichero**: Sistema → HDFS & Spark → BD.
 3. **Consultar logs**: Analista → BD.
 
-### 3.2 Diagrama entidad-relación
+### 3.2 Diagrama Entidad-Relación
 
 Entidad principal **trigger\_control** con relaciones a **file\_configuration** y **semantic\_layer**. Campos clave y cardinalidades.
 
@@ -128,7 +130,7 @@ Propuesta de colección **logs** en MongoDB:
 }
 ```
 
-### 3.4 Diagrama de clases del modelo
+### 3.4 Diagrama de Clases del modelo
 
 Clases y objetos en paquetes:
 
@@ -138,7 +140,7 @@ Clases y objetos en paquetes:
 * **utils**: `Reader`, `Writer`, `FileManager`
 * **validators**: cuatro validadores.
 
-### 3.5 Diagramas de secuencia
+### 3.5 Diagramas de Secuencia
 
 1. **Detección y validación**:
 
@@ -149,45 +151,100 @@ Clases y objetos en paquetes:
 
 ---
 
-## 4. Implementación (GIT)
+## 4. Implementación (Git & Docker)
 
-### 4.1 Diagrama de arquitectura
+### 4.1 Estructura del repositorio
 
-Arquitectura distribuida:
-
-* **Driver** en contenedor Spark
-* **Executors** escalables
-* **HDFS** (Namenode + Datanodes)
-* **PostgreSQL** contenedor
-* **Network**: Docker bridge
-
-### 4.2 Tecnologías
-
-(Ver sección 1.3)
-
-### 4.3 Código (Explicación de las partes más interesantes)
-
-* **Template Method en ExecutionManager**: cada fase es una llamada a un objeto validador, con early return en caso de error.
-* **Reader.readDf**: particionamiento basado en hash de columna, `fetchSize` y `predicates` para paralelizar JDBC.
-* **Custom Kryo Registrator**: evita `NotSerializableException` para `TimestampType` y `ByteBuffer`.
-* **Polling inteligente**: ignora ficheros temporales `._COPYING_` y captura excepciones de permisos HDFS.
-
-### 4.4 Organización del proyecto. Patrón
-
-Se adopta un **patrón en capas**:
-
-```
-├── config/       # Configuración de Spark y JDBC
-├── models/       # Esquemas de datos
-├── services/     # Orquestación de flujo
-├── utils/        # IO y utilidades
-├── validators/   # Reglas de validación
-├── src/main/scala/Main.scala
-├── resources/    # application.conf, db.properties
-└── scripts/      # run.sh y utilidades
+```plaintext
+Fin_de_Grado/
+├── docker/
+│   ├── Dockerfile.engine
+│   └── docker-compose.yml
+├── src/
+│   ├── main/scala/
+│   ├── main/resources/
+│   └── test/scala/
+├── build.sbt
+├── db.properties
+└── scripts/
+    └── rebuild_and_run.sh
 ```
 
-Principios SOLID y Clean Architecture: cada módulo con responsabilidad única.
+### 4.2 Multi-Stage Dockerfile (`docker/Dockerfile.engine`)
+
+```dockerfile
+# Stage 1: Compilar con openjdk y sbt
+FROM openjdk:11-slim AS builder
+WORKDIR /app
+
+# Instalar sbt
+RUN apt-get update && apt-get install -y curl gnupg && \
+    echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" > /etc/apt/sources.list.d/sbt.list && \
+    curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x99E82A75642AC823" | apt-key add - && \
+    apt-get update && apt-get install -y sbt && rm -rf /var/lib/apt/lists/*
+
+# Copiar proyecto
+COPY ../project   project/
+COPY ../build.sbt build.sbt
+COPY ../src       src/
+COPY ../db.properties db.properties
+COPY ../src/main/resources/application.conf src/main/resources/
+
+# Ensamblar fat JAR
+RUN sbt clean assembly
+
+# Stage 2: Runtime Spark
+FROM bitnami/spark:3.3.1
+WORKDIR /app
+
+# JAR y configuración
+COPY --from=builder /app/target/scala-2.12/Fin_de_Grado-assembly-0.1.0-SNAPSHOT.jar app.jar
+COPY ../db.properties    db.properties
+COPY ../src/main/resources/application.conf application.conf
+
+# Variables de entorno
+ENV INPUT_DIR=/data/bank_accounts \
+    OUTPUT_TABLE=trigger_control \
+    POLL_INTERVAL_MS=10000
+
+# Arranque
+ENTRYPOINT spark-submit \
+  --class Main \
+  --master spark://spark-master:7077 \
+  --deploy-mode client \
+  --conf spark.driver.host=validation-engine \
+  --conf spark.hadoop.fs.defaultFS=hdfs://hadoop-namenode:9000 \
+  /app/app.jar
+```
+
+### 4.3 Docker Compose (`docker/docker-compose.yml`)
+
+Servicios:
+
+* `hadoop-namenode`
+* `hadoop-datanode`
+* `spark-master`
+* `spark-worker-1`, `spark-worker-2`
+* `superset-db`, `superset`
+* `zookeeper`, `kafka`
+* `validation-engine`
+
+Red compartida: `superset-net` (external o creada previamente).
+
+### 4.4 Script de reconstrucción (`scripts/rebuild_and_run.sh`)
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+# Compilar JAR
+sbt clean assembly
+# Crear red si no existe
+docker network create superset-net || true
+# Reconstruir y ejecutar motor
+cd docker
+docker-compose build validation-engine
+docker-compose up --abort-on-container-exit validation-engine
+```
 
 ---
 
@@ -195,11 +252,11 @@ Principios SOLID y Clean Architecture: cada módulo con responsabilidad única.
 
 ### 5.1 Requisitos previos
 
-* Docker y Docker-Compose instalados.
-* Imágenes de Hadoop, Spark y PostgreSQL disponibles.
-* Credenciales BD en `db.properties`.
+* Docker y Docker Compose instalados.
+* Clúster Docker corriendo: Hadoop, Spark, PostgreSQL, Kafka, Superset.
+* Fichero `db.properties` con credenciales.
 
-### 5.2 Instalación y despliegue
+### 5.2 Pasos de uso
 
 1. **Clonar repositorio**:
 
@@ -213,45 +270,35 @@ cd validation-engine
 2. **Configurar credenciales**:
 ```bash
 cp db.properties.example db.properties
-# Editar usuario y contraseña
+# Editar valores en db.properties
 ````
 
-3. **Iniciar servicios Docker**:
+3. **Levantar infraestructura**:
 
    ```bash
    ```
 
-docker-compose up -d
+cd docker
+docker-compose up -d&#x20;
+zookeeper kafka superset-db superset&#x20;
+hadoop-namenode hadoop-datanode&#x20;
+spark-master spark-worker-1 spark-worker-2
 
 ````
-4. **Compilar y ensamblar**:
+4. **Reconstruir y ejecutar motor**:
 ```bash
-sbt clean assembly
+cd ../scripts
+./rebuild_and_run.sh
 ````
 
-5. **Subir ficheros al HDFS** (ver sección 2.1)
-6. **Ejecutar motor**:
+5. **Consultar resultados**:
 
-   ```bash
+   ```sql
    ```
 
-./scripts/run.sh
+SELECT \* FROM trigger\_control ORDER BY logged\_at DESC LIMIT 20;
 
-````
-
-### 5.3 Interpretación de resultados
-- Acceder a PostgreSQL y ejecutar:
-```sql
-SELECT * FROM trigger_control ORDER BY logged_at DESC LIMIT 50;
-````
-
-* **validation\_flag** indica:
-
-    * `1.x` → OK
-    * `3x` → error estructural
-    * `35-38` → error tipológico
-    * `39` → referencial
-    * `40-49` → funcional
+```
 
 ---
 
@@ -259,19 +306,18 @@ SELECT * FROM trigger_control ORDER BY logged_at DESC LIMIT 50;
 
 ### 6.1 Dificultades
 
-* **Permisos HDFS**: configuración de usuarios y `chmod` en HDFS.
-* **Red**: `spark.driver.host` y bindAddress.
-* **Serialización**: ajustes en Kryo para evitar errores de clases no registradas.
-* **Paralelismo JDBC**: acertar número de particiones y fetchSize.
+* Configurar conexión Docker→Spark Master (`spark.driver.host`).
+* Evitar errores de MetricsSystem desactivando Spark UI.
+* Permisos HDFS para eliminar ficheros.
 
 ### 6.2 Mejoras futuras
 
-* Migrar a **Structured Streaming** para procesamiento en tiempo real y tolerancia a fallos.
-* **Monitorización** con Prometheus y Grafana para métricas de latencia y errores.
-* **Dashboard web**: UI para visualizar logs y métricas.
-* **Soporte multiformato**: habilitar Avro, ORC y enriquecimiento con esquemas Avro.
-* **Integración CI/CD** completa con pipelines de pruebas, análisis y despliegue.
+* Migrar a **Structured Streaming**.
+* Añadir **Prometheus/Grafana** para métricas.
+* CI/CD completo con GitHub Actions.
 
 ---
 
 *Fin de la documentación extensa.*
+
+```

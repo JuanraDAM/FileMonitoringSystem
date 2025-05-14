@@ -7,19 +7,20 @@ import org.apache.spark.sql.SparkSession
  * con parámetros de cluster, HDFS y serialización.
  */
 object SparkSessionProvider {
-  /**
-   * Obtiene la SparkSession configurada.
-   * @return instancia de SparkSession.
-   */
-  def getSparkSession: SparkSession = sparkSession
+  /** URL del maestro de Spark, configurable vía SPARK_MASTER_URL */
+  private val masterUrl: String =
+    sys.env.getOrElse("SPARK_MASTER_URL", "spark://spark-master:7077")
 
-  private val masterUrl = "spark://localhost:7077"
-  private val hdfsUrl   = "hdfs://hadoop-namenode:9000"
+  /** URL de HDFS, configurable vía HDFS_URL */
+  private val hdfsUrl: String =
+    sys.env.getOrElse("HDFS_URL", "hdfs://hadoop-namenode:9000")
 
-  private lazy val sparkSession: SparkSession = SparkSession.builder()
+  /** SparkSession singleton configurada para el clúster. */
+  lazy val sparkSession: SparkSession = SparkSession.builder()
     .appName("Proyecto Fin de grado")
     .master(masterUrl)
-    .config("spark.driver.host", "host.docker.internal")
+    .config("spark.ui.enabled", "false")                             // Desactiva Spark UI para evitar MetricsSystem errors
+    .config("spark.driver.host", sys.env.getOrElse("DRIVER_HOST", "validation-engine"))
     .config("spark.driver.bindAddress", "0.0.0.0")
     .config("spark.hadoop.fs.defaultFS", hdfsUrl)
     .config("spark.sql.shuffle.partitions", "200")
@@ -30,5 +31,9 @@ object SparkSessionProvider {
     .config("spark.hadoop.io.nativeio.enabled", "false")
     .getOrCreate()
 
+  // Nivel de log reducido
   sparkSession.sparkContext.setLogLevel("ERROR")
+
+  /** Devuelve la SparkSession compartida */
+  def getSparkSession: SparkSession = sparkSession
 }
