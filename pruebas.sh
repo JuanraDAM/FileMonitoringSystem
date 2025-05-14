@@ -36,6 +36,11 @@ docker cp "$CSV_LOCAL_DIR"/. hadoop-namenode:/data/bank_accounts
 docker exec hadoop-namenode bash -c \
   "hdfs dfs -mkdir -p $HDFS_CSV_DIR && hdfs dfs -put -f /data/bank_accounts/* $HDFS_CSV_DIR/"
 
+echo "🔧 Ajustando permisos de HDFS para borrar ficheros…"
+docker exec hadoop-namenode bash -c \
+  "hdfs dfs -chmod -R 777 /data/bank_accounts"
+echo "✅ Permisos HDFS ajustados"
+
 echo "✅ Subida completada"
 
 # 3) Verificar existencia del CSV en HDFS
