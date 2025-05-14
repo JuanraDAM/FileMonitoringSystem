@@ -5,14 +5,24 @@ import org.apache.spark.sql.{DataFrame, SaveMode}
 
 import java.util.Properties
 
+/**
+ * Utilidades para escritura de datos en JDBC y CSV.
+ */
 object Writer {
-  def upsertTrigger (tableName: String, df: DataFrame) = {
+  /**
+   * Realiza un upsert en la tabla "trigger_control" a partir de un staging intermedio.
+   *
+   * @param tableName Nombre de la tabla destino.
+   * @param df        DataFrame con los datos a insertar o actualizar.
+   */
+  def upsertTrigger(tableName: String, df: DataFrame): Unit = {
     val spark = SparkSessionProvider.getSparkSession
-    val conectionProperties = new Properties()
-    conectionProperties.setProperty("user", DbConfig.getUsername)
-    conectionProperties.setProperty("password", DbConfig.getPassword)
+    val connectionProperties = new Properties()
+    connectionProperties.setProperty("user", DbConfig.getUsername)
+    connectionProperties.setProperty("password", DbConfig.getPassword)
 
-    df.write.mode(SaveMode.Overwrite).jdbc(DbConfig.getJdbcUrl, "staging_table", conectionProperties)
+    df.write.mode(SaveMode.Overwrite)
+      .jdbc(DbConfig.getJdbcUrl, "staging_table", connectionProperties)
 
     val upsertQuery = """
       INSERT INTO trigger_control (
@@ -52,9 +62,7 @@ object Writer {
         row_count = EXCLUDED.row_count
     """
 
-    val connectionOption = DBConnection.getConnection()
-
-    connectionOption match {
+    DBConnection.getConnection() match {
       case Some(connection) =>
         try {
           val statement = connection.createStatement()
@@ -63,27 +71,39 @@ object Writer {
         } finally {
           connection.close()
         }
-      case None =>
-        println("Error en la escritura del upsert")
+      case None => println("Error en la escritura de upsert")
     }
   }
 
+  /**
+   * Escribe un DataFrame en una tabla JDBC en modo Append.
+   *
+   * @param tableName Tabla destino.
+   * @param df        DataFrame a escribir.
+   */
   def writeDf(tableName: String, df: DataFrame): Unit = {
     val spark = SparkSessionProvider.getSparkSession
     val connectionProperties = new Properties()
     connectionProperties.setProperty("user", DbConfig.getUsername)
     connectionProperties.setProperty("password", DbConfig.getPassword)
 
-    df.write
-      .mode(SaveMode.Append)
+    df.write.mode(SaveMode.Append)
       .jdbc(DbConfig.getJdbcUrl, tableName, connectionProperties)
   }
+
+  /**
+   * Exporta un DataFrame a CSV en la ruta especificada.
+   *
+   * @param df        DataFrame a exportar.
+   * @param path      Ruta destino.
+   * @param delimiter Delimitador de columnas.
+   * @param header    Indica si incluir cabecera.
+   */
   def writeDfToCsv(df: DataFrame, path: String, delimiter: String = ",", header: Boolean = true): Unit = {
     df.write
       .option("header", header.toString)
       .option("delimiter", delimiter)
-      .mode("append") // cambia a "append" si lo necesitas
+      .mode("append")
       .csv(path)
   }
-
 }

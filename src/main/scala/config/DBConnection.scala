@@ -2,10 +2,18 @@ package config
 
 import java.sql.{Connection, DriverManager, SQLException}
 
+/**
+ * Objeto proveedor de conexiones JDBC a Postgres.
+ * Registra el driver y devuelve una Option[Connection].
+ */
 object DBConnection {
+  /**
+   * Obtiene una conexión a la base de datos PostgreSQL.
+   *
+   * Registra el driver y utiliza DbConfig para URL, usuario y contraseña.
+   * @return Some(Connection) si la conexión es exitosa, None en caso contrario.
+   */
   def getConnection(): Option[Connection] = {
-    // ─── ¡IMPORTANTE! ────────────────────────────────────────────────────────────
-    // Esto fuerza a que el driver JDBC de Postgres se registre en el DriverManager
     Class.forName("org.postgresql.Driver")
 
     val url      = DbConfig.getJdbcUrl

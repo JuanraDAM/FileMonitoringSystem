@@ -4,7 +4,19 @@ import org.apache.hadoop.security.AccessControlException
 import org.apache.spark.sql.SparkSession
 import services.ExecutionManager
 
+/**
+ * Objeto principal que lanza el bucle de polling sobre HDFS y ejecuta el motor de validaciones
+ * para cada fichero nuevo detectado en el directorio configurado.
+ *
+ * Lee URL de la base de datos de DbConfig, arranca la sesión de Spark y procesa
+ * los ficheros eliminándolos tras el procesamiento.
+ */
 object Main {
+  /**
+   * Punto de entrada de la aplicación.
+   *
+   * @param args Parámetros de línea de comandos (no usados).
+   */
   def main(args: Array[String]): Unit = {
     // 1) Conexión DB
     val connectionOption = DBConnection.getConnection()

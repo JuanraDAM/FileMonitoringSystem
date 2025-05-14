@@ -2,10 +2,21 @@ package config
 
 import org.apache.spark.sql.SparkSession
 
+/**
+ * Proveedor de instancia única de SparkSession configurada
+ * con parámetros de cluster, HDFS y serialización.
+ */
 object SparkSessionProvider {
-  val masterUrl = "spark://localhost:7077"
-  val hdfsUrl = "hdfs://hadoop-namenode:9000"
-  lazy val sparkSession: SparkSession = SparkSession.builder()
+  /**
+   * Obtiene la SparkSession configurada.
+   * @return instancia de SparkSession.
+   */
+  def getSparkSession: SparkSession = sparkSession
+
+  private val masterUrl = "spark://localhost:7077"
+  private val hdfsUrl   = "hdfs://hadoop-namenode:9000"
+
+  private lazy val sparkSession: SparkSession = SparkSession.builder()
     .appName("Proyecto Fin de grado")
     .master(masterUrl)
     .config("spark.driver.host", "host.docker.internal")
@@ -14,14 +25,10 @@ object SparkSessionProvider {
     .config("spark.sql.shuffle.partitions", "200")
     .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
     .config("spark.kryo.registrationRequired", "false")
-    // Es importante especificar tu registrator personalizado
     .config("spark.kryo.registrator", "serialization.MyKryoRegistrator")
     .config("spark.default.parallelism", "12")
     .config("spark.hadoop.io.nativeio.enabled", "false")
     .getOrCreate()
 
-
   sparkSession.sparkContext.setLogLevel("ERROR")
-
-  def getSparkSession: SparkSession = sparkSession
 }

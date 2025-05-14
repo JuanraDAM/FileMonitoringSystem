@@ -1,15 +1,24 @@
 package utils
+
 import config.{DbConfig, SparkSessionProvider}
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions.{col, column, lit, row_number, when}
 
-import java.io.File
-
+/**
+ * Utilidad para lectura de datos desde JDBC y ficheros locales o HDFS.
+ */
 object Reader {
   private val spark = SparkSessionProvider.getSparkSession
   spark.conf.set("spark.sql.json.inferLong", "false")
 
+  /**
+   * Carga una tabla o consulta JDBC en un DataFrame.
+   *
+   * @param tableLink    Nombre de la tabla o subconsulta, debe incluir paréntesis y alias.
+   * @param checkpoint   Si es true, utiliza particionado y fetchSize para optimizar la lectura.
+   * @return DataFrame con los datos obtenidos por JDBC.
+   */
   def readDf(tableLink: String, checkpoint: Boolean = false): DataFrame = {
     val numPartitions = 12
     val fetchSize = 10000
@@ -27,29 +36,24 @@ object Reader {
         .load()
         .columns
 
-
-      val columToPartition = columnNames(5)
-
+      val columnToPartition = columnNames(5)
       val connectionProperties = new java.util.Properties()
       connectionProperties.put("user", DbConfig.getUsername)
       connectionProperties.put("password", DbConfig.getPassword)
       connectionProperties.put("fetchsize", fetchSize.toString)
       connectionProperties.put("driver", "org.postgresql.Driver")
 
-      val regex = "'^[0-9]+(\\.[0-9]+)?$'"
       val predicates = (0 until numPartitions).map { i =>
-        s"""MOD(ABS(CAST(SPLIT_PART($columToPartition, '.', 1) AS BIGINT)), $numPartitions) = $i"""
+        s"MOD(ABS(CAST(SPLIT_PART($columnToPartition, '.', 1) AS BIGINT)), $numPartitions) = $i"
       }.toArray
 
-      val df = spark.read
+      spark.read
         .jdbc(
           url = DbConfig.getJdbcUrl,
           table = query2,
           predicates = predicates,
           connectionProperties = connectionProperties
         )
-      df
-
     } else {
       val query = s"(SELECT * FROM $tableLink) AS subquery"
       spark.read
@@ -59,51 +63,38 @@ object Reader {
         .option("dbtable", query)
         .option("user", DbConfig.getUsername)
         .option("password", DbConfig.getPassword)
-        //.option("fetchsize", fetchSize)
         .load()
     }
   }
 
   /**
-   * Lee cualquier fichero soportado:
-   *  - csv  ⇒ Header=true, sep="," por defecto
-   *  - json ⇒ inferSchema=true
-   *  - parquet, avro, etc. ⇒ sin opciones por defecto
+   * Lee un fichero soportado por Spark (csv, json, parquet, avro, etc.).
    *
-   * @param path    ruta (HDFS o local) al fichero
-   * @param opts    opciones extra / overrides
-   * @return        DataFrame
+   * @param path Ruta (HDFS o local) al fichero.
+   * @param opts Opciones de lectura específicas.
+   * @return DataFrame resultante.
    */
   def readFile(path: String, opts: Map[String, String] = Map.empty): DataFrame = {
-    // 1) inferir formato por extensión
-    val ext = path.reverse.takeWhile(_!='.').reverse.toLowerCase
+    val ext = path.reverse.takeWhile(_ != '.').reverse.toLowerCase
     val format = ext match {
       case "csv"     => "csv"
       case "json"    => "json"
       case "parquet" => "parquet"
-      case other     => other
+      case other      => other
     }
 
-    // 2) opciones por defecto según formato
     val defaults: Map[String, String] = format match {
-      case "csv" =>
-        Map(
-          "header"      -> "true",
-          "sep"         -> ",",
-          "inferSchema" -> "true"
-        )
-      case "json" =>
-        Map("inferSchema" -> "true")
-      case _ =>
-        Map.empty
+      case "csv" => Map(
+        "header" -> "true",
+        "sep" -> ",",
+        "inferSchema" -> "true"
+      )
+      case "json" => Map("inferSchema" -> "true")
+      case _       => Map.empty
     }
 
-    // 3) construir reader
     val reader = spark.read.format(format)
     (defaults ++ opts).foreach { case (k, v) => reader.option(k, v) }
-
-    // 4) cargar
     reader.load(path)
   }
-
 }
