@@ -12,15 +12,14 @@ object FileSentinel {
   private val semanticLayerDf = Reader.readDf("semantic_layer")
 
   /**
-   * Verifica que el número de columnas coincida con la capa semántica.
+   * Verifica que el delimitador sea el indicado en la tabla file configuration.
    *
    * @param df DataFrame a verificar.
    * @return true si el conteo coincide.
    */
   def verifyDelimiter(df: DataFrame)(implicit spark: SparkSession): Boolean = {
-    val expected = semanticLayerDf.count().toInt
     val actual = df.columns.length
-    expected == actual
+    1 != actual
   }
 
   /**

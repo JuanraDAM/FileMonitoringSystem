@@ -27,15 +27,64 @@ INSERT INTO file_configuration (
     date_format,
     timestamp_format,
     partition_columns
-) VALUES (
-    'csv',
-    '/data/bank_accounts/',
-    'bank_accounts.csv',
-    TRUE,
-    ',',
-    '"',
-    '\\',
-    'yyyy-MM-dd',
-    'yyyy-MM-dd HH:mm:ss',
-    NULL
-);
+) VALUES
+      (
+          'csv',
+          '/data/bank_accounts/',
+          'bank_accounts.csv',
+          TRUE,
+          ',',
+          '"',
+          E'\\',
+          'yyyy-MM-dd',
+          'yyyy-MM-dd HH:mm:ss',
+          NULL
+      ),
+      (
+          'csv',
+          '/data/bank_accounts/',
+          'typological_errors.csv',
+          TRUE,
+          ',',
+          '"',
+          E'\\',
+          'yyyy-MM-dd',
+          'yyyy-MM-dd HH:mm:ss',
+          NULL
+      ),
+      (
+          'csv',
+          '/data/bank_accounts/',
+          'structural_errors.csv',
+          TRUE,
+          ',',
+          '"',
+          E'\\',
+          'yyyy-MM-dd',
+          'yyyy-MM-dd HH:mm:ss',
+          NULL
+      ),
+      (
+          'csv',
+          '/data/bank_accounts/',
+          'referential_errors.csv',
+          TRUE,
+          ',',
+          '"',
+          E'\\',
+          'yyyy-MM-dd',
+          'yyyy-MM-dd HH:mm:ss',
+          NULL
+      ),
+      (
+          'csv',
+          '/data/bank_accounts/',
+          'functional_errors.csv',
+          TRUE,
+          ',',
+          '"',
+          E'\\',
+          'yyyy-MM-dd',
+          'yyyy-MM-dd HH:mm:ss',
+          NULL
+      );

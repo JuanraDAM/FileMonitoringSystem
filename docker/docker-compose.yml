@@ -1,6 +1,7 @@
+version: '3.8'
+
 services:
   superset:
-    # image: apache/superset:latest
     build:
       context: .
       dockerfile: Dockerfile.superset
@@ -23,7 +24,8 @@ services:
         superset db upgrade &&
         superset fab create-admin --username admin --firstname Superset --lastname Admin --email admin@superset.com --password 1234 &&
         superset init &&
-        superset run -h 0.0.0.0 -p 8088"
+        superset run -h 0.0.0.0 -p 8088
+      "
     networks:
       - superset-net
 
@@ -86,10 +88,10 @@ services:
     environment:
       CLUSTER_NAME: test
       CORE_CONF_fs_defaultFS: hdfs://hadoop-namenode:9000
-    volumes:
-      - hadoop-datanode:/hadoop/dfs/data
     depends_on:
       - hadoop-namenode
+    volumes:
+      - hdfs-data-datanode:/hadoop/dfs/data
     networks:
       - superset-net
 
@@ -129,6 +131,7 @@ services:
       SPARK_WORKER_CORES: "4"
       SPARK_WORKER_PORT: "7078"
       SPARK_WORKER_WEBUI_PORT: "8081"
+      SPARK_LOCAL_DIRS: /tmp/spark_local
     ports:
       - "8081:8081"
     networks:
@@ -150,6 +153,7 @@ services:
       SPARK_WORKER_CORES: "4"
       SPARK_WORKER_PORT: "7079"
       SPARK_WORKER_WEBUI_PORT: "8082"
+      SPARK_LOCAL_DIRS: /tmp/spark_local
     ports:
       - "8082:8082"
     networks:
@@ -159,7 +163,7 @@ services:
 
   validation-engine:
     build:
-      context: ..                # contexto: la raíz del repositorio
+      context: ..
       dockerfile: docker/Dockerfile.engine
     container_name: validation-engine
     depends_on:
@@ -178,9 +182,20 @@ services:
       - ../src/main/resources/files/bank_accounts:/local_bank_accounts
     command: >
       bash -c "
-        hdfs dfs -mkdir -p /data/bank_accounts &&
-        hdfs dfs -put -f /local_bank_accounts/* /data/bank_accounts &&
-        hdfs dfs -chmod -R 777 /data/bank_accounts &&
+        # 1) Forzar salida de Safe Mode en NameNode
+        echo '🔓 Saliendo de safe mode en HDFS…'
+        hdfs dfsadmin -safemode leave || true
+
+        # 2) Crear el directorio en HDFS
+        echo '📁 Creando /data/bank_accounts en HDFS…'
+        hdfs dfs -mkdir -p /data/bank_accounts
+
+        # 4) Ajustar permisos (para que Spark y el motor puedan leer/escribir sin problemas)
+        echo '🔐 Ajustando permisos en /data/bank_accounts…'
+        hdfs dfs -chmod -R 777 /data/bank_accounts
+
+        # 5) Lanzar spark-submit
+        echo '🚀 Iniciando Validation Engine…'
         spark-submit \
           --class Main \
           --master spark://spark-master:7077 \
@@ -194,7 +209,8 @@ services:
 volumes:
   superset-db-data:
   hadoop-namenode:
-  hadoop-datanode:
+  hdfs-data-datanode:
+  docker_validation_tmp:
 
 networks:
   superset-net:

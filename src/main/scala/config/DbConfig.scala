@@ -19,17 +19,17 @@ object DbConfig {
    * Obtiene la URL JDBC para conectarse a la base de datos.
    * @return cadena con la URL JDBC.
    */
-  def getJdbcUrl: String = url
+  def getJdbcUrl: String = "jdbc:postgresql://superset-db:5432/superset"
 
   /**
    * Obtiene el usuario de la base de datos.
    * @return nombre de usuario.
    */
-  def getUsername: String = user
+  def getUsername: String = "superset"
 
   /**
    * Obtiene la contraseña de la base de datos.
    * @return contraseña.
    */
-  def getPassword: String = passwd
+  def getPassword: String = "superset"
 }

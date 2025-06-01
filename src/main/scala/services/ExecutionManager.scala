@@ -111,17 +111,69 @@ object ExecutionManager {
     import spark.implicits._
 
     val fileName = filePath.split("/").last
-    val env = sys.env.getOrElse("ENV", "dev")
-    val fileConfigs = Reader.readDf("file_configuration").as[FileConfigurationCaseClass].collect()
-    val semanticLayerDs = Reader.readDf("semantic_layer").as[models.SemanticLayerCaseClass]
+    val env      = sys.env.getOrElse("ENV", "dev")
+
+    // Cargo configuraciones
+    val fileConfigs    = Reader.readDf("file_configuration").as[FileConfigurationCaseClass].collect()
+    val semanticLayerDs= Reader.readDf("semantic_layer").as[models.SemanticLayerCaseClass]
 
     fileConfigs.find(_.file_name == fileName) match {
       case Some(fc) =>
         println(s"▶️ Validando $fileName (config id=${fc.id})")
-        // Lectura y validaciones en cascada...
-        logTrigger(fc.id, fc.file_name, None, env, "2", None, outputTable)
 
-      case None => println(s"⚠️ Sin configuración para $fileName")
+        // 0️⃣ Lectura
+        val dfOrError: Either[(String, Option[String]), DataFrame] =
+          try {
+            Right(
+              Reader.readFile(filePath, Map(
+                "header"      -> fc.has_header.toString,
+                "sep"         -> fc.delimiter,
+                "inferSchema" -> "false"
+              )).cache()
+            )
+          } catch {
+            case ex: Exception => Left(("30", Some(ex.getMessage)))
+          }
+
+        dfOrError match {
+          // Error de lectura
+          case Left((flag, errMsg)) =>
+            logTrigger(fc.id, fc.file_name, None, env, flag, errMsg, outputTable)
+
+          // Si leo OK, encadeno validadores
+          case Right(df) =>
+            val (fFlag, fOk, fErr, fField) =
+              FileSentinel.verifyFiles(df, fc)
+            if (!fOk) {
+              logTrigger(fc.id, fc.file_name, fField, env, fFlag, fErr, outputTable)
+            } else {
+              val (tFlag, tOk, tErr, tField) =
+                TypeValidator.verifyTyping(df, fc, semanticLayerDs)
+              if (!tOk) {
+                logTrigger(fc.id, fc.file_name, tField, env, tFlag, tErr, outputTable)
+              } else {
+                val (rFlag, rOk, rErr, rField) =
+                  ReferentialIntegrityValidator.verifyIntegrity(df, semanticLayerDs)
+                if (!rOk) {
+                  logTrigger(fc.id, fc.file_name, rField, env, rFlag, rErr, outputTable)
+                } else {
+                  val (uFlag, uOk, uErr, uField) =
+                    FunctionalValidator.verifyFunctional(df, fc)
+                  if (!uOk) {
+                    logTrigger(fc.id, fc.file_name, uField, env, uFlag, uErr, outputTable)
+                  } else {
+                    // ✅ Todo OK
+                    logTrigger(fc.id, fc.file_name, None, env, "2", None, outputTable)
+                  }
+                }
+              }
+            }
+        }
+
+      case None =>
+        // Opcional: loguear los no configurados
+        logTrigger(0, fileName, None, env, "99", Some("Sin configuración de fichero"), outputTable)
+        println(s"⚠️ Sin configuración para $fileName")
     }
   }
 }
