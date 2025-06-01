@@ -5,30 +5,35 @@ Este proyecto implementa un motor de validaciones distribuido para procesar fich
 ## Índice
 
 1. [Introducción](#introducción)
-   1.1 Resumen del proyecto
-   1.2 Explicación de la aplicación
-   1.3 Resumen de tecnologías utilizadas
+   1. [Resumen del proyecto](#introducción)
+   2. [Explicación de la aplicación](#explicación-de-la-aplicación)
+   3. [Resumen de tecnologías utilizadas](#resumen-de-tecnologías-utilizadas)
+
 2. [Especificación de Requisitos](#especificación-de-requisitos)
-   2.1 Requisitos funcionales
-   2.2 Requisitos no funcionales
+   1. [Requisitos funcionales](#requisitos-funcionales)
+   2. [Requisitos no funcionales](#requisitos-no-funcionales)
+
 3. [Diseño (Diagramas)](#diseño-diagramas)
-   3.1 Casos de uso
-   3.2 Diagrama entidad-relación
-   3.3 Esquema para BD no relacional
-   3.4 Diagrama de clases del modelo
-   3.5 Diagramas de secuencia
+   1. [Casos de uso](#casos-de-uso)
+   2. [Diagrama entidad-relación](#diagrama-entidad-relación)
+   3. [Esquema para BD no relacional](#esquema-para-bd-no-relacional)
+   4. [Diagrama de clases del modelo](#diagrama-de-clases-del-modelo)
+   5. [Diagramas de secuencia](#diagramas-de-secuencia)
+
 4. [Implementación (GIT & Docker)](#implementación-git--docker)
-   4.1 Estructura del repositorio
-   4.2 Multi-Stage Dockerfile (`docker/Dockerfile.engine`)
-   4.3 Docker Compose (`docker/docker-compose.yml`)
-   4.4 Script de reconstrucción (`scripts/rebuild_and_run.sh`)
+   1. [Estructura del repositorio](#estructura-del-repositorio)
+   2. [Multi-Stage Dockerfile (`docker/Dockerfile.engine`)](#multi-stage-dockerfile-dockerdockerfileengine)
+   3. [Docker Compose (`docker/docker-compose.yml`)](#docker-compose-dockerdocker-composeyml)
+   4. [Script de reconstrucción (`scripts/rebuild_and_run.sh`)](#script-de-reconstrucción-scriptsrebuild_and_runsh)
+
 5. [Resultado (Manual de usuario)](#resultado-manual-de-usuario)
-   5.1 Requisitos previos
-   5.2 Pasos de uso
-   5.3 Configuración de Superset (breve)
+   1. [Requisitos previos](#requisitos-previos)
+   2. [Pasos de uso](#pasos-de-uso)
+   3. [Configuración de Superset (breve)](#configuración-de-superset-breve)
+
 6. [Conclusiones](#conclusiones)
-   6.1 Dificultades
-   6.2 Mejoras futuras
+   1. [Dificultades](#dificultades)
+   2. [Mejoras futuras](#mejoras-futuras)
 
 ---
 
