@@ -4,6 +4,7 @@ set -euo pipefail
 # 1) Asegúrate de estar en la raíz del proyecto
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
+cd ..
 
 # 2) Compilar y ensamblar el fat JAR
 echo "=== 🛠 Compilando y ensamblando con sbt ==="
