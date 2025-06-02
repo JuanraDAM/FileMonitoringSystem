@@ -1,0 +1,177 @@
+/* src/index.css */
+
+/* Reset muy básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Layout general */
+.header {
+  background: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.nav-link {
+  margin-right: 1rem;
+  font-weight: bold;
+}
+
+.logout-button {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #c0392b;
+}
+
+.content {
+  padding: 2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background: #fafafa;
+}
+
+button {
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background: #3498db;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+.error {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+
+/* Estilos para FileEditPage */
+.file-edit-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.file-edit-page h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.edit-form > div {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-form label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="password"],
+.edit-form input[type="checkbox"],
+.edit-form input[type="email"] {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.edit-form input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+  transform: scale(1.1);
+}
+
+.edit-form .checkbox-group {
+  flex-direction: row;
+  align-items: center;
+}
+
+.edit-form button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background: #27ae60;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.edit-form button:disabled {
+  background: #95a5a6;
+  cursor: default;
+}
+
+.edit-form button:hover:not(:disabled) {
+  background: #219150;
+}
+
+.error {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.upload-section {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+.file-input {
+  flex: 1;
+}
