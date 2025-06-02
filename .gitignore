@@ -48,3 +48,30 @@ build/
 
 ### Test Files ###
 /src/main/resources/files/
+
+# Python
+__pycache__/
+*.py[cod]
+env/
+venv/
+.venv/
+
+# Node / React
+node_modules/
+dist/
+build/
+
+# Entornos
+.env
+
+# Logs
+*.log
+
+# Mac
+.DS_Store
+
+#csv#
+.csv
+
+#deb#
+.deb
