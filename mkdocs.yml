@@ -17,18 +17,11 @@ markdown_extensions:
   - admonition
 
 nav:
-  - Home: SUMMARY.md
+  - Home: index.md
 
   - Introducción: 01-introduccion.md
   - Especificación de Requisitos: 02-requisitos.md
-
-  - Diseño (Diagramas):
-      - Casos de uso: 03-diseno.md#3-1-casos-de-uso
-      - Diagrama entidad-relación: 03-diseno.md#3-2-diagrama-entidad-relación
-      - Esquema para BD no relacional: 03-diseno.md#3-3-esquema-para-bd-no-relacional
-      - Diagrama de clases del modelo: 03-diseno.md#3-4-diagrama-de-clases-del-modelo
-      - Diagramas de secuencia: 03-diseno.md#3-5-diagramas-de-secuencia
-
+  - Diseño (Diagramas): 03-diseno.md
   - Implementación (GIT): 04-implementacion.md
   - Resultado (Manual de usuario): 05-resultado.md
   - Conclusiones: 06-conclusiones.md
