@@ -1,28 +1,15 @@
 site_name: "File Monitoring System"
-
-# Esta URL es la de tu GitHub Pages:
-# (reemplaza <tu-usuario> y <tu-repo> con tus valores)
 site_url: "https://juanradam.github.io/FileMonitoringSystem/"
 
-# Carpeta donde MkDocs busca los .md
+# MkDocs leerá los .md desde docs/ y generará el HTML en site/
 docs_dir: docs
-
-# Carpeta donde MkDocs genera el HTML
 site_dir: site
 
-# Para que los enlaces se construyan bien bajo el subdirectorio
+# Usamos URL con .html porque estamos en un subdirectorio de GitHub Pages
 use_directory_urls: false
 
 theme:
   name: material
-  palette:
-    primary: 'indigo'
-    accent: 'indigo'
-  font:
-    text: 'Roboto'
-    code: 'Roboto Mono'
-  favicon: 'img/diagrama_casos_de_uso.png'  # solo a modo de ejemplo
-  # (Puedes personalizar más opciones de Material aquí)
 
 markdown_extensions:
   - toc:
@@ -30,14 +17,18 @@ markdown_extensions:
   - admonition
 
 nav:
+  - Home: SUMMARY.md
+
   - Introducción: 01-introduccion.md
   - Especificación de Requisitos: 02-requisitos.md
+
   - Diseño (Diagramas):
-      - Casos de uso: 03-diseno.md#31-casos-de-uso
-      - Diagrama entidad-relación: 03-diseno.md#32-diagrama-entidad-relación
-      - Esquema para BD no relacional: 03-diseno.md#33-esquema-para-bd-no-relacional
-      - Diagrama de clases del modelo: 03-diseno.md#34-diagrama-de-clases-del-modelo
-      - Diagramas de secuencia: 03-diseno.md#35-diagramas-de-secuencia
+      - Casos de uso: 03-diseno.md#3-1-casos-de-uso
+      - Diagrama entidad-relación: 03-diseno.md#3-2-diagrama-entidad-relación
+      - Esquema para BD no relacional: 03-diseno.md#3-3-esquema-para-bd-no-relacional
+      - Diagrama de clases del modelo: 03-diseno.md#3-4-diagrama-de-clases-del-modelo
+      - Diagramas de secuencia: 03-diseno.md#3-5-diagramas-de-secuencia
+
   - Implementación (GIT): 04-implementacion.md
   - Resultado (Manual de usuario): 05-resultado.md
   - Conclusiones: 06-conclusiones.md
