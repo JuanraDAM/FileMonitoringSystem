@@ -1,4 +1,3 @@
-// src/services/storage.js
 export const TOKEN_KEY = 'access_token';
 
 export const saveToken = token => {

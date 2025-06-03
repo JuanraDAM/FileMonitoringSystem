@@ -1,4 +1,3 @@
-// src/contexts/AuthContext.jsx
 import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axiosConfig';
@@ -14,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       localStorage.setItem('access_token', token);
-      setUser({}); // opcional: aquí podrías decodificar el token para extraer datos de usuario
+      setUser({});
     } else {
       localStorage.removeItem('access_token');
       setUser(null);

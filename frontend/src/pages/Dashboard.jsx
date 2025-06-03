@@ -1,4 +1,3 @@
-// src/pages/Dashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { getConfigs, uploadFile, pushToHDFS, deleteConfig } from '../api/files';
 import FileDetailModal from '../components/FileDetailModal';
@@ -9,7 +8,7 @@ const Dashboard = () => {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [selectedConfig, setSelectedConfig] = useState(null);
-  const [actionLoading, setActionLoading] = useState({}); // { [id]: { validating: bool, deleting: bool } }
+  const [actionLoading, setActionLoading] = useState({});
 
   const fetchConfigs = async () => {
     setLoading(true);

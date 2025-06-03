@@ -1,4 +1,3 @@
-# backend/app/api/auth.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -20,7 +19,6 @@ async def register(
     user_in: UserCreate,
     db: AsyncSession = Depends(get_db),
 ):
-    # Comprueba si ya existe
     result = await db.execute(select(User).where(User.email == user_in.email))
     if result.scalars().first():
         raise HTTPException(
@@ -28,7 +26,6 @@ async def register(
             detail="El email ya está registrado"
         )
 
-    # Crea y guarda
     user = User(
         email=user_in.email,
         hashed_password=get_password_hash(user_in.password),

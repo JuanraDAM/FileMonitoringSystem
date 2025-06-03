@@ -1,4 +1,3 @@
-# File: backend/app/services/file_service.py
 
 import os
 import shutil

@@ -1,4 +1,3 @@
-# backend/app/services/hdfs_sync.py
 
 import os
 import subprocess

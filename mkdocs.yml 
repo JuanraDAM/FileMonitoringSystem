@@ -1,0 +1,27 @@
+site_name: "File Monitoring System"
+site_dir: site
+
+# Carpeta donde están tus .md
+docs_dir: docs
+
+# Tema incorporado (puedes cambiarlo a otro si quieres)
+theme:
+  name: material
+
+nav:
+  - Introducción: 01-introduccion.md
+  - Especificación de Requisitos: 02-requisitos.md
+  - Diseño (Diagramas):
+      - Casos de uso: 03-diseno.md#casos-de-uso
+      - Diagrama entidad-relación: 03-diseno.md#diagrama-entidad-relación
+      - Esquema NoSQL: 03-diseno.md#esquema-para-bd-no-relacional
+      - Diagrama de clases: 03-diseno.md#diagrama-de-clases-del-modelo
+      - Diagramas de secuencia: 03-diseno.md#diagramas-de-secuencia
+  - Implementación (GIT): 04-implementacion.md
+  - Resultado (Manual de usuario): 05-resultado.md
+  - Conclusiones: 06-conclusiones.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition

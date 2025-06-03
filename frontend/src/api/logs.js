@@ -1,4 +1,3 @@
-// src/api/logs.js
 import api from '../services/api';
 
 /**

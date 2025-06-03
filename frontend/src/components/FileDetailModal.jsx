@@ -1,4 +1,3 @@
-// src/components/FileDetailModal.jsx
 import React, { useState } from 'react';
 import { updateConfig, pushToHDFS, deleteConfig, downloadFileUrl } from '../api/files';
 

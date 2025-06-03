@@ -1,4 +1,3 @@
-// src/pages/LogsPage.jsx
 import React, { useState, useEffect } from 'react';
 import { getLogs } from '../api/logs';
 
@@ -31,7 +30,6 @@ const LogsPage = () => {
       // Si ya estamos ordenando por este campo, invertimos el orden
       setSortOrder(prevOrder => (prevOrder === 'asc' ? 'desc' : 'asc'));
     } else {
-      // Nuevo campo de ordenación, arrancamos en ascendente
       setSortField(field);
       setSortOrder('asc');
     }
@@ -55,7 +53,6 @@ const LogsPage = () => {
         return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
       }
 
-      // Comparación de strings (incluye otros campos)
       const aStr = String(aValue).toLowerCase();
       const bStr = String(bValue).toLowerCase();
       if (aStr < bStr) return sortOrder === 'asc' ? -1 : 1;

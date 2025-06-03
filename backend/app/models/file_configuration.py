@@ -1,4 +1,3 @@
-# backend/app/models/file_configuration.py
 from sqlalchemy import (
     Column, Integer, String, Boolean,
     CHAR, VARCHAR,

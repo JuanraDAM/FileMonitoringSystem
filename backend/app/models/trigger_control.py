@@ -1,4 +1,3 @@
-# backend/app/models/trigger_control.py
 from sqlalchemy import (
     Column, Integer, String, Text,
     ForeignKey, DateTime, func, VARCHAR

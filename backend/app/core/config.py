@@ -1,5 +1,3 @@
-# backend/app/core/config.py
-
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 
@@ -23,16 +21,13 @@ class Settings(BaseSettings):
     hdfs_dir          : str = Field(..., env="HDFS_DIR")
     hdfs_user         : str = Field(..., env="HDFS_USER")
 
-    # ¿En qué contenedor está tu NameNode para docker-exec?
     hdfs_namenode_container : str = Field(
         "hadoop-namenode", env="HDFS_NAMENODE_CONTAINER"
     )
-    # directorio temporal *dentro* del contenedor NameNode
     hdfs_tmp_dir           : str = Field(
         "/tmp/bank_accounts", env="HDFS_TMP_DIR"
     )
 
-    # Carpeta local para dejar los CSV antes de push
     upload_dir       : str = Field("uploaded_files", env="UPLOAD_DIR")
 
     # JWT / Seguridad

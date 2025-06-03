@@ -1,4 +1,3 @@
-// src/layouts/MainLayout.jsx
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { useContext } from 'react';
