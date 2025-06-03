@@ -1,0 +1,914 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../05-resultado/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Conclusiones - File Monitoring System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-conclusiones" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="File Monitoring System" class="md-header__button md-logo" aria-label="File Monitoring System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            File Monitoring System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Conclusiones
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="File Monitoring System" class="md-nav__button md-logo" aria-label="File Monitoring System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    File Monitoring System
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-requisitos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Especificación de Requisitos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Diseño (Diagramas)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Diseño (Diagramas)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#casos-de-uso" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Casos de uso
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#diagrama-entidad-relación" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagrama entidad-relación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#esquema-para-bd-no-relacional" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Esquema NoSQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#diagrama-de-clases-del-modelo" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagrama de clases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#diagramas-de-secuencia" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagramas de secuencia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-implementacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementación (GIT)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-resultado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resultado (Manual de usuario)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Conclusiones
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conclusiones
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#6-conclusiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Conclusiones
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Conclusiones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-dificultades" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Dificultades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-mejoras" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Mejoras
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anexo-glosario-de-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anexo: Glosario de Flags
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#6-conclusiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Conclusiones
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Conclusiones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-dificultades" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Dificultades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-mejoras" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Mejoras
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anexo-glosario-de-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anexo: Glosario de Flags
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Conclusiones</h1>
+
+<h2 id="6-conclusiones">6. Conclusiones<a class="headerlink" href="#6-conclusiones" title="Permanent link">&para;</a></h2>
+<h3 id="61-dificultades">6.1 Dificultades<a class="headerlink" href="#61-dificultades" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>ClusterID incompatibles (HDFS)</strong></p>
+<ul>
+<li>Al cambiar o recrear imágenes de Hadoop, DataNode arroja error de “Incompatible clusterIDs”.</li>
+<li>Solución: borrar volúmenes <code>hadoop-namenode</code> y <code>hdfs-data-datanode</code> antes de levantar.</li>
+</ul>
+</li>
+<li>
+<p><strong>Safe Mode en HDFS</strong></p>
+<ul>
+<li>HDFS arranca en “safe mode” si detecta inconsistencias o falta de bloques.</li>
+<li>Se incorporó <code>hdfs dfsadmin -safemode leave</code> en el contenedor <code>validation-engine</code> para forzar la salida.</li>
+</ul>
+</li>
+<li>
+<p><strong>Manejo de redirección en WebHDFS</strong></p>
+<ul>
+<li>WebHDFS devuelve un redirect 307 con URL del DataNode; ajustar host y puerto es crítico.</li>
+<li>Se debió detectar y procesar manualmente el header <code>Location</code> antes de subir el contenido.</li>
+</ul>
+</li>
+<li>
+<p><strong>Tamaño de ficheros grandes</strong></p>
+<ul>
+<li>Al probar con CSV de varios GB, los DataNode se quedaban sin espacio y se excluían.</li>
+<li>Se recomendó montar <code>/tmp</code> de Spark Workers en volúmenes dedicados (<code>docker_validation_tmp</code>) o usar <code>tmpfs</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Coordinación entre frontend y backend (token y rutas)</strong></p>
+<ul>
+<li>La gestión de 401 Unauthorized requirió interceptores en Axios para borrar token y redirigir a login.</li>
+<li>Asegurarse de que todas las peticiones protegidas incluyeran el header <code>Authorization</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuración de permisos HDFS desde FastAPI</strong></p>
+<ul>
+<li>Ejecutar comandos Hadoop desde contenedor Python (shell) generaba a veces problemas de path.</li>
+<li>Se optó por usar HTTP WebHDFS en lugar de comandos nativos en Python.</li>
+</ul>
+</li>
+<li>
+<p><strong>SQLAlchemy Async y migraciones</strong></p>
+<ul>
+<li>Cambios frecuentes en el modelo de datos (por ejemplo, <code>TIMESTAMP</code> a <code>TIMESTAMPTZ</code>) implicaron migraciones manuales.</li>
+<li>No se incluyó un sistema de migraciones (Alembic), por lo que hubo que recrear tablas en producción.</li>
+</ul>
+</li>
+<li>
+<p><strong>Paginación y filtros en logs</strong></p>
+<ul>
+<li>Al crecer el número de logs, la consulta simple (<code>SELECT * FROM trigger_control</code>) se volvía lenta.</li>
+<li>Se implementaron filtros por fecha y entorno, pero falta paginación y límites por defecto.</li>
+</ul>
+</li>
+<li>
+<p><strong>Interfaz de usuario básica</strong></p>
+<ul>
+<li>Al usar CSS puro, costó diseñar un estilo consistente y responsivo.</li>
+<li>Se recomendó integrar un framework CSS (Tailwind, Material UI) para mejorar UX/UI.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="62-mejoras">6.2 Mejoras<a class="headerlink" href="#62-mejoras" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Migrar a Spark Structured Streaming</strong></p>
+<ul>
+<li>Pasar de polling batch a procesamiento near‐real‐time con Structured Streaming y checkpoints.</li>
+</ul>
+</li>
+<li>
+<p><strong>Orquestación con Kubernetes</strong></p>
+<ul>
+<li>Desplegar Hadoop, Spark y el motor de validaciones en un clúster Kubernetes usando Helm charts y StatefulSets.</li>
+<li>Facilitar elasticidad y escalado automático de nodos.</li>
+</ul>
+</li>
+<li>
+<p><strong>Monitorización con Prometheus &amp; Grafana</strong></p>
+<ul>
+<li>Exponer métricas de Spark, HDFS y PostgreSQL.</li>
+<li>Crear dashboards de latencia, tasas de error y uso de recursos.</li>
+</ul>
+</li>
+<li>
+<p><strong>Alertas automáticas</strong></p>
+<ul>
+<li>Enviar notificaciones por correo o webhook cuando ocurran validaciones negativas (flags críticos).</li>
+</ul>
+</li>
+<li>
+<p><strong>Paginación y filtros avanzados en frontend</strong></p>
+<ul>
+<li>Añadir paginación en listas de configuraciones y logs.</li>
+<li>Filtros por fecha, entorno, flag de validación, nombre de fichero.</li>
+</ul>
+</li>
+<li>
+<p><strong>Soporte para formatos adicionales</strong></p>
+<ul>
+<li>Añadir validación y lectura de CSV comprimidos, Parquet, Avro u ORC.</li>
+<li>Implementar validaciones basadas en schemas Avro o JSON Schema.</li>
+</ul>
+</li>
+<li>
+<p><strong>Carga fragmentada (chunked upload)</strong></p>
+<ul>
+<li>Para CSV muy grandes, usar multipart upload o chunking en frontend/backend para evitar timeouts.</li>
+</ul>
+</li>
+<li>
+<p><strong>Integración de notificaciones en tiempo real</strong></p>
+<ul>
+<li>Usar WebSockets o WebPubSub para notificar al frontend sobre el estado de la validación en tiempo real.</li>
+</ul>
+</li>
+<li>
+<p><strong>Internacionalización (i18n)</strong></p>
+<ul>
+<li>Permitir cambiar idioma en frontend (ES, EN).</li>
+<li>Formateo de fechas y mensajes localizados.</li>
+</ul>
+</li>
+<li>
+<p><strong>Documentación de API con Swagger/Redoc</strong></p>
+<ul>
+<li>FastAPI ya genera documentación automática; extenderla con ejemplos de petición/respuesta y código de errores.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="anexo-glosario-de-flags">Anexo: Glosario de Flags<a class="headerlink" href="#anexo-glosario-de-flags" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Rango</th>
+<th style="text-align: left;">Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">30</td>
+<td style="text-align: left;">Error de lectura (I/O, CSV mal formado)</td>
+</tr>
+<tr>
+<td style="text-align: center;">32</td>
+<td style="text-align: left;">Delimiter mismatch (número de columnas esperado)</td>
+</tr>
+<tr>
+<td style="text-align: center;">33</td>
+<td style="text-align: left;">Header mismatch (encabezados distintos)</td>
+</tr>
+<tr>
+<td style="text-align: center;">34</td>
+<td style="text-align: left;">Column count per row mismatch</td>
+</tr>
+<tr>
+<td style="text-align: center;">35</td>
+<td style="text-align: left;">Tipo inválido</td>
+</tr>
+<tr>
+<td style="text-align: center;">36</td>
+<td style="text-align: left;">Nulo indebido</td>
+</tr>
+<tr>
+<td style="text-align: center;">37</td>
+<td style="text-align: left;">Longitud excedida</td>
+</tr>
+<tr>
+<td style="text-align: center;">38</td>
+<td style="text-align: left;">Formato texto inválido</td>
+</tr>
+<tr>
+<td style="text-align: center;">39</td>
+<td style="text-align: left;">Duplicado PK (integridad referencial)</td>
+</tr>
+<tr>
+<td style="text-align: center;">40</td>
+<td style="text-align: left;">Formato inválido (<code>account_number</code>)</td>
+</tr>
+<tr>
+<td style="text-align: center;">41</td>
+<td style="text-align: left;">Fuera de rango (<code>credit_score</code>)</td>
+</tr>
+<tr>
+<td style="text-align: center;">42</td>
+<td style="text-align: left;">Fuera de rango (<code>risk_score</code>)</td>
+</tr>
+<tr>
+<td style="text-align: center;">43</td>
+<td style="text-align: left;">Menor de edad (<code>date_of_birth</code>)</td>
+</tr>
+<tr>
+<td style="text-align: center;">44</td>
+<td style="text-align: left;">Negativo en “Active” (<code>balance</code>)</td>
+</tr>
+<tr>
+<td style="text-align: center;">45</td>
+<td style="text-align: left;">Balance ≠ 0 en “Closed”</td>
+</tr>
+<tr>
+<td style="text-align: center;">46</td>
+<td style="text-align: left;">Interest ≠ 0 en “Checking”</td>
+</tr>
+<tr>
+<td style="text-align: center;">47</td>
+<td style="text-align: left;">Overdraft inválido</td>
+</tr>
+<tr>
+<td style="text-align: center;">48</td>
+<td style="text-align: left;">Pocas transacciones en joint</td>
+</tr>
+<tr>
+<td style="text-align: center;">49</td>
+<td style="text-align: left;">Avg tx ≠ 0 con 0 tx</td>
+</tr>
+<tr>
+<td style="text-align: center;">1.13, 1.21, 1.31, 1.41</td>
+<td style="text-align: left;">Flags de validación “todo OK” (sin errores)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">OK final (todos los validadores pasaron)</td>
+</tr>
+<tr>
+<td style="text-align: center;">99</td>
+<td style="text-align: left;">Sin configuración en <code>file_configuration</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

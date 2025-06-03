@@ -1,0 +1,1204 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>03 diseno - File Monitoring System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3-diseno-diagramas" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="File Monitoring System" class="md-header__button md-logo" aria-label="File Monitoring System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            File Monitoring System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              03 diseno
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="File Monitoring System" class="md-nav__button md-logo" aria-label="File Monitoring System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    File Monitoring System
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-requisitos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Especificación de Requisitos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Diseño (Diagramas)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Diseño (Diagramas)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#casos-de-uso" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Casos de uso
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#diagrama-entidad-relación" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagrama entidad-relación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#esquema-para-bd-no-relacional" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Esquema NoSQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#diagrama-de-clases-del-modelo" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagrama de clases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-diseno.md#diagramas-de-secuencia" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagramas de secuencia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-implementacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementación (GIT)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-resultado/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resultado (Manual de usuario)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-conclusiones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conclusiones
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#3-diseno-diagramas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Diseño (Diagramas)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Diseño (Diagramas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Casos de uso
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-diagrama-entidad-relacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Diagrama entidad-relación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-diagrama-de-clases-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Diagrama de clases del modelo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Diagrama de clases del modelo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-motor-de-validaciones-scala" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.1 Motor de validaciones (Scala)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-frontend-react" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.2 Frontend (React)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-backend-fastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.3 Backend (FastAPI)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-diagramas-de-secuencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Diagramas de secuencia
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Diagramas de secuencia">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-secuencia-subida-de-fichero-frontend-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.1 Secuencia: Subida de fichero (Frontend → Backend)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-secuencia-enviar-fichero-a-hdfs-frontend-backend-hdfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.2 Secuencia: Enviar fichero a HDFS (Frontend → Backend → HDFS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-secuencia-proceso-de-validacion-en-spark-motor" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.3 Secuencia: Proceso de validación en Spark (Motor)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#344-secuencia-listar-logs-de-validacion-frontend-backend-bd" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.4 Secuencia: Listar Logs de Validación (Frontend → Backend → BD)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>03 diseno</h1>
+
+<h2 id="3-diseno-diagramas">3. Diseño (Diagramas)<a class="headerlink" href="#3-diseno-diagramas" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>En la carpeta <code>docs/Img/</code> se incluyen todos los diagramas en PNG o PlantUML; aquí se describen y referencian los más relevantes.</p>
+</blockquote>
+<h3 id="31-casos-de-uso">3.1 Casos de uso<a class="headerlink" href="#31-casos-de-uso" title="Permanent link">&para;</a></h3>
+<p>A continuación se resumen los casos de uso principales para todo el sistema:</p>
+<ol>
+<li>
+<p><strong>Registrar Usuario</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario no autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>Accede a <code>/register</code> (frontend).</li>
+<li>Completa email y contraseña, envía <code>POST /auth/register</code> (backend).</li>
+<li>Si éxito (201), frontend redirige a <code>/login</code>; si error, muestra mensaje en formulario.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Iniciar Sesión</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario no autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>Accede a <code>/login</code>.</li>
+<li>Completa credenciales, envía <code>POST /auth/login</code>.</li>
+<li>Si éxito (200), backend devuelve JWT; frontend guarda en <code>localStorage</code> y redirige a <code>/dashboard</code>.</li>
+<li>Si 401, muestra mensaje “Credenciales inválidas”.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Cerrar Sesión</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>En navbar, pulsa <strong>Logout</strong>.</li>
+<li>Frontend elimina token y redirige a <code>/login</code>.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Subir Fichero CSV</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>En <code>/dashboard</code>, selecciona CSV y pulsa <strong>Subir Fichero</strong>.</li>
+<li>Frontend muestra “Subiendo…”, envía <code>POST /files/upload</code> con <code>multipart/form-data</code>.</li>
+<li>Backend guarda el fichero en <code>uploaded_files/</code> y crea/actualiza registro en <code>file_configuration</code>.</li>
+<li>Backend responde <code>{ "file_config_id": X }</code>; frontend muestra alerta “Fichero subido ID: X” y refresca lista.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Listar Configuraciones</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>Al acceder a <code>/dashboard</code>, frontend hace <code>GET /files/</code>.</li>
+<li>Backend devuelve array de configuraciones; frontend muestra tabla con cada fila: ID, file_name, path, has_header, delimiter, etc.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Editar Configuración (Modal)</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>En <code>/dashboard</code>, pulsa <strong>Detalles</strong> en una fila.</li>
+<li>Abre modal con campos prellenados (<code>delimiter</code>, <code>quote_char</code>, <code>escape_char</code>, <code>has_header</code>, <code>date_format</code>, <code>timestamp_format</code>, <code>partition_columns</code>).</li>
+<li>Usuario modifica valores y pulsa <strong>Guardar</strong>; frontend muestra “Guardando…”, envía <code>PATCH /files/{id}</code>.</li>
+<li>Backend actualiza <code>file_configuration</code> y responde con objeto actualizado; frontend alerta “Configuración actualizada”, cierra modal y refresca lista.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Eliminar Configuración</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>En <code>/dashboard</code> o modal, pulsa <strong>Eliminar</strong>.</li>
+<li>Mostrar <code>window.confirm("¿Estás seguro?")</code>.</li>
+<li>Si confirma, frontend muestra “Eliminando…”, envía <code>DELETE /files/{id}</code>.</li>
+<li>Backend elimina registro; responde 204; frontend alerta “Configuración eliminada” y refresca lista.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Descargar Fichero</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>En modal, pulsa <strong>Descargar</strong>.</li>
+<li>Frontend hace <code>fetch(downloadURL, { headers: { Authorization: Bearer &lt;token&gt; } })</code>.</li>
+<li>Recibe Blob, crea <code>&lt;a&gt;</code> con <code>URL.createObjectURL(blob)</code> y <code>download=file_name</code>, ejecuta <code>a.click()</code>.</li>
+<li>Usuario obtiene el fichero en su equipo.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Enviar Fichero a HDFS (Backend → HDFS)</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>En <code>/dashboard</code>, pulsa <strong>Validar</strong> en una fila; frontend muestra “Enviando…”, envía <code>POST /files/push/{file_name}</code>.</li>
+<li>
+<p>Backend:</p>
+<ul>
+<li>Verifica que <code>uploaded_files/{file_name}</code> exista; si no, responde 404.</li>
+<li>Llama a WebHDFS NameNode para crear directorio <code>/data/bank_accounts</code> y ajustar permisos (<code>op=MKDIRS</code>, <code>op=SETPERM</code>).</li>
+<li>Inicia creación de fichero (<code>op=CREATE</code>), recibe redirección 307 con URL de DataNode; ajusta host/puerto y sube contenido.</li>
+<li>Devuelve <code>{ "message": "Pushed &lt;file_name&gt;" }</code>.
+        3. Frontend alerta “Enviado a validar” y refresca lista.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Proceso de validación en Spark (motor)</strong></p>
+<ul>
+<li><strong>Actor:</strong> Sistema (motor de validaciones).</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>Motor arranca en contenedor Docker; sale de safe mode (<code>hdfs dfsadmin -safemode leave</code>), crea carpeta en HDFS y copia CSV.</li>
+<li><code>Main.scala</code> ejecuta bucle de polling sobre <code>/data/bank_accounts</code>.</li>
+<li>
+<p>Al detectar fichero, llama a <code>ExecutionManager.executeFile(path, outputTable)</code>.</p>
+<ul>
+<li><code>Reader.readFile(...)</code> carga CSV como DataFrame.</li>
+<li><code>FileSentinel.verifyFiles(...)</code> → si falla, <code>logTrigger(flag)</code> en <code>trigger_control</code> (flags 32,33,34).</li>
+<li><code>TypeValidator.verifyTyping(...)</code> → si falla, <code>logTrigger(...)</code> (flags 35-38).</li>
+<li><code>ReferentialIntegrityValidator.verifyIntegrity(...)</code> → si falla, <code>logTrigger(39)</code>.</li>
+<li><code>FunctionalValidator.verifyFunctional(...)</code> → si falla, <code>logTrigger(flags 40–49)</code>.</li>
+<li>Si todo OK, <code>logTrigger(2)</code>.
+        4. Borra el fichero de HDFS.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Consultar Logs de Validación</strong></p>
+<ul>
+<li><strong>Actor:</strong> Usuario autenticado.</li>
+<li>
+<p><strong>Flujo:</strong></p>
+<ol>
+<li>Accede a <code>/logs</code>; frontend ejecuta <code>GET /files/logs?environment=&amp;from_date=&amp;to_date=</code>.</li>
+<li>Backend filtra registros en <code>trigger_control</code> según parámetros y devuelve array de logs.</li>
+<li>Frontend formatea <code>logged_at</code> con <code>toLocaleDateString('es-ES')</code> y muestra tabla con columnas: ID, file_config_id, file_name, field_name, environment, validation_flag, error_message, fecha.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<p><em>(Diagrams separados en docs/Img/Engine, docs/Img/Backend y docs/Img/Frontend respectivamente)</em></p>
+<hr />
+<h3 id="32-diagrama-entidad-relacion">3.2 Diagrama entidad-relación<a class="headerlink" href="#32-diagrama-entidad-relacion" title="Permanent link">&para;</a></h3>
+<p><strong>Tabla principal:</strong> <code>trigger_control</code></p>
+<ul>
+<li><code>id (serial PK)</code></li>
+<li><code>logged_at (timestamp)</code></li>
+<li><code>file_config_id (int FK → file_configuration.id)</code></li>
+<li><code>file_name (varchar)</code></li>
+<li><code>field_name (varchar, null)</code></li>
+<li><code>environment (varchar)</code></li>
+<li><code>validation_flag (varchar)</code></li>
+<li><code>error_message (varchar, null)</code></li>
+</ul>
+<p><strong>Otras tablas relacionadas:</strong></p>
+<ul>
+<li>
+<p><code>file_configuration</code></p>
+<ul>
+<li><code>id (serial PK)</code></li>
+<li><code>file_format (varchar)</code></li>
+<li><code>path (varchar)</code></li>
+<li><code>file_name (varchar)</code></li>
+<li><code>has_header (boolean)</code></li>
+<li><code>delimiter (varchar)</code></li>
+<li><code>quote_char (varchar)</code></li>
+<li><code>escape_char (varchar)</code></li>
+<li><code>date_format (varchar)</code></li>
+<li><code>timestamp_format (varchar)</code></li>
+<li><code>partition_columns (varchar, null)</code></li>
+<li><code>created_by (int FK → users.id)</code></li>
+<li><code>created_at (timestamp)</code></li>
+</ul>
+</li>
+<li>
+<p><code>semantic_layer</code></p>
+<ul>
+<li><code>id (serial PK)</code></li>
+<li><code>file_config_id (int FK → file_configuration.id)</code></li>
+<li><code>field_name (varchar)</code></li>
+<li><code>data_type (varchar)</code></li>
+<li><code>length (int)</code></li>
+<li><code>nullable (boolean)</code></li>
+<li><code>is_pk (boolean)</code></li>
+<li><code>format (varchar)</code></li>
+</ul>
+</li>
+<li>
+<p><code>users</code> (backend/front-end)</p>
+<ul>
+<li><code>id (serial PK)</code></li>
+<li><code>email (varchar, unique)</code></li>
+<li><code>hashed_password (varchar)</code></li>
+<li><code>is_active (boolean, default true)</code></li>
+<li><code>created_at (timestamp)</code></li>
+<li><code>updated_at (timestamp)</code></li>
+</ul>
+</li>
+<li>
+<p><code>negative_flag_logs</code> (opcional)</p>
+<ul>
+<li><code>id (serial PK)</code></li>
+<li><code>trigger_id (int FK → trigger_control.id)</code></li>
+<li>(otros campos de detalle)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Relaciones:</strong></p>
+<ul>
+<li><code>users</code> 1—* <code>file_configuration</code> (un usuario puede tener varias configuraciones).</li>
+<li><code>file_configuration</code> 1—* <code>semantic_layer</code> (cada configuración define metadatos para múltiples campos).</li>
+<li><code>file_configuration</code> 1—* <code>trigger_control</code> (cada configuración genera múltiples logs de validación).</li>
+<li><code>semantic_layer</code> (opcional) 1—* <code>trigger_control</code> (para identificar qué campo en <code>trigger_control.field_name</code> proviene de qué metadato).</li>
+<li><code>trigger_control</code> 1—* <code>negative_flag_logs</code> (detalle de validaciones negativas).</li>
+</ul>
+<p><img alt="Diagrama ER" src="../Img/ERD.png" /></p>
+<p><em>(Ver <code>docs/Img/ERD.png</code> para la imagen completa.)</em></p>
+<hr />
+<h3 id="33-diagrama-de-clases-del-modelo">3.3 Diagrama de clases del modelo<a class="headerlink" href="#33-diagrama-de-clases-del-modelo" title="Permanent link">&para;</a></h3>
+<p>Se incluyen las clases más relevantes en los tres componentes.</p>
+<h4 id="331-motor-de-validaciones-scala">3.3.1 Motor de validaciones (Scala)<a class="headerlink" href="#331-motor-de-validaciones-scala" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>config</strong></p>
+<ul>
+<li><code>DbConfig.scala</code></li>
+<li><code>DBConnection.scala</code></li>
+<li><code>SparkSessionProvider.scala</code></li>
+</ul>
+</li>
+<li>
+<p><strong>models</strong></p>
+<ul>
+<li><code>FileConfigurationCaseClass.scala</code></li>
+<li><code>SemanticLayerCaseClass.scala</code></li>
+</ul>
+</li>
+<li>
+<p><strong>services</strong></p>
+<ul>
+<li><code>ExecutionManager.scala</code></li>
+<li><code>TriggerIdManager.scala</code></li>
+</ul>
+</li>
+<li>
+<p><strong>utils</strong></p>
+<ul>
+<li><code>Reader.scala</code></li>
+<li><code>Writer.scala</code></li>
+<li><code>FileManager.scala</code></li>
+</ul>
+</li>
+<li>
+<p><strong>validators</strong></p>
+<ul>
+<li><code>FileSentinel.scala</code></li>
+<li><code>TypeValidator.scala</code></li>
+<li><code>ReferentialIntegrityValidator.scala</code></li>
+<li><code>FunctionalValidator.scala</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Main.scala</strong>: configura el bucle de polling e invoca a <code>ExecutionManager</code>.</p>
+</li>
+</ul>
+<p>Ejemplo de case class:</p>
+<pre><code class="language-scala">package models
+
+case class FileConfigurationCaseClass(
+  id: Int,
+  file_format: String,
+  path: String,
+  file_name: String,
+  has_header: Boolean,
+  delimiter: String,
+  quote_char: String,
+  escape_char: String,
+  date_format: String,
+  timestamp_format: String,
+  partition_columns: Option[String]
+)
+</code></pre>
+<p><em>(Ver <code>docs/Img/Engine/</code> para la imagen completa.)</em></p>
+<hr />
+<h4 id="332-frontend-react">3.3.2 Frontend (React)<a class="headerlink" href="#332-frontend-react" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>AuthContext.jsx</strong></p>
+<ul>
+<li>Propiedades: <code>user</code>, <code>token</code></li>
+<li>Métodos: <code>login()</code>, <code>register()</code>, <code>logout()</code></li>
+<li>
+<p><strong>FileConfig (modelo JS)</strong></p>
+</li>
+<li>
+<p>Propiedades: <code>id</code>, <code>fileName</code>, <code>path</code>, <code>hasHeader</code>, <code>delimiter</code>, <code>quoteChar</code>, <code>escapeChar</code>, <code>dateFormat</code>, <code>timestampFormat</code>, <code>partitionColumns</code></p>
+</li>
+<li>Métodos: <code>fetchAll()</code>, <code>create()</code>, <code>update()</code>, <code>delete()</code>, <code>pushToHDFS()</code>, <code>download()</code></li>
+<li>
+<p><strong>ValidationLog (modelo JS)</strong></p>
+</li>
+<li>
+<p>Propiedades: <code>id</code>, <code>fileConfigId</code>, <code>fileName</code>, <code>fieldName</code>, <code>environment</code>, <code>validationFlag</code>, <code>errorMessage</code>, <code>loggedAt</code></p>
+</li>
+<li>Métodos: <code>fetchAll()</code></li>
+<li>
+<p><strong>Componentes principales</strong></p>
+</li>
+<li>
+<p><code>AppRouter</code> (gestiona rutas con <code>RequireAuth</code>)</p>
+</li>
+<li><code>MainLayout</code> (Navbar + <code>&lt;Outlet /&gt;</code>)</li>
+<li><code>Dashboard</code> (muestra lista de configuraciones y acciones)</li>
+<li><code>FileDetailModal</code> (modal para editar/validar/eliminar/descargar)</li>
+<li><code>LogsPage</code> (muestra logs formateando <code>logged_at</code>)</li>
+</ul>
+</li>
+</ul>
+<p><em>(Ver <code>docs/Img/Frontend/</code> para la imagen completa.)</em></p>
+<hr />
+<h4 id="333-backend-fastapi">3.3.3 Backend (FastAPI)<a class="headerlink" href="#333-backend-fastapi" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>models ORM (SQLAlchemy Async)</strong></p>
+<ul>
+<li>
+<p><code>User</code></p>
+<ul>
+<li><code>id: Integer PK</code></li>
+<li><code>email: String(255) UNIQUE NOT NULL</code></li>
+<li><code>hashed_password: String(255) NOT NULL</code></li>
+<li><code>is_active: Boolean NOT NULL DEFAULT True</code></li>
+<li><code>created_at: DateTime(timezone=True) DEFAULT now()</code></li>
+<li>
+<p><code>updated_at: DateTime(timezone=True)</code></p>
+<ul>
+<li><code>FileConfiguration</code></li>
+</ul>
+</li>
+<li>
+<p><code>id: Integer PK</code></p>
+</li>
+<li><code>file_format: String NOT NULL</code></li>
+<li><code>path: String NOT NULL</code></li>
+<li><code>file_name: String NOT NULL</code></li>
+<li><code>has_header: Boolean NOT NULL</code></li>
+<li><code>delimiter: String(1) NOT NULL</code></li>
+<li><code>quote_char: String(1) NOT NULL</code></li>
+<li><code>escape_char: String(1) NOT NULL</code></li>
+<li><code>date_format: String NOT NULL</code></li>
+<li><code>timestamp_format: String NOT NULL</code></li>
+<li>
+<p><code>partition_columns: String NULL</code></p>
+<ul>
+<li><code>TriggerControl</code></li>
+</ul>
+</li>
+<li>
+<p><code>id: Integer PK</code></p>
+</li>
+<li><code>file_config_id: Integer FK → FileConfiguration.id</code></li>
+<li><code>file_name: String NOT NULL</code></li>
+<li><code>field_name: String NOT NULL</code></li>
+<li><code>environment: String NOT NULL</code></li>
+<li><code>validation_flag: String NOT NULL</code></li>
+<li><code>error_message: Text NULL</code></li>
+<li>
+<p><code>logged_at: DateTime(timezone=True) DEFAULT now()</code></p>
+<ul>
+<li><code>NegativeFlagLog</code></li>
+</ul>
+</li>
+<li>
+<p><code>id: Integer PK</code></p>
+</li>
+<li><code>trigger_id: Integer FK → TriggerControl.id</code></li>
+<li>(otros campos específicos)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Clases de servicio</strong></p>
+<ul>
+<li>
+<p><code>file_service.py</code></p>
+<ul>
+<li>
+<p><code>save_and_register_file(file: UploadFile, db: AsyncSession) → int</code></p>
+<ul>
+<li><code>hdfs_sync.py</code></li>
+</ul>
+</li>
+<li>
+<p><code>push_file_to_hdfs(file_name: str)</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Controladores (routers)</strong></p>
+<ul>
+<li><code>auth.py</code>: <code>/auth/register</code>, <code>/auth/login</code></li>
+<li><code>files.py</code>: <code>/files/upload</code>, <code>/files/push/{file_name}</code>, <code>/files/download/{file_name}</code>, <code>/files/</code>, <code>/files/{id}</code>, <code>/files/{id}</code> (GET, PATCH, DELETE), <code>/files/logs</code></li>
+<li><code>health.py</code>: <code>/health</code> (healthcheck)</li>
+</ul>
+</li>
+</ul>
+<p><em>(Ver <code>docs/Img/Backend/</code> para la imagen completa.)</em></p>
+<hr />
+<h3 id="34-diagramas-de-secuencia">3.4 Diagramas de secuencia<a class="headerlink" href="#34-diagramas-de-secuencia" title="Permanent link">&para;</a></h3>
+<p>Se incluyen los diagramas de secuencia más relevantes para cada componente. A continuación se describen de forma textual; ver <code>docs/</code> para los PNG o PlantUML.</p>
+<h4 id="341-secuencia-subida-de-fichero-frontend-backend">3.4.1 Secuencia: Subida de fichero (Frontend → Backend)<a class="headerlink" href="#341-secuencia-subida-de-fichero-frontend-backend" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Usuario → Dashboard (Frontend):</strong> selecciona CSV y pulsa <strong>Subir Fichero</strong>.</li>
+<li><strong>Dashboard → Axios (<code>POST /files/upload</code>):</strong> envía <code>multipart/form-data</code> al backend.</li>
+<li>
+<p><strong>Backend (<code>files.py</code>) → <code>file_service.save_and_register_file()</code>:</strong></p>
+<ul>
+<li>Guarda CSV en <code>uploaded_files/</code>.</li>
+<li>Inserta/actualiza registro en <code>file_configuration</code>.</li>
+<li><strong>Backend → Dashboard:</strong> responde con <code>{ "file_config_id": X }</code> (201).</li>
+<li><strong>Dashboard:</strong> muestra alerta “Fichero subido ID: X” y llama <code>fetchConfigs()</code>.</li>
+</ul>
+</li>
+</ol>
+<h4 id="342-secuencia-enviar-fichero-a-hdfs-frontend-backend-hdfs">3.4.2 Secuencia: Enviar fichero a HDFS (Frontend → Backend → HDFS)<a class="headerlink" href="#342-secuencia-enviar-fichero-a-hdfs-frontend-backend-hdfs" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Usuario → Dashboard:</strong> pulsa <strong>Validar</strong>.</li>
+<li><strong>Dashboard → Axios (<code>POST /files/push/{file_name}</code>):</strong> solicita al backend empuje a HDFS.</li>
+<li>
+<p><strong>Backend (<code>files.py</code>) → <code>hdfs_sync.push_file_to_hdfs(file_name)</code>:</strong></p>
+<ul>
+<li>Verifica existencia local en <code>uploaded_files/</code>.</li>
+<li>Llama a WebHDFS NameNode (<code>MKDIRS</code>, <code>SETPERM</code>).</li>
+<li>Llama <code>CREATE</code>, recibe 307 con header <code>Location</code> apuntando al DataNode.</li>
+<li>Ajusta URL para apuntar a <code>hdfs_datanode_host:hdfs_datanode_port</code>.</li>
+<li>Abre CSV y hace <code>PUT</code> a DataNode.</li>
+<li><strong>HDFS DataNode → Backend:</strong> responde 201 Created si éxito.</li>
+<li><strong>Backend → Dashboard:</strong> responde <code>{ "message": "Pushed &lt;file_name&gt;" }</code>.</li>
+<li><strong>Dashboard:</strong> muestra alerta “Enviado a validar” y llama <code>fetchConfigs()</code>.</li>
+</ul>
+</li>
+</ol>
+<h4 id="343-secuencia-proceso-de-validacion-en-spark-motor">3.4.3 Secuencia: Proceso de validación en Spark (Motor)<a class="headerlink" href="#343-secuencia-proceso-de-validacion-en-spark-motor" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Contenedor <code>validation-engine</code> → HDFS:</strong></p>
+<ul>
+<li>Ejecuta <code>hdfs dfsadmin -safemode leave</code>.</li>
+<li><code>hdfs dfs -mkdir -p /data/bank_accounts</code>.</li>
+<li><code>hdfs dfs -put -f /local_bank_accounts/*.csv /data/bank_accounts</code>.</li>
+<li>Ajusta permisos <code>hdfs dfs -chmod -R 777 /data/bank_accounts</code>.</li>
+<li><strong>Contenedor Spark (<code>spark-submit Main</code>) → HDFS.listStatus():</strong> detecta CSV.</li>
+<li>
+<p><strong>Main → ExecutionManager.executeFile(path, outputTable):</strong></p>
+</li>
+<li>
+<p>Llama <code>Reader.readFile(...)</code> → devuelve DataFrame particionado.</p>
+</li>
+<li>Llama <code>FileSentinel.verifyFiles(...)</code> → si falla, <code>logTrigger(flag)</code> y salir.</li>
+<li>Llama <code>TypeValidator.verifyTyping(...)</code> → si falla, <code>logTrigger(flag)</code> y salir.</li>
+<li>Llama <code>ReferentialIntegrityValidator.verifyIntegrity(...)</code> → si falla, <code>logTrigger(39)</code> y salir.</li>
+<li>Llama <code>FunctionalValidator.verifyFunctional(...)</code> → si falla, <code>logTrigger(flags 40–49)</code> y salir.</li>
+<li>Si todo OK, <code>logTrigger(2)</code>.</li>
+<li>Escribe logs en PostgreSQL (<code>df.write.mode("append").jdbc(...)</code>).</li>
+<li><code>HDFS.delete(path)</code>.</li>
+</ul>
+</li>
+</ol>
+<h4 id="344-secuencia-listar-logs-de-validacion-frontend-backend-bd">3.4.4 Secuencia: Listar Logs de Validación (Frontend → Backend → BD)<a class="headerlink" href="#344-secuencia-listar-logs-de-validacion-frontend-backend-bd" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Usuario → LogsPage (Frontend):</strong> al montar, llama <code>getLogs()</code>.</li>
+<li><strong>LogsPage → Axios (<code>GET /files/logs?environment=&amp;from_date=&amp;to_date=</code>):</strong> solicita logs.</li>
+<li>**Backend (<code>files.py</code>) → consulta <code>trigger_control</code> filtrando por parámetros.</li>
+<li><strong>Backend → LogsPage:</strong> devuelve array de objetos JSON con campos de log.</li>
+<li><strong>LogsPage:</strong> recorre cada registro y formatea <code>logged_at</code> con <code>toLocaleDateString('es-ES')</code>.</li>
+<li><strong>LogsPage:</strong> muestra tabla con columnas: ID, file_config_id, file_name, field_name, environment, validation_flag, error_message, fecha.</li>
+</ol>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
