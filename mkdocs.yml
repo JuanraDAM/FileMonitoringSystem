@@ -12,10 +12,18 @@ theme:
   name: readthedocs
 
 plugins:
+  - search
   - mermaid2
 
 
 markdown_extensions:
+  # este orden importa: super­fences arriba, después highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight        # resaltado de código con Highlight.js
   - toc:
       permalink: true
   - admonition
