@@ -113,7 +113,7 @@
 <div class="section" itemprop="articleBody">
 <h2 id="4-implementacion-git">4. Implementación (GIT)<a class="headerlink" href="#4-implementacion-git" title="Permanent link">¶</a></h2>
 <h3 id="41-diagrama-de-arquitectura">4.1 Diagrama de arquitectura<a class="headerlink" href="#41-diagrama-de-arquitectura" title="Permanent link">¶</a></h3>
-<pre class="mermaid"><code>---
+<div class="mermaid">---
 config:
   layout: dagre
 ---
@@ -122,10 +122,10 @@ flowchart LR
         Browser["User Browser"]
   end
   subgraph Frontend["Frontend"]
-        React["React SPA&lt;br&gt;(Web App)"]
+        React["React SPA<br/>(Web App)"]
   end
   subgraph API["API"]
-        FastAPI["FastAPI Backend&lt;br&gt;(Python)"]
+        FastAPI["FastAPI Backend<br/>(Python)"]
   end
   subgraph Persistencia["Persistencia"]
         Postgres["PostgreSQL DB"]
@@ -135,14 +135,14 @@ flowchart LR
         SparkMaster["🔷 Spark Master"]
         SparkWorker1["🔶 Spark Worker 1"]
         SparkWorker2["🔶 Spark Worker 2"]
-        ValidationEngine["Validation Engine&lt;br&gt;(Scala + Spark)"]
+        ValidationEngine["Validation Engine<br/>(Scala + Spark)"]
   end
   subgraph subGraph7["Contenedores Docker"]
         Superset["Superset BI"]
   end
 
   Browser -- HTTP requests --&gt; React
-  React -- REST/GraphQL&lt;br&gt;JSON over HTTP --&gt; FastAPI
+  React -- REST/GraphQL<br/>JSON over HTTP --&gt; FastAPI
   FastAPI -- SQLAlchemy (INSERT/SELECT/UPDATE) --&gt; Postgres
   FastAPI -- WebHDFS / HDFS Client --&gt; HDFS
   FastAPI -- SELECT * FROM TABLE --&gt; Postgres
@@ -159,7 +159,8 @@ flowchart LR
   style Frontend fill:#ccf,stroke:#333,stroke-width:1px
   style API fill:#cfc,stroke:#333,stroke-width:1px
   style Persistencia fill:#ffe599,stroke:#333,stroke-width:1px
-  style Procesamiento fill:#f4cccc,stroke:#333,stroke-width:1px</code></pre>
+  style Procesamiento fill:#f4cccc,stroke:#333,stroke-width:1px
+</div>
 <ul>
 <li>
 <p><strong>Frontend (React + Vite)</strong></p>
@@ -1141,5 +1142,6 @@ export default LogsPage;</code></pre>
             SphinxRtdTheme.Navigation.enable(true);
         });
     </script>
-</body>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
 </html>
