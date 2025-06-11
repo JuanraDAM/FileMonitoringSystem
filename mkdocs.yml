@@ -10,10 +10,12 @@ use_directory_urls: false
 
 theme:
   name: github
+  highlightjs: true
+  hljs_style: github
 
 plugins:
   - search
-  - mkdocs-mermaid2-plugin
+  - mermaid2
 
 
 markdown_extensions:
