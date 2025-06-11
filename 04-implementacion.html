@@ -337,8 +337,8 @@ ENTRYPOINT spark-submit \
   --conf spark.driver.host=validation-engine \
   --conf spark.hadoop.fs.defaultFS=hdfs://hadoop-namenode:9000 \
   /app/app.jar</code></pre>
-<pre class="highlight"><code>* **Stage 1:** instala SBT, compila fat JAR con todas las dependencias.
-* **Stage 2:** parte de una imagen oficial de Spark; copia JAR, `db.properties` y `application.conf`; expone variables de entorno y lanza `spark-submit`.</code></pre>
+<p>* <strong>Stage 1:</strong> instala SBT, compila fat JAR con todas las dependencias.
+    * <strong>Stage 2:</strong> parte de una imagen oficial de Spark; copia JAR, <code>db.properties</code> y <code>application.conf</code>; expone variables de entorno y lanza <code>spark-submit</code>.</p>
 <ol>
 <li><strong>Script de reconstrucción (<code>scripts/rebuild_and_run.sh</code>)</strong></li>
 </ol>
@@ -355,7 +355,7 @@ docker network create superset-net || true
 cd docker
 docker-compose build validation-engine
 docker-compose up --abort-on-container-exit validation-engine</code></pre>
-<pre class="highlight"><code>* Compila el JAR, crea la red `superset-net` y levanta únicamente el contenedor del motor de validaciones (asume que los demás servicios están corriendo).</code></pre>
+<p>* Compila el JAR, crea la red <code>superset-net</code> y levanta únicamente el contenedor del motor de validaciones (asume que los demás servicios están corriendo).</p>
 <hr/>
 <h4 id="432-backend-fastapi">4.3.2 Backend (FastAPI)<a class="headerlink" href="#432-backend-fastapi" title="Permanent link">¶</a></h4>
 <ol>
@@ -384,7 +384,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"</code></pre>
-<pre class="highlight"><code>* Carga variables desde `.env` y construye `database_url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}"`.</code></pre>
+<p>* Carga variables desde <code>.env</code> y construye <code>database_url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}"</code>.</p>
 <ol>
 <li><strong>Seguridad (<code>app/core/security.py</code>)</strong></li>
 </ol>
@@ -428,7 +428,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession
     if user is None:
         raise credentials_exception
     return user</code></pre>
-<pre class="highlight"><code>* Define hashing de contraseñas, creación de JWT, y dependencia `get_current_user` que valida el token y extrae `sub`.</code></pre>
+<p>* Define hashing de contraseñas, creación de JWT, y dependencia <code>get_current_user</code> que valida el token y extrae <code>sub</code>.</p>
 <ol>
 <li><strong>Servicio de ficheros (<code>app/services/file_service.py</code>)</strong></li>
 </ol>
@@ -466,7 +466,7 @@ async def save_and_register_file(file, db: AsyncSession) -&gt; int:
         db.add(new_cfg)
         await db.flush()
         return new_cfg.id</code></pre>
-<pre class="highlight"><code>* Guarda el CSV en disco local y crea/actualiza el registro en `file_configuration`.</code></pre>
+<p>* Guarda el CSV en disco local y crea/actualiza el registro en <code>file_configuration</code>.</p>
 <ol>
 <li><strong>Servicio HDFS (<code>app/services/hdfs_sync.py</code>)</strong></li>
 </ol>
@@ -501,7 +501,7 @@ def push_file_to_hdfs(file_name: str):
     with open(local_path, "rb") as f:
         resp2 = requests.put(upload_url, data=f)
         resp2.raise_for_status()</code></pre>
-<pre class="highlight"><code>* Gestiona la secuencia WebHDFS (MKDIRS, SETPERM, CREATE → 307 → PUT a DataNode).</code></pre>
+<p>* Gestiona la secuencia WebHDFS (MKDIRS, SETPERM, CREATE → 307 → PUT a DataNode).</p>
 <ol>
 <li><strong>Rutas de archivos (<code>app/api/files.py</code>)</strong></li>
 </ol>
@@ -581,7 +581,7 @@ async def get_logs(environment: str = None, from_date: date = None, to_date: dat
     result = await db.execute(query.order_by(TriggerControlModel.logged_at.desc()))
     logs = result.scalars().all()
     return logs</code></pre>
-<pre class="highlight"><code>* Endpoints para CRUD de configuraciones, subida, push a HDFS, descarga y consulta de logs.</code></pre>
+<p>* Endpoints para CRUD de configuraciones, subida, push a HDFS, descarga y consulta de logs.</p>
 <hr/>
 <h4 id="433-frontend-react-vite">4.3.3 Frontend (React + Vite)<a class="headerlink" href="#433-frontend-react-vite" title="Permanent link">¶</a></h4>
 <ol>
@@ -616,7 +616,7 @@ api.interceptors.response.use(
 );
 
 export default api;</code></pre>
-<pre class="highlight"><code>* Gestiona token en cada petición y maneja 401 automáticamente.</code></pre>
+<p>* Gestiona token en cada petición y maneja 401 automáticamente.</p>
 <ol>
 <li><strong><code>AuthContext.jsx</code></strong></li>
 </ol>
@@ -660,7 +660,7 @@ export const AuthProvider = ({ children }) =&gt; {
     &lt;/AuthContext.Provider&gt;
   );
 };</code></pre>
-<pre class="highlight"><code>* Gestiona estado global de autenticación y métodos `login()`, `register()`, `logout()`.</code></pre>
+<p>* Gestiona estado global de autenticación y métodos <code>login()</code>, <code>register()</code>, <code>logout()</code>.</p>
 <ol>
 <li><strong><code>AppRouter.jsx</code></strong></li>
 </ol>
@@ -695,7 +695,7 @@ const AppRouter = () =&gt; (
 );
 
 export default AppRouter;</code></pre>
-<pre class="highlight"><code>* Define rutas públicas (`/login`, `/register`) y privadas (`/dashboard`, `/logs`) con `RequireAuth`.</code></pre>
+<p>* Define rutas públicas (<code>/login</code>, <code>/register</code>) y privadas (<code>/dashboard</code>, <code>/logs</code>) con <code>RequireAuth</code>.</p>
 <ol>
 <li><strong><code>Dashboard.jsx</code></strong></li>
 </ol>
@@ -789,7 +789,7 @@ const Dashboard = () =&gt; {
 };
 
 export default Dashboard;</code></pre>
-<pre class="highlight"><code>* Subida de fichero, lista de configuraciones con acciones (Validar, Detalles, Eliminar).</code></pre>
+<p>* Subida de fichero, lista de configuraciones con acciones (Validar, Detalles, Eliminar).</p>
 <ol>
 <li><strong><code>FileDetailModal.jsx</code></strong></li>
 </ol>
@@ -925,7 +925,7 @@ const FileDetailModal = ({ config, onClose, onRefresh }) =&gt; {
 };
 
 export default FileDetailModal;</code></pre>
-<pre class="highlight"><code>* Modal para editar parámetros, validar, descargar y eliminar configuración.</code></pre>
+<p>* Modal para editar parámetros, validar, descargar y eliminar configuración.</p>
 <ol>
 <li><strong><code>LogsPage.jsx</code></strong></li>
 </ol>
@@ -980,7 +980,7 @@ const LogsPage = () =&gt; {
 };
 
 export default LogsPage;</code></pre>
-<pre class="highlight"><code>* Muestra los logs de validación y formatea la fecha a español.</code></pre>
+<p>* Muestra los logs de validación y formatea la fecha a español.</p>
 <hr/>
 <h3 id="44-organizacion-del-proyecto-patron">4.4 Organización del proyecto. Patrón<a class="headerlink" href="#44-organizacion-del-proyecto-patron" title="Permanent link">¶</a></h3>
 <p>Se propone la siguiente estructura monolítica (tres carpetas principales), aunque cada componente puede colocarse en repositorios separados según conveniencia:</p>

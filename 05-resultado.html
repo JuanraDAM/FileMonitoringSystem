@@ -177,18 +177,18 @@ npm install</code></pre>
 </ol>
 <pre class="highlight"><code class="language-bash">docker-compose up -d</code></pre>
 <p>Esto arrancará:</p>
-<pre class="highlight"><code>* PostgreSQL (para Superset y tablas de validación).
-* Superset (opcional, UI de dashboards).
-* Zookeeper + Kafka (opcional).
-* Hadoop NameNode + DataNode.
-* Spark Master + Spark Workers.
-* Contenedor `validation-engine` (motor de validaciones).</code></pre>
+<p>* PostgreSQL (para Superset y tablas de validación).
+    * Superset (opcional, UI de dashboards).
+    * Zookeeper + Kafka (opcional).
+    * Hadoop NameNode + DataNode.
+    * Spark Master + Spark Workers.
+    * Contenedor <code>validation-engine</code> (motor de validaciones).</p>
 <ol>
 <li><strong>Verificar estado</strong>:</li>
 </ol>
 <pre class="highlight"><code class="language-bash">docker-compose ps</code></pre>
-<pre class="highlight"><code>* Esperar a que contenedores se vuelvan `healthy`.
-* Si HDFS arranca en safe mode, `validation-engine` ejecutará automáticamente `hdfs dfsadmin -safemode leave`.</code></pre>
+<p>* Esperar a que contenedores se vuelvan <code>healthy</code>.
+    * Si HDFS arranca en safe mode, <code>validation-engine</code> ejecutará automáticamente <code>hdfs dfsadmin -safemode leave</code>.</p>
 <h4 id="522-inicializar-el-backend-fastapi">5.2.2 Inicializar el backend (FastAPI)<a class="headerlink" href="#522-inicializar-el-backend-fastapi" title="Permanent link">&para;</a></h4>
 <ol>
 <li>Entrar a la carpeta <code>backend/</code>:</li>
@@ -198,16 +198,15 @@ source .venv/bin/activate</code></pre>
 2. Ejecutar migraciones o crear tablas manualmente (no incluidas en el proyecto, usar tu propia estrategia).
 3. Levantar el servidor local:</p>
 <pre class="highlight"><code class="language-bash">uvicorn main:app --reload --host 0.0.0.0 --port 8000</code></pre>
-<pre class="highlight"><code>* La API estará disponible en `http://localhost:8000`.
-* Endpoints principales:
-
-    * `/auth/register`
-    * `/auth/login`
-    * `/files/upload`
-    * `/files/push/{file_name}`
-    * `/files/download/{file_name}`
-    * `/files/` (GET, POST, PATCH, DELETE)
-    * `/files/logs`</code></pre>
+<p>* La API estará disponible en <code>http://localhost:8000</code>.
+    * Endpoints principales:</p>
+<p>* <code>/auth/register</code>
+        * <code>/auth/login</code>
+        * <code>/files/upload</code>
+        * <code>/files/push/{file_name}</code>
+        * <code>/files/download/{file_name}</code>
+        * <code>/files/</code> (GET, POST, PATCH, DELETE)
+        * <code>/files/logs</code></p>
 <h4 id="523-inicializar-el-frontend-react">5.2.3 Inicializar el frontend (React)<a class="headerlink" href="#523-inicializar-el-frontend-react" title="Permanent link">&para;</a></h4>
 <ol>
 <li>En otra terminal, entrar a <code>frontend/</code>:</li>
