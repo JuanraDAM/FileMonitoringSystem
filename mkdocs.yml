@@ -1,4 +1,3 @@
-# mkdocs.yml
 site_name: "File Monitoring System"
 site_url: "https://juanradam.github.io/FileMonitoringSystem/"
 
@@ -7,23 +6,21 @@ site_dir: site
 use_directory_urls: false
 
 theme:
-  name: readthedocs
+  name: github                # ← tema GitHub de MkDocs
+  highlightjs: true           # ← usa Highlight.js como GitHub
+  hljs_style: github          # ← paleta de resaltado “GitHub”
 
 plugins:
   - search
-  - mermaid2                     # inyecta Mermaid.js en el HTML :contentReference[oaicite:0]{index=0}
+  - mermaid2                  # ← inyecta Mermaid.js y renderiza tus ```mermaid``` :contentReference[oaicite:1]{index=1}
 
 markdown_extensions:
   - toc:
       permalink: true
   - admonition
-  - pymdownx.superfences:        # gestiona todos los bloques fenced y preserva indentación
-      disable_indented_code_blocks: true  # evita que 4 espacios se consideren código :contentReference[oaicite:1]{index=1}
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:mermaid2.fence_mermaid  # deja pasar los bloques mermaid al plugin :contentReference[oaicite:2]{index=2}
-  - pymdownx.highlight           # resalta sin reindentar
+  - fenced_code               # ← asegura que sólo triple backticks creen bloques de código
+  - codehilite:
+      guess_lang: false       # ← no “adivina” el lenguaje
 
 nav:
   - Home: index.md
