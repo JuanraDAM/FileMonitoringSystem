@@ -1,151 +1,140 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html class="writer-html5" lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://juanradam.github.io/FileMonitoringSystem/04-implementacion.html" />
-      <link rel="shortcut icon" href="img/favicon.ico" />
-    <title>Implementación (GIT) - File Monitoring System</title>
-    <link rel="stylesheet" href="css/theme.css" />
-    <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-    
-      <script>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://juanradam.github.io/FileMonitoringSystem/04-implementacion.html" rel="canonical"/>
+<link href="img/favicon.ico" rel="shortcut icon"/>
+<title>Implementación (GIT) - File Monitoring System</title>
+<link href="css/theme.css" rel="stylesheet"/>
+<link href="css/theme_extra.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
+<script>
         // Current page data
         var mkdocs_page_name = "Implementaci\u00f3n (GIT)";
         var mkdocs_page_input_path = "04-implementacion.md";
         var mkdocs_page_url = "/FileMonitoringSystem/04-implementacion.html";
       </script>
-    
-    <!--[if lt IE 9]>
+<!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
     <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 </head>
-
 <body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="index.html" class="icon icon-home"> File Monitoring System
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side stickynav" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index.html"> File Monitoring System
+        </a>
 </div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="01-introduccion.html">Introducción</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="02-requisitos.html">Especificación de Requisitos</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="03-diseno.html">Diseño (Diagramas)</a>
-                </li>
-              </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Implementación (GIT)</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#41-diagrama-de-arquitectura">4.1 Diagrama de arquitectura</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#42-tecnologias">4.2 Tecnologías</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#421-motor-de-validaciones-scala-spark">4.2.1 Motor de validaciones (Scala + Spark)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#422-backend-fastapi">4.2.2 Backend (FastAPI)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#423-frontend-react">4.2.3 Frontend (React)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#424-base-de-datos-y-otros">4.2.4 Base de datos y otros</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#43-codigo-explicacion-de-las-partes-mas-interesantes">4.3 Código (Explicación de las partes más interesantes)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#431-motor-de-validaciones-scala">4.3.1 Motor de validaciones (Scala)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#432-backend-fastapi">4.3.2 Backend (FastAPI)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#433-frontend-react-vite">4.3.3 Frontend (React + Vite)</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#44-organizacion-del-proyecto-patron">4.4 Organización del proyecto. Patrón</a>
-    </li>
-    </ul>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="05-resultado.html">Resultado (Manual de usuario)</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="06-conclusiones.html">Conclusiones</a>
-                </li>
-              </ul>
-      </div>
-    </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">File Monitoring System</a>
-        
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Implementación (GIT)</li>
-    <li class="wy-breadcrumbs-aside">
-    </li>
-  </ul>
-  <hr/>
+<div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="01-introduccion.html">Introducción</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="02-requisitos.html">Especificación de Requisitos</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="03-diseno.html">Diseño (Diagramas)</a>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal current" href="#">Implementación (GIT)</a>
+<ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="#41-diagrama-de-arquitectura">4.1 Diagrama de arquitectura</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#42-tecnologias">4.2 Tecnologías</a>
+<ul>
+<li class="toctree-l3"><a class="reference internal" href="#421-motor-de-validaciones-scala-spark">4.2.1 Motor de validaciones (Scala + Spark)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#422-backend-fastapi">4.2.2 Backend (FastAPI)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#423-frontend-react">4.2.3 Frontend (React)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#424-base-de-datos-y-otros">4.2.4 Base de datos y otros</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#43-codigo-explicacion-de-las-partes-mas-interesantes">4.3 Código (Explicación de las partes más interesantes)</a>
+<ul>
+<li class="toctree-l3"><a class="reference internal" href="#431-motor-de-validaciones-scala">4.3.1 Motor de validaciones (Scala)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#432-backend-fastapi">4.3.2 Backend (FastAPI)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#433-frontend-react-vite">4.3.3 Frontend (React + Vite)</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#44-organizacion-del-proyecto-patron">4.4 Organización del proyecto. Patrón</a>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="05-resultado.html">Resultado (Manual de usuario)</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="06-conclusiones.html">Conclusiones</a>
+</li>
+</ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
-              
-                <h2 id="4-implementacion-git">4. Implementación (GIT)<a class="headerlink" href="#4-implementacion-git" title="Permanent link">&para;</a></h2>
-<h3 id="41-diagrama-de-arquitectura">4.1 Diagrama de arquitectura<a class="headerlink" href="#41-diagrama-de-arquitectura" title="Permanent link">&para;</a></h3>
-<pre><code class="language-mermaid">---
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="Mobile navigation menu" class="wy-nav-top" role="navigation">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index.html">File Monitoring System</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content"><div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Docs" class="icon icon-home" href="index.html"></a></li>
+<li class="breadcrumb-item active">Implementación (GIT)</li>
+<li class="wy-breadcrumbs-aside">
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div class="section" itemprop="articleBody">
+<h2 id="4-implementacion-git">4. Implementación (GIT)<a class="headerlink" href="#4-implementacion-git" title="Permanent link">¶</a></h2>
+<h3 id="41-diagrama-de-arquitectura">4.1 Diagrama de arquitectura<a class="headerlink" href="#41-diagrama-de-arquitectura" title="Permanent link">¶</a></h3>
+<div class="mermaid">---
 config:
   layout: dagre
 ---
 flowchart LR
-  subgraph Usuario[&quot;Usuario&quot;]
-        Browser[&quot;User Browser&quot;]
+  subgraph Usuario["Usuario"]
+        Browser["User Browser"]
   end
-  subgraph Frontend[&quot;Frontend&quot;]
-        React[&quot;React SPA&lt;br&gt;(Web App)&quot;]
+  subgraph Frontend["Frontend"]
+        React["React SPA&lt;br&gt;(Web App)"]
   end
-  subgraph API[&quot;API&quot;]
-        FastAPI[&quot;FastAPI Backend&lt;br&gt;(Python)&quot;]
+  subgraph API["API"]
+        FastAPI["FastAPI Backend&lt;br&gt;(Python)"]
   end
-  subgraph Persistencia[&quot;Persistencia&quot;]
-        Postgres[&quot;PostgreSQL DB&quot;]
-        HDFS[&quot;HDFS Cluster&quot;]
+  subgraph Persistencia["Persistencia"]
+        Postgres["PostgreSQL DB"]
+        HDFS["HDFS Cluster"]
   end
-  subgraph Procesamiento[&quot;Procesamiento&quot;]
-        SparkMaster[&quot;🔷 Spark Master&quot;]
-        SparkWorker1[&quot;🔶 Spark Worker 1&quot;]
-        SparkWorker2[&quot;🔶 Spark Worker 2&quot;]
-        ValidationEngine[&quot;Validation Engine&lt;br&gt;(Scala + Spark)&quot;]
+  subgraph Procesamiento["Procesamiento"]
+        SparkMaster["🔷 Spark Master"]
+        SparkWorker1["🔶 Spark Worker 1"]
+        SparkWorker2["🔶 Spark Worker 2"]
+        ValidationEngine["Validation Engine&lt;br&gt;(Scala + Spark)"]
   end
-  subgraph subGraph7[&quot;Contenedores Docker&quot;]
-        Superset[&quot;Superset BI&quot;]
+  subgraph subGraph7["Contenedores Docker"]
+        Superset["Superset BI"]
   end
 
   Browser -- HTTP requests --&gt; React
@@ -167,7 +156,7 @@ flowchart LR
   style API fill:#cfc,stroke:#333,stroke-width:1px
   style Persistencia fill:#ffe599,stroke:#333,stroke-width:1px
   style Procesamiento fill:#f4cccc,stroke:#333,stroke-width:1px
-</code></pre>
+</div>
 <ul>
 <li>
 <p><strong>Frontend (React + Vite)</strong></p>
@@ -206,10 +195,10 @@ flowchart LR
 </li>
 </ul>
 <p><em>(Ver <code>docs/diagrama_arquitectura.png</code> para imagen detallada.)</em></p>
-<hr />
-<h3 id="42-tecnologias">4.2 Tecnologías<a class="headerlink" href="#42-tecnologias" title="Permanent link">&para;</a></h3>
+<hr/>
+<h3 id="42-tecnologias">4.2 Tecnologías<a class="headerlink" href="#42-tecnologias" title="Permanent link">¶</a></h3>
 <p>A continuación se especifican todas las tecnologías y dependencias utilizadas en cada componente:</p>
-<h4 id="421-motor-de-validaciones-scala-spark">4.2.1 Motor de validaciones (Scala + Spark)<a class="headerlink" href="#421-motor-de-validaciones-scala-spark" title="Permanent link">&para;</a></h4>
+<h4 id="421-motor-de-validaciones-scala-spark">4.2.1 Motor de validaciones (Scala + Spark)<a class="headerlink" href="#421-motor-de-validaciones-scala-spark" title="Permanent link">¶</a></h4>
 <ul>
 <li><strong>Scala 2.12</strong></li>
 <li><strong>Apache Spark 3.x</strong></li>
@@ -219,7 +208,7 @@ flowchart LR
 <li><strong>Docker</strong> (OpenJDK 11-slim, bitnami/spark)</li>
 <li><strong>Docker Compose</strong> (orquestación)</li>
 </ul>
-<h4 id="422-backend-fastapi">4.2.2 Backend (FastAPI)<a class="headerlink" href="#422-backend-fastapi" title="Permanent link">&para;</a></h4>
+<h4 id="422-backend-fastapi">4.2.2 Backend (FastAPI)<a class="headerlink" href="#422-backend-fastapi" title="Permanent link">¶</a></h4>
 <ul>
 <li><strong>Python 3.12</strong></li>
 <li><strong>FastAPI &gt;= 0.100.0</strong></li>
@@ -233,7 +222,7 @@ flowchart LR
 <li><strong>python-dotenv &gt;= 1.0</strong></li>
 <li><strong>Docker</strong> (para ejecutar contenedores de backend en producción si se desea)</li>
 </ul>
-<h4 id="423-frontend-react">4.2.3 Frontend (React)<a class="headerlink" href="#423-frontend-react" title="Permanent link">&para;</a></h4>
+<h4 id="423-frontend-react">4.2.3 Frontend (React)<a class="headerlink" href="#423-frontend-react" title="Permanent link">¶</a></h4>
 <ul>
 <li><strong>React 18+</strong></li>
 <li><strong>React Router v6</strong></li>
@@ -242,7 +231,7 @@ flowchart LR
 <li><strong>Vite</strong></li>
 <li><strong>CSS puro</strong></li>
 </ul>
-<h4 id="424-base-de-datos-y-otros">4.2.4 Base de datos y otros<a class="headerlink" href="#424-base-de-datos-y-otros" title="Permanent link">&para;</a></h4>
+<h4 id="424-base-de-datos-y-otros">4.2.4 Base de datos y otros<a class="headerlink" href="#424-base-de-datos-y-otros" title="Permanent link">¶</a></h4>
 <ul>
 <li><strong>PostgreSQL 13</strong></li>
 <li><strong>Kafka (opcional)</strong></li>
@@ -250,10 +239,10 @@ flowchart LR
 <li><strong>Superset</strong> (opcional, para dashboards)</li>
 <li><strong>PlantUML</strong> (diagramas de referencia)</li>
 </ul>
-<hr />
-<h3 id="43-codigo-explicacion-de-las-partes-mas-interesantes">4.3 Código (Explicación de las partes más interesantes)<a class="headerlink" href="#43-codigo-explicacion-de-las-partes-mas-interesantes" title="Permanent link">&para;</a></h3>
+<hr/>
+<h3 id="43-codigo-explicacion-de-las-partes-mas-interesantes">4.3 Código (Explicación de las partes más interesantes)<a class="headerlink" href="#43-codigo-explicacion-de-las-partes-mas-interesantes" title="Permanent link">¶</a></h3>
 <p>Se destacan las implementaciones clave de cada componente.</p>
-<h4 id="431-motor-de-validaciones-scala">4.3.1 Motor de validaciones (Scala)<a class="headerlink" href="#431-motor-de-validaciones-scala" title="Permanent link">&para;</a></h4>
+<h4 id="431-motor-de-validaciones-scala">4.3.1 Motor de validaciones (Scala)<a class="headerlink" href="#431-motor-de-validaciones-scala" title="Permanent link">¶</a></h4>
 <ol>
 <li>
 <p><strong><code>SparkSessionProvider.scala</code></strong></p>
@@ -361,8 +350,8 @@ flowchart LR
    ```</p>
 <pre><code>* Compila el JAR, crea la red `superset-net` y levanta únicamente el contenedor del motor de validaciones (asume que los demás servicios están corriendo).
 </code></pre>
-<hr />
-<h4 id="432-backend-fastapi">4.3.2 Backend (FastAPI)<a class="headerlink" href="#432-backend-fastapi" title="Permanent link">&para;</a></h4>
+<hr/>
+<h4 id="432-backend-fastapi">4.3.2 Backend (FastAPI)<a class="headerlink" href="#432-backend-fastapi" title="Permanent link">¶</a></h4>
 <ol>
 <li><strong>Configuración (<code>app/core/config.py</code>)</strong></li>
 </ol>
@@ -585,8 +574,8 @@ flowchart LR
    ```</p>
 <pre><code>* Endpoints para CRUD de configuraciones, subida, push a HDFS, descarga y consulta de logs.
 </code></pre>
-<hr />
-<h4 id="433-frontend-react-vite">4.3.3 Frontend (React + Vite)<a class="headerlink" href="#433-frontend-react-vite" title="Permanent link">&para;</a></h4>
+<hr/>
+<h4 id="433-frontend-react-vite">4.3.3 Frontend (React + Vite)<a class="headerlink" href="#433-frontend-react-vite" title="Permanent link">¶</a></h4>
 <ol>
 <li><strong>Configuración de Axios (<code>src/api/axiosConfig.js</code>)</strong></li>
 </ol>
@@ -679,21 +668,21 @@ flowchart LR
 <p>const RequireAuth = ({ children }) =&gt; {
      const { token } = useContext(AuthContext);
      const location = useLocation();
-     return token ? children : <Navigate to="/login" state={{ from: location }} replace />;
+     return token ? children : <navigate from:="" location="" replace="" state="{{" to="/login" }}=""></navigate>;
    };</p>
 <p>const AppRouter = () =&gt; (
-     <BrowserRouter>
-       <Routes>
-         <Route path="/login" element={\<LoginPage />} />
-         <Route path="/register" element={\<RegisterPage />} />
-         <Route path="/" element={\<RequireAuth>\<MainLayout />\</RequireAuth>}>
-           <Route index element={\<Navigate to="/dashboard" replace />} />
-           <Route path="dashboard" element={\<Dashboard />} />
-           <Route path="logs" element={\<LogsPage />} />
-         </Route>
-         <Route path="*" element={\<Navigate to="/login" replace />} />
-       </Routes>
-     </BrowserRouter>
+     <browserrouter>
+<routes>
+<route element="{\&lt;LoginPage" path="/login"></route>} /&gt;
+         <route element="{\&lt;RegisterPage" path="/register"></route>} /&gt;
+         <route element="{\&lt;RequireAuth" path="/">\<mainlayout></mainlayout>\}&gt;
+           <route element="{\&lt;Navigate" index="" replace="" to="/dashboard"></route>} /&gt;
+           <route element="{\&lt;Dashboard" path="dashboard"></route>} /&gt;
+           <route element="{\&lt;LogsPage" path="logs"></route>} /&gt;
+         </route>
+<route element="{\&lt;Navigate" path="*" replace="" to="/login"></route>} /&gt;
+       </routes>
+</browserrouter>
    );</p>
 <p>export default AppRouter;
    ```</p>
@@ -987,8 +976,8 @@ flowchart LR
    ```</p>
 <pre><code>* Muestra los logs de validación y formatea la fecha a español.
 </code></pre>
-<hr />
-<h3 id="44-organizacion-del-proyecto-patron">4.4 Organización del proyecto. Patrón<a class="headerlink" href="#44-organizacion-del-proyecto-patron" title="Permanent link">&para;</a></h3>
+<hr/>
+<h3 id="44-organizacion-del-proyecto-patron">4.4 Organización del proyecto. Patrón<a class="headerlink" href="#44-organizacion-del-proyecto-patron" title="Permanent link">¶</a></h3>
 <p>Se propone la siguiente estructura monolítica (tres carpetas principales), aunque cada componente puede colocarse en repositorios separados según conveniencia:</p>
 <pre><code>FileMonitoringSystem/
 ├── backend/                            ← Código FastAPI
@@ -1115,52 +1104,39 @@ flowchart LR
 <li>El patrón es <strong>feature-based</strong>: cada carpeta agrupa archivos según responsabilidad (API, servicios, modelos, diagramas, etc.).</li>
 <li>Cada componente puede versionarse por separado y luego combinarse en un monorepo si se desea.</li>
 </ul>
-<hr />
-              
-            </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="03-diseno.html" class="btn btn-neutral float-left" title="Diseño (Diagramas)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="05-resultado.html" class="btn btn-neutral float-right" title="Resultado (Manual de usuario)">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
+<hr/>
+</div>
+</div><footer>
+<div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
+<a class="btn btn-neutral float-left" href="03-diseno.html" title="Diseño (Diagramas)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+<a class="btn btn-neutral float-right" href="05-resultado.html" title="Resultado (Manual de usuario)">Next <span class="icon icon-circle-arrow-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<!-- Copyright etc -->
+</div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-          
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-      <span><a href="03-diseno.html" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="05-resultado.html" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
 </div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="search/main.js"></script>
-    <script>
+</div>
+</section>
+</div>
+<div aria-label="Versions" class="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span><a href="03-diseno.html" style="color: #fcfcfc">« Previous</a></span>
+<span><a href="05-resultado.html" style="color: #fcfcfc">Next »</a></span>
+</span>
+</div>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script>var base_url = ".";</script>
+<script src="js/theme_extra.js"></script>
+<script src="js/theme.js"></script>
+<script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
         });
     </script>
-
-</body>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
 </html>
