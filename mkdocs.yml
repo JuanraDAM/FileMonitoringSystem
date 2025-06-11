@@ -10,9 +10,9 @@ use_directory_urls: false
 
 theme:
   name: readthedocs
-
-plugins:
-  - mermaid2
+#
+#plugins:
+#  - mermaid2
 
 
 markdown_extensions:
