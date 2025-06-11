@@ -17,16 +17,15 @@ plugins:
 
 
 markdown_extensions:
-  # este orden importa: super­fences arriba, después highlight
+  - toc:
+      permalink: true
+  - admonition
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.highlight        # resaltado de código con Highlight.js
-  - toc:
-      permalink: true
-  - admonition
+          format: !!python/name:mermaid2.fence_mermaid  # Función de mkdocs-mermaid2-plugin :contentReference[oaicite:0]{index=0}
+  - pymdownx.highlight
 
 nav:
   - Home: index.md
