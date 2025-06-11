@@ -1,26 +1,32 @@
 site_name: "File Monitoring System"
 site_url: "https://juanradam.github.io/FileMonitoringSystem/"
 
+# MkDocs leerá los .md desde docs/ y generará el HTML en site/
 docs_dir: docs
 site_dir: site
+
+# Usamos URL con .html porque estamos en un subdirectorio de GitHub Pages
 use_directory_urls: false
 
 theme:
-  name: github                # ← tema GitHub de MkDocs
-  highlightjs: true           # ← usa Highlight.js como GitHub
-  hljs_style: github          # ← paleta de resaltado “GitHub”
+  name: readthedocs
 
 plugins:
   - search
-  - mermaid2                  # ← inyecta Mermaid.js y renderiza tus ```mermaid``` :contentReference[oaicite:1]{index=1}
+  - mermaid2
+
 
 markdown_extensions:
+  # este orden importa: super­fences arriba, después highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight        # resaltado de código con Highlight.js
   - toc:
       permalink: true
   - admonition
-  - fenced_code               # ← asegura que sólo triple backticks creen bloques de código
-  - codehilite:
-      guess_lang: false       # ← no “adivina” el lenguaje
 
 nav:
   - Home: index.md

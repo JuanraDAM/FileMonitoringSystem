@@ -52,6 +52,7 @@ flowchart LR
   style Persistencia fill:#ffe599,stroke:#333,stroke-width:1px
   style Procesamiento fill:#f4cccc,stroke:#333,stroke-width:1px
 ```
+(Codigo de diagrama mermaid, renderizable en https://mermaid.js.org/)
 
 * **Frontend (React + Vite)**
 
