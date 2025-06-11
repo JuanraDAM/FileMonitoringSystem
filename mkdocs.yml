@@ -19,7 +19,6 @@ markdown_extensions:
   - toc:
       permalink: true
   - admonition
-  - fenced_code
 
 nav:
   - Home: index.md
