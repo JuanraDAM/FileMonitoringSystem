@@ -31,11 +31,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="index.html" class="icon icon-home"> File Monitoring System
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -126,8 +122,9 @@
 <li><strong>Python 3.12</strong>, <strong>pip</strong> (para backend).</li>
 <li>Clonar el repositorio:</li>
 </ul>
-<pre class="highlight"><code class="language-bash">git clone https://github.com/JuanraDAM/FileMonitoringSystem.git
-cd FileMonitoringSystem</code></pre>
+<p><code>bash
+  git clone https://github.com/JuanraDAM/FileMonitoringSystem.git
+  cd FileMonitoringSystem</code></p>
 <h4 id="511-motor-de-validaciones">5.1.1 Motor de validaciones<a class="headerlink" href="#511-motor-de-validaciones" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Espacio en disco para contenedores Hadoop/Spark y datos HDFS.</li>
@@ -148,17 +145,19 @@ cd FileMonitoringSystem</code></pre>
 <ul>
 <li>Crear entorno virtual Python 3.12:</li>
 </ul>
-<p><pre class="highlight"><code class="language-bash">python3.12 -m venv backend/.venv
-source backend/.venv/bin/activate
-pip install --upgrade pip
-pip install -r backend/requirements.txt </code></pre>
+<p><code>bash
+  python3.12 -m venv backend/.venv
+  source backend/.venv/bin/activate
+  pip install --upgrade pip
+  pip install -r backend/requirements.txt</code>
 * Archivo <code>.env</code> en <code>backend/</code> con credenciales y configuración de HDFS.</p>
 <h4 id="513-frontend-react">5.1.3 Frontend (React)<a class="headerlink" href="#513-frontend-react" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Desde <code>frontend/</code>:</li>
 </ul>
-<p><pre class="highlight"><code class="language-bash">cd frontend
-npm install</code></pre>
+<p><code>bash
+  cd frontend
+  npm install</code>
 * No hay variables de entorno adicionales, asume que el backend corre en <code>http://localhost:8000</code>.</p>
 <hr />
 <h3 id="52-pasos-de-uso">5.2 Pasos de uso<a class="headerlink" href="#52-pasos-de-uso" title="Permanent link">&para;</a></h3>
@@ -167,42 +166,46 @@ npm install</code></pre>
 <ol>
 <li><strong>Ir a la carpeta del motor</strong>:</li>
 </ol>
-<pre class="highlight"><code class="language-bash">cd engine/docker</code></pre>
+<p><code>bash
+   cd engine/docker</code></p>
 <ol>
 <li><strong>Crear la red Docker</strong> (si no existe):</li>
 </ol>
-<pre class="highlight"><code class="language-bash">docker network create superset-net || true</code></pre>
+<p><code>bash
+   docker network create superset-net || true</code></p>
 <ol>
 <li><strong>Levantar todos los servicios</strong>:</li>
 </ol>
-<pre class="highlight"><code class="language-bash">docker-compose up -d</code></pre>
+<p><code>bash
+   docker-compose up -d</code></p>
 <p>Esto arrancará:</p>
-<pre class="codehilite"><code>* PostgreSQL (para Superset y tablas de validación).
+<pre><code>* PostgreSQL (para Superset y tablas de validación).
 * Superset (opcional, UI de dashboards).
 * Zookeeper + Kafka (opcional).
 * Hadoop NameNode + DataNode.
 * Spark Master + Spark Workers.
 * Contenedor `validation-engine` (motor de validaciones).
 </code></pre>
-
 <ol>
 <li><strong>Verificar estado</strong>:</li>
 </ol>
-<pre class="highlight"><code class="language-bash">docker-compose ps</code></pre>
-<pre class="codehilite"><code>* Esperar a que contenedores se vuelvan `healthy`.
+<p><code>bash
+   docker-compose ps</code></p>
+<pre><code>* Esperar a que contenedores se vuelvan `healthy`.
 * Si HDFS arranca en safe mode, `validation-engine` ejecutará automáticamente `hdfs dfsadmin -safemode leave`.
 </code></pre>
-
 <h4 id="522-inicializar-el-backend-fastapi">5.2.2 Inicializar el backend (FastAPI)<a class="headerlink" href="#522-inicializar-el-backend-fastapi" title="Permanent link">&para;</a></h4>
 <ol>
 <li>Entrar a la carpeta <code>backend/</code>:</li>
 </ol>
-<p><pre class="highlight"><code class="language-bash">cd ../../backend
-source .venv/bin/activate</code></pre>
+<p><code>bash
+   cd ../../backend
+   source .venv/bin/activate</code>
 2. Ejecutar migraciones o crear tablas manualmente (no incluidas en el proyecto, usar tu propia estrategia).
 3. Levantar el servidor local:</p>
-<pre class="highlight"><code class="language-bash">uvicorn main:app --reload --host 0.0.0.0 --port 8000</code></pre>
-<pre class="codehilite"><code>* La API estará disponible en `http://localhost:8000`.
+<p><code>bash
+   uvicorn main:app --reload --host 0.0.0.0 --port 8000</code></p>
+<pre><code>* La API estará disponible en `http://localhost:8000`.
 * Endpoints principales:
 
     * `/auth/register`
@@ -213,16 +216,18 @@ source .venv/bin/activate</code></pre>
     * `/files/` (GET, POST, PATCH, DELETE)
     * `/files/logs`
 </code></pre>
-
 <h4 id="523-inicializar-el-frontend-react">5.2.3 Inicializar el frontend (React)<a class="headerlink" href="#523-inicializar-el-frontend-react" title="Permanent link">&para;</a></h4>
 <ol>
 <li>En otra terminal, entrar a <code>frontend/</code>:</li>
 </ol>
-<p><pre class="highlight"><code class="language-bash">cd ../frontend</code></pre>
+<p><code>bash
+   cd ../frontend</code>
 2. Instalar dependencias (si no se hizo antes):</p>
-<p><pre class="highlight"><code class="language-bash">npm install</code></pre>
+<p><code>bash
+   npm install</code>
 3. Levantar el servidor de desarrollo:</p>
-<p><pre class="highlight"><code class="language-bash">npm run dev</code></pre>
+<p><code>bash
+   npm run dev</code>
 4. Abrir el navegador en <code>http://localhost:5173</code>.</p>
 <h4 id="524-flujo-de-usuario">5.2.4 Flujo de usuario<a class="headerlink" href="#524-flujo-de-usuario" title="Permanent link">&para;</a></h4>
 <ol>
@@ -272,28 +277,27 @@ source .venv/bin/activate</code></pre>
 <ul>
 <li>En <code>backend/.env</code>:</li>
 </ul>
-<pre class="highlight"><code># PostgreSQL
-POSTGRES_USER=superset
-POSTGRES_PASSWORD=superset
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_DB=superset
-
-# HDFS
-HDFS_HOST=hadoop-namenode
-HDFS_PORT=9870
-HDFS_DIR=/data/bank_accounts
-HDFS_USER=hdfs
-HDFS_DATANODE_HOST=hadoop-datanode
-HDFS_DATANODE_PORT=9864
-
-# Carpeta local de uploads
-UPLOAD_DIR=uploaded_files
-
-# JWT
-JWT_SECRET_KEY=TuSecretoUltraSeguro123!
-JWT_ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=60</code></pre>
+<p>```
+  # PostgreSQL
+  POSTGRES_USER=superset
+  POSTGRES_PASSWORD=superset
+  POSTGRES_HOST=postgres
+  POSTGRES_PORT=5432
+  POSTGRES_DB=superset</p>
+<p># HDFS
+  HDFS_HOST=hadoop-namenode
+  HDFS_PORT=9870
+  HDFS_DIR=/data/bank_accounts
+  HDFS_USER=hdfs
+  HDFS_DATANODE_HOST=hadoop-datanode
+  HDFS_DATANODE_PORT=9864</p>
+<p># Carpeta local de uploads
+  UPLOAD_DIR=uploaded_files</p>
+<p># JWT
+  JWT_SECRET_KEY=TuSecretoUltraSeguro123!
+  JWT_ALGORITHM=HS256
+  ACCESS_TOKEN_EXPIRE_MINUTES=60
+  ```</p>
 </li>
 <li>
 <p><strong>Permisos en HDFS</strong></p>
@@ -301,16 +305,19 @@ ACCESS_TOKEN_EXPIRE_MINUTES=60</code></pre>
 <li>El contenedor <code>validation-engine</code> se encarga de ajustar permisos con <code>hdfs dfs -chmod -R 777 /data/bank_accounts</code>.</li>
 <li>Si se prefiere, desde cualquier contenedor con cliente Hadoop:</li>
 </ul>
-<pre class="highlight"><code class="language-bash">hdfs dfs -chmod -R 777 /data/bank_accounts</code></pre>
+<p><code>bash
+  hdfs dfs -chmod -R 777 /data/bank_accounts</code></p>
 </li>
 <li>
 <p><strong>Descargas y backups</strong></p>
 <ul>
 <li>Para exportar la base de datos PostgreSQL:</li>
 </ul>
-<p><pre class="highlight"><code class="language-bash">docker exec -t superset-db pg_dumpall -c -U superset &gt; dump_$(date +%F).sql</code></pre>
+<p><code>bash
+  docker exec -t superset-db pg_dumpall -c -U superset &gt; dump_$(date +%F).sql</code>
 * Para restaurar:</p>
-<pre class="highlight"><code class="language-bash">docker exec -i superset-db psql -U superset &lt; dump_YYYY-MM-DD.sql</code></pre>
+<p><code>bash
+  docker exec -i superset-db psql -U superset &lt; dump_YYYY-MM-DD.sql</code></p>
 </li>
 <li>
 <p><strong>Personalizar Spark</strong></p>
@@ -367,7 +374,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES=60</code></pre>
     <script>var base_url = ".";</script>
     <script src="js/theme_extra.js"></script>
     <script src="js/theme.js"></script>
-      <script src="search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

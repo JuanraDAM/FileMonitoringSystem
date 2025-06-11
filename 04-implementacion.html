@@ -28,11 +28,7 @@
 <div class="wy-side-scroll">
 <div class="wy-side-nav-search">
 <a class="icon icon-home" href="index.html"> File Monitoring System
-        </a><div role="search">
-<form action="./search.html" class="wy-form" id="rtd-search-form" method="get">
-<input aria-label="Search docs" name="q" placeholder="Search docs" title="Type search term here" type="text"/>
-</form>
-</div>
+        </a>
 </div>
 <div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
 <ul>
@@ -159,7 +155,8 @@ flowchart LR
   style Frontend fill:#ccf,stroke:#333,stroke-width:1px
   style API fill:#cfc,stroke:#333,stroke-width:1px
   style Persistencia fill:#ffe599,stroke:#333,stroke-width:1px
-  style Procesamiento fill:#f4cccc,stroke:#333,stroke-width:1px</div>
+  style Procesamiento fill:#f4cccc,stroke:#333,stroke-width:1px
+</div>
 <ul>
 <li>
 <p><strong>Frontend (React + Vite)</strong></p>
@@ -252,13 +249,14 @@ flowchart LR
 <ul>
 <li>Configura la <code>SparkSession</code> con parámetros personalizados:</li>
 </ul>
-<p><pre class="highlight"><code class="language-scala">val spark = SparkSession.builder()
-  .appName("ValidationEngine")
-  .master("spark://spark-master:7077")
-  .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-  .config("spark.kryo.registrator", "com.mycompany.KryoRegistrator")
-  .config("spark.hadoop.fs.defaultFS", "hdfs://hadoop-namenode:9000")
-  .getOrCreate()</code></pre>
+<p><code>scala
+  val spark = SparkSession.builder()
+    .appName("ValidationEngine")
+    .master("spark://spark-master:7077")
+    .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+    .config("spark.kryo.registrator", "com.mycompany.KryoRegistrator")
+    .config("spark.hadoop.fs.defaultFS", "hdfs://hadoop-namenode:9000")
+    .getOrCreate()</code>
 * Ajusta particionamiento y directorios locales a través de <code>SPARK_LOCAL_DIRS</code>.</p>
 </li>
 <li>
@@ -266,737 +264,722 @@ flowchart LR
 <ul>
 <li>Orquesta todas las validaciones:</li>
 </ul>
-<p><pre class="highlight"><code class="language-scala">def executeFile(path: String, outputTable: String): Unit = {
-  val df = Reader.readFile(spark, path)
-  if (!FileSentinel.verifyFiles(df, metadata)) {
-    logTrigger(flag, metadata, path)
-    return
-  }
-  if (!TypeValidator.verifyTyping(df, metadata)) {
-    logTrigger(flag, metadata, path)
-    return
-  }
-  if (!ReferentialIntegrityValidator.verifyIntegrity(df, metadata)) {
-    logTrigger(flag, metadata, path)
-    return
-  }
-  FunctionalValidator.verifyFunctional(df, metadata) match {
-    case Some(error) =&gt; 
-      logTrigger(errorFlag, metadata, path)
+<p><code>scala
+  def executeFile(path: String, outputTable: String): Unit = {
+    val df = Reader.readFile(spark, path)
+    if (!FileSentinel.verifyFiles(df, metadata)) {
+      logTrigger(flag, metadata, path)
       return
-    case None =&gt; 
-      logTrigger(2, metadata, path)
-  }
-  // Registrar en PostgreSQL
-  Writer.writeToJdbc(df, outputTable, dbConfig)
-  // Borrar de HDFS
-  spark.sparkContext.hadoopConfiguration
-    .delete(new Path(path), false)
-}</code></pre>
+    }
+    if (!TypeValidator.verifyTyping(df, metadata)) {
+      logTrigger(flag, metadata, path)
+      return
+    }
+    if (!ReferentialIntegrityValidator.verifyIntegrity(df, metadata)) {
+      logTrigger(flag, metadata, path)
+      return
+    }
+    FunctionalValidator.verifyFunctional(df, metadata) match {
+      case Some(error) =&gt; 
+        logTrigger(errorFlag, metadata, path)
+        return
+      case None =&gt; 
+        logTrigger(2, metadata, path)
+    }
+    // Registrar en PostgreSQL
+    Writer.writeToJdbc(df, outputTable, dbConfig)
+    // Borrar de HDFS
+    spark.sparkContext.hadoopConfiguration
+      .delete(new Path(path), false)
+  }</code>
 * <code>logTrigger(flag, metadata, path)</code>: escribe un DataFrame con columns (<code>logged_at</code>, <code>file_config_id</code>, <code>file_name</code>, <code>field_name</code>, <code>environment</code>, <code>validation_flag</code>, <code>error_message</code>) y hace <code>df.write.mode("append").jdbc(...)</code>.</p>
 </li>
 <li>
 <p><strong>Multi-Stage Dockerfile (<code>docker/Dockerfile.engine</code>)</strong></p>
 </li>
 </ol>
-<pre class="highlight"><code class="language-dockerfile"># Stage 1: Build con OpenJDK y SBT
-FROM openjdk:11-slim AS builder
-WORKDIR /app
-
-RUN apt-get update &amp;&amp; apt-get install -y curl gnupg &amp;&amp; \
-    echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" &gt; /etc/apt/sources.list.d/sbt.list &amp;&amp; \
-    curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0x99E82A75642AC823" | apt-key add - &amp;&amp; \
-    apt-get update &amp;&amp; apt-get install -y sbt &amp;&amp; rm -rf /var/lib/apt/lists/*
-
-COPY ../project   project/
-COPY ../build.sbt build.sbt
-COPY ../src       src/
-COPY ../db.properties db.properties
-COPY ../src/main/resources/application.conf src/main/resources/
-
-RUN sbt clean assembly
-
-# Stage 2: Runtime Spark
-FROM bitnami/spark:3.3.1
-WORKDIR /app
-
-COPY --from=builder /app/target/scala-2.12/Fin_de_Grado-assembly-0.1.0-SNAPSHOT.jar app.jar
-COPY ../db.properties    db.properties
-COPY ../src/main/resources/application.conf application.conf
-
-ENV INPUT_DIR=/data/bank_accounts \
-    OUTPUT_TABLE=trigger_control \
-    POLL_INTERVAL_MS=10000 \
-    SPARK_LOCAL_DIRS=/tmp/spark_local
-
-ENTRYPOINT spark-submit \
-  --class Main \
-  --master spark://spark-master:7077 \
-  --deploy-mode client \
-  --conf spark.driver.host=validation-engine \
-  --conf spark.hadoop.fs.defaultFS=hdfs://hadoop-namenode:9000 \
-  /app/app.jar</code></pre>
-<pre class="codehilite"><code>* **Stage 1:** instala SBT, compila fat JAR con todas las dependencias.
+<p>```dockerfile
+   # Stage 1: Build con OpenJDK y SBT
+   FROM openjdk:11-slim AS builder
+   WORKDIR /app</p>
+<p>RUN apt-get update &amp;&amp; apt-get install -y curl gnupg &amp;&amp; \
+       echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" &gt; /etc/apt/sources.list.d/sbt.list &amp;&amp; \
+       curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0x99E82A75642AC823" | apt-key add - &amp;&amp; \
+       apt-get update &amp;&amp; apt-get install -y sbt &amp;&amp; rm -rf /var/lib/apt/lists/*</p>
+<p>COPY ../project   project/
+   COPY ../build.sbt build.sbt
+   COPY ../src       src/
+   COPY ../db.properties db.properties
+   COPY ../src/main/resources/application.conf src/main/resources/</p>
+<p>RUN sbt clean assembly</p>
+<p># Stage 2: Runtime Spark
+   FROM bitnami/spark:3.3.1
+   WORKDIR /app</p>
+<p>COPY --from=builder /app/target/scala-2.12/Fin_de_Grado-assembly-0.1.0-SNAPSHOT.jar app.jar
+   COPY ../db.properties    db.properties
+   COPY ../src/main/resources/application.conf application.conf</p>
+<p>ENV INPUT_DIR=/data/bank_accounts \
+       OUTPUT_TABLE=trigger_control \
+       POLL_INTERVAL_MS=10000 \
+       SPARK_LOCAL_DIRS=/tmp/spark_local</p>
+<p>ENTRYPOINT spark-submit \
+     --class Main \
+     --master spark://spark-master:7077 \
+     --deploy-mode client \
+     --conf spark.driver.host=validation-engine \
+     --conf spark.hadoop.fs.defaultFS=hdfs://hadoop-namenode:9000 \
+     /app/app.jar
+   ```</p>
+<pre><code>* **Stage 1:** instala SBT, compila fat JAR con todas las dependencias.
 * **Stage 2:** parte de una imagen oficial de Spark; copia JAR, `db.properties` y `application.conf`; expone variables de entorno y lanza `spark-submit`.
 </code></pre>
 <ol>
 <li><strong>Script de reconstrucción (<code>scripts/rebuild_and_run.sh</code>)</strong></li>
 </ol>
-<pre class="highlight"><code class="language-bash">#!/usr/bin/env bash
-set -euo pipefail
-
-# Construir el JAR con SBT
-sbt clean assembly
-
-# Crear red si no existe
-docker network create superset-net || true
-
-# Reconstruir y ejecutar solo el contenedor de validation-engine
-cd docker
-docker-compose build validation-engine
-docker-compose up --abort-on-container-exit validation-engine</code></pre>
-<pre class="codehilite"><code>* Compila el JAR, crea la red `superset-net` y levanta únicamente el contenedor del motor de validaciones (asume que los demás servicios están corriendo).
+<p>```bash
+   #!/usr/bin/env bash
+   set -euo pipefail</p>
+<p># Construir el JAR con SBT
+   sbt clean assembly</p>
+<p># Crear red si no existe
+   docker network create superset-net || true</p>
+<p># Reconstruir y ejecutar solo el contenedor de validation-engine
+   cd docker
+   docker-compose build validation-engine
+   docker-compose up --abort-on-container-exit validation-engine
+   ```</p>
+<pre><code>* Compila el JAR, crea la red `superset-net` y levanta únicamente el contenedor del motor de validaciones (asume que los demás servicios están corriendo).
 </code></pre>
 <hr/>
 <h4 id="432-backend-fastapi">4.3.2 Backend (FastAPI)<a class="headerlink" href="#432-backend-fastapi" title="Permanent link">¶</a></h4>
 <ol>
 <li><strong>Configuración (<code>app/core/config.py</code>)</strong></li>
 </ol>
-<pre class="highlight"><code class="language-python">from pydantic import BaseSettings
+<p>```python
+   from pydantic import BaseSettings</p>
+<p>class Settings(BaseSettings):
+       postgres_user: str
+       postgres_password: str
+       postgres_host: str
+       postgres_port: int
+       postgres_db: str</p>
+<pre><code>   hdfs_host: str
+   hdfs_port: int
+   hdfs_dir: str
+   hdfs_user: str
+   hdfs_datanode_host: str
+   hdfs_datanode_port: int
 
-class Settings(BaseSettings):
-    postgres_user: str
-    postgres_password: str
-    postgres_host: str
-    postgres_port: int
-    postgres_db: str
+   upload_dir: str
+   jwt_secret_key: str
+   jwt_algorithm: str
+   access_token_expire_minutes: int
 
-    hdfs_host: str
-    hdfs_port: int
-    hdfs_dir: str
-    hdfs_user: str
-    hdfs_datanode_host: str
-    hdfs_datanode_port: int
-
-    upload_dir: str
-    jwt_secret_key: str
-    jwt_algorithm: str
-    access_token_expire_minutes: int
-
-    class Config:
-        env_file = ".env"</code></pre>
-<pre class="codehilite"><code>* Carga variables desde `.env` y construye `database_url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}"`.
+   class Config:
+       env_file = ".env"
+</code></pre>
+<p>```</p>
+<pre><code>* Carga variables desde `.env` y construye `database_url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}"`.
 </code></pre>
 <ol>
 <li><strong>Seguridad (<code>app/core/security.py</code>)</strong></li>
 </ol>
-<pre class="highlight"><code class="language-python">from jose import JWTError, jwt
-from passlib.context import CryptContext
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.ext.asyncio import AsyncSession
-from .config import Settings
-from app.db.models.user import UserModel
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
-
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-def get_password_hash(password):
-    return pwd_context.hash(password)
-
-def create_access_token(subject: str, expires_delta=None):
-    to_encode = {"sub": subject}
-    # agregar expiración...
-    encoded_jwt = jwt.encode(to_encode, Settings().jwt_secret_key, algorithm=Settings().jwt_algorithm)
-    return encoded_jwt
-
-async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="No autenticado",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    try:
-        payload = jwt.decode(token, Settings().jwt_secret_key, algorithms=[Settings().jwt_algorithm])
-        user_id: str = payload.get("sub")
-        if user_id is None:
-            raise credentials_exception
-    except JWTError:
-        raise credentials_exception
-    user = await db.get(UserModel, int(user_id))
-    if user is None:
-        raise credentials_exception
-    return user</code></pre>
-<pre class="codehilite"><code>* Define hashing de contraseñas, creación de JWT, y dependencia `get_current_user` que valida el token y extrae `sub`.
+<p>```python
+   from jose import JWTError, jwt
+   from passlib.context import CryptContext
+   from fastapi import Depends, HTTPException, status
+   from fastapi.security import OAuth2PasswordBearer
+   from sqlalchemy.ext.asyncio import AsyncSession
+   from .config import Settings
+   from app.db.models.user import UserModel</p>
+<p>pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+   oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")</p>
+<p>def verify_password(plain_password, hashed_password):
+       return pwd_context.verify(plain_password, hashed_password)</p>
+<p>def get_password_hash(password):
+       return pwd_context.hash(password)</p>
+<p>def create_access_token(subject: str, expires_delta=None):
+       to_encode = {"sub": subject}
+       # agregar expiración...
+       encoded_jwt = jwt.encode(to_encode, Settings().jwt_secret_key, algorithm=Settings().jwt_algorithm)
+       return encoded_jwt</p>
+<p>async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+       credentials_exception = HTTPException(
+           status_code=status.HTTP_401_UNAUTHORIZED,
+           detail="No autenticado",
+           headers={"WWW-Authenticate": "Bearer"},
+       )
+       try:
+           payload = jwt.decode(token, Settings().jwt_secret_key, algorithms=[Settings().jwt_algorithm])
+           user_id: str = payload.get("sub")
+           if user_id is None:
+               raise credentials_exception
+       except JWTError:
+           raise credentials_exception
+       user = await db.get(UserModel, int(user_id))
+       if user is None:
+           raise credentials_exception
+       return user
+   ```</p>
+<pre><code>* Define hashing de contraseñas, creación de JWT, y dependencia `get_current_user` que valida el token y extrae `sub`.
 </code></pre>
 <ol>
 <li><strong>Servicio de ficheros (<code>app/services/file_service.py</code>)</strong></li>
 </ol>
-<pre class="highlight"><code class="language-python">import os
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.db.models.file_configuration import FileConfigurationModel
-
-async def save_and_register_file(file, db: AsyncSession) -&gt; int:
-    upload_dir = Settings().upload_dir
-    os.makedirs(upload_dir, exist_ok=True)
-    file_path = os.path.join(upload_dir, file.filename)
-    with open(file_path, "wb") as f:
-        content = await file.read()
-        f.write(content)
-    result = await db.execute(select(FileConfigurationModel).where(FileConfigurationModel.file_name == file.filename))
-    existing = result.scalar_one_or_none()
-    if existing:
-        # actualizar parámetros si vienen en request
-        existing.some_field = ...
-        await db.commit()
-        return existing.id
-    else:
-        new_cfg = FileConfigurationModel(
-            file_format="csv",
-            path=upload_dir,
-            file_name=file.filename,
-            has_header=True,
-            delimiter=",",
-            quote_char='"',
-            escape_char="\\",
-            date_format="yyyy-MM-dd",
-            timestamp_format="yyyy-MM-dd HH:mm:ss",
-            partition_columns=None
-        )
-        db.add(new_cfg)
-        await db.flush()
-        return new_cfg.id</code></pre>
-<pre class="codehilite"><code>* Guarda el CSV en disco local y crea/actualiza el registro en `file_configuration`.
+<p>```python
+   import os
+   from sqlalchemy.ext.asyncio import AsyncSession
+   from app.db.models.file_configuration import FileConfigurationModel</p>
+<p>async def save_and_register_file(file, db: AsyncSession) -&gt; int:
+       upload_dir = Settings().upload_dir
+       os.makedirs(upload_dir, exist_ok=True)
+       file_path = os.path.join(upload_dir, file.filename)
+       with open(file_path, "wb") as f:
+           content = await file.read()
+           f.write(content)
+       result = await db.execute(select(FileConfigurationModel).where(FileConfigurationModel.file_name == file.filename))
+       existing = result.scalar_one_or_none()
+       if existing:
+           # actualizar parámetros si vienen en request
+           existing.some_field = ...
+           await db.commit()
+           return existing.id
+       else:
+           new_cfg = FileConfigurationModel(
+               file_format="csv",
+               path=upload_dir,
+               file_name=file.filename,
+               has_header=True,
+               delimiter=",",
+               quote_char='"',
+               escape_char="\",
+               date_format="yyyy-MM-dd",
+               timestamp_format="yyyy-MM-dd HH:mm:ss",
+               partition_columns=None
+           )
+           db.add(new_cfg)
+           await db.flush()
+           return new_cfg.id
+   ```</p>
+<pre><code>* Guarda el CSV en disco local y crea/actualiza el registro en `file_configuration`.
 </code></pre>
 <ol>
 <li><strong>Servicio HDFS (<code>app/services/hdfs_sync.py</code>)</strong></li>
 </ol>
-<pre class="highlight"><code class="language-python">import requests
-from fastapi import HTTPException
-from .config import Settings
+<p>```python
+   import requests
+   from fastapi import HTTPException
+   from .config import Settings</p>
+<p>def push_file_to_hdfs(file_name: str):
+       settings = Settings()
+       local_path = os.path.join(settings.upload_dir, file_name)
+       if not os.path.exists(local_path):
+           raise HTTPException(status_code=404, detail=f"Local not found: {local_path}")</p>
+<pre><code>   # 1) MKDIRS
+   mkdir_url = f"http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}?op=MKDIRS&amp;user.name={settings.hdfs_user}"
+   resp = requests.put(mkdir_url)
+   resp.raise_for_status()
 
-def push_file_to_hdfs(file_name: str):
-    settings = Settings()
-    local_path = os.path.join(settings.upload_dir, file_name)
-    if not os.path.exists(local_path):
-        raise HTTPException(status_code=404, detail=f"Local not found: {local_path}")
+   # 2) SETPERM
+   perm_url = f"http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}?op=SETPERM&amp;permission=777&amp;user.name={settings.hdfs_user}"
+   resp = requests.put(perm_url)
+   resp.raise_for_status()
 
-    # 1) MKDIRS
-    mkdir_url = f"http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}?op=MKDIRS&amp;user.name={settings.hdfs_user}"
-    resp = requests.put(mkdir_url)
-    resp.raise_for_status()
-
-    # 2) SETPERM
-    perm_url = f"http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}?op=SETPERM&amp;permission=777&amp;user.name={settings.hdfs_user}"
-    resp = requests.put(perm_url)
-    resp.raise_for_status()
-
-    # 3) CREATE (NameNode → 307 → Location → DataNode)
-    create_url = f"http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}/{file_name}?op=CREATE&amp;overwrite=true&amp;user.name={settings.hdfs_user}"
-    resp = requests.put(create_url, allow_redirects=False)
-    location = resp.headers.get("Location")
-    if not location:
-        raise HTTPException(status_code=500, detail="HDFS create failed: no redirect")
-    # Ajustar URL al DataNode
-    upload_url = location.replace(f"{settings.hdfs_host}:{settings.hdfs_port}", f"{settings.hdfs_datanode_host}:{settings.hdfs_datanode_port}")
-    with open(local_path, "rb") as f:
-        resp2 = requests.put(upload_url, data=f)
-        resp2.raise_for_status()</code></pre>
-<pre class="codehilite"><code>* Gestiona la secuencia WebHDFS (MKDIRS, SETPERM, CREATE → 307 → PUT a DataNode).
+   # 3) CREATE (NameNode → 307 → Location → DataNode)
+   create_url = f"http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}/{file_name}?op=CREATE&amp;overwrite=true&amp;user.name={settings.hdfs_user}"
+   resp = requests.put(create_url, allow_redirects=False)
+   location = resp.headers.get("Location")
+   if not location:
+       raise HTTPException(status_code=500, detail="HDFS create failed: no redirect")
+   # Ajustar URL al DataNode
+   upload_url = location.replace(f"{settings.hdfs_host}:{settings.hdfs_port}", f"{settings.hdfs_datanode_host}:{settings.hdfs_datanode_port}")
+   with open(local_path, "rb") as f:
+       resp2 = requests.put(upload_url, data=f)
+       resp2.raise_for_status()
+</code></pre>
+<p>```</p>
+<pre><code>* Gestiona la secuencia WebHDFS (MKDIRS, SETPERM, CREATE → 307 → PUT a DataNode).
 </code></pre>
 <ol>
 <li><strong>Rutas de archivos (<code>app/api/files.py</code>)</strong></li>
 </ol>
-<pre class="highlight"><code class="language-python">from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.services.file_service import save_and_register_file
-from app.services.hdfs_sync import push_file_to_hdfs
-from app.db.session import get_db
-
-router = APIRouter(prefix="/files", tags=["files"])
-
-@router.post("/upload", status_code=201)
-async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(get_db)):
-    try:
-        file_id = await save_and_register_file(file, db)
-        return {"file_config_id": file_id}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@router.post("/push/{file_name}")
-async def push_to_hdfs(file_name: str, user=Depends(get_current_user)):
-    try:
-        push_file_to_hdfs(file_name)
-        return {"message": f"Pushed {file_name}"}
-    except HTTPException as he:
-        raise he
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@router.get("/")
-async def list_configs(db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(FileConfigurationModel))
-    configs = result.scalars().all()
-    return configs
-
-@router.get("/{id}")
-async def get_config(id: int, db: AsyncSession = Depends(get_db)):
-    cfg = await db.get(FileConfigurationModel, id)
-    if not cfg:
-        raise HTTPException(status_code=404, detail="Not found")
-    return cfg
-
-@router.patch("/{id}")
-async def update_config(id: int, payload: FileConfigUpdate, db: AsyncSession = Depends(get_db)):
-    cfg = await db.get(FileConfigurationModel, id)
-    if not cfg:
-        raise HTTPException(status_code=404, detail="Not found")
-    for key, val in payload.dict(exclude_unset=True).items():
-        setattr(cfg, key, val)
-    await db.commit()
-    return cfg
-
-@router.delete("/{id}", status_code=204)
-async def delete_config(id: int, db: AsyncSession = Depends(get_db)):
-    cfg = await db.get(FileConfigurationModel, id)
-    if not cfg:
-        raise HTTPException(status_code=404, detail="Not found")
-    await db.delete(cfg)
-    await db.commit()
-
-@router.get("/download/{file_name}")
-async def download_file(file_name: str):
-    file_path = os.path.join(Settings().upload_dir, file_name)
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(file_path, media_type="text/csv", filename=file_name)
-
-@router.get("/logs")
-async def get_logs(environment: str = None, from_date: date = None, to_date: date = None, db: AsyncSession = Depends(get_db)):
-    query = select(TriggerControlModel)
-    if environment:
-        query = query.where(TriggerControlModel.environment == environment)
-    if from_date:
-        query = query.where(TriggerControlModel.logged_at &gt;= from_date)
-    if to_date:
-        query = query.where(TriggerControlModel.logged_at &lt;= to_date)
-    result = await db.execute(query.order_by(TriggerControlModel.logged_at.desc()))
-    logs = result.scalars().all()
-    return logs</code></pre>
-<pre class="codehilite"><code>* Endpoints para CRUD de configuraciones, subida, push a HDFS, descarga y consulta de logs.
+<p>```python
+   from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
+   from sqlalchemy.ext.asyncio import AsyncSession
+   from app.services.file_service import save_and_register_file
+   from app.services.hdfs_sync import push_file_to_hdfs
+   from app.db.session import get_db</p>
+<p>router = APIRouter(prefix="/files", tags=["files"])</p>
+<p>@router.post("/upload", status_code=201)
+   async def upload_file(file: UploadFile = File(...), db: AsyncSession = Depends(get_db)):
+       try:
+           file_id = await save_and_register_file(file, db)
+           return {"file_config_id": file_id}
+       except Exception as e:
+           raise HTTPException(status_code=500, detail=str(e))</p>
+<p>@router.post("/push/{file_name}")
+   async def push_to_hdfs(file_name: str, user=Depends(get_current_user)):
+       try:
+           push_file_to_hdfs(file_name)
+           return {"message": f"Pushed {file_name}"}
+       except HTTPException as he:
+           raise he
+       except Exception as e:
+           raise HTTPException(status_code=500, detail=str(e))</p>
+<p>@router.get("/")
+   async def list_configs(db: AsyncSession = Depends(get_db)):
+       result = await db.execute(select(FileConfigurationModel))
+       configs = result.scalars().all()
+       return configs</p>
+<p>@router.get("/{id}")
+   async def get_config(id: int, db: AsyncSession = Depends(get_db)):
+       cfg = await db.get(FileConfigurationModel, id)
+       if not cfg:
+           raise HTTPException(status_code=404, detail="Not found")
+       return cfg</p>
+<p>@router.patch("/{id}")
+   async def update_config(id: int, payload: FileConfigUpdate, db: AsyncSession = Depends(get_db)):
+       cfg = await db.get(FileConfigurationModel, id)
+       if not cfg:
+           raise HTTPException(status_code=404, detail="Not found")
+       for key, val in payload.dict(exclude_unset=True).items():
+           setattr(cfg, key, val)
+       await db.commit()
+       return cfg</p>
+<p>@router.delete("/{id}", status_code=204)
+   async def delete_config(id: int, db: AsyncSession = Depends(get_db)):
+       cfg = await db.get(FileConfigurationModel, id)
+       if not cfg:
+           raise HTTPException(status_code=404, detail="Not found")
+       await db.delete(cfg)
+       await db.commit()</p>
+<p>@router.get("/download/{file_name}")
+   async def download_file(file_name: str):
+       file_path = os.path.join(Settings().upload_dir, file_name)
+       if not os.path.exists(file_path):
+           raise HTTPException(status_code=404, detail="File not found")
+       return FileResponse(file_path, media_type="text/csv", filename=file_name)</p>
+<p>@router.get("/logs")
+   async def get_logs(environment: str = None, from_date: date = None, to_date: date = None, db: AsyncSession = Depends(get_db)):
+       query = select(TriggerControlModel)
+       if environment:
+           query = query.where(TriggerControlModel.environment == environment)
+       if from_date:
+           query = query.where(TriggerControlModel.logged_at &gt;= from_date)
+       if to_date:
+           query = query.where(TriggerControlModel.logged_at &lt;= to_date)
+       result = await db.execute(query.order_by(TriggerControlModel.logged_at.desc()))
+       logs = result.scalars().all()
+       return logs
+   ```</p>
+<pre><code>* Endpoints para CRUD de configuraciones, subida, push a HDFS, descarga y consulta de logs.
 </code></pre>
 <hr/>
 <h4 id="433-frontend-react-vite">4.3.3 Frontend (React + Vite)<a class="headerlink" href="#433-frontend-react-vite" title="Permanent link">¶</a></h4>
 <ol>
 <li><strong>Configuración de Axios (<code>src/api/axiosConfig.js</code>)</strong></li>
 </ol>
-<pre class="highlight"><code class="language-js">import axios from 'axios';
-
-const api = axios.create({
-  baseURL: 'http://localhost:8000',
-});
-
-// Interceptor de petición: añade token si existe
-api.interceptors.request.use(config =&gt; {
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-// Interceptor de respuesta: si 401, borrar token y redirigir
-api.interceptors.response.use(
-  response =&gt; response,
-  error =&gt; {
-    if (error.response &amp;&amp; error.response.status === 401) {
-      localStorage.removeItem('access_token');
-      alert('Tu sesión ha expirado. Por favor, inicia sesión de nuevo.');
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
-
-export default api;</code></pre>
-<pre class="codehilite"><code>* Gestiona token en cada petición y maneja 401 automáticamente.
+<p>```js
+   import axios from 'axios';</p>
+<p>const api = axios.create({
+     baseURL: 'http://localhost:8000',
+   });</p>
+<p>// Interceptor de petición: añade token si existe
+   api.interceptors.request.use(config =&gt; {
+     const token = localStorage.getItem('access_token');
+     if (token) {
+       config.headers.Authorization = <code>Bearer ${token}</code>;
+     }
+     return config;
+   });</p>
+<p>// Interceptor de respuesta: si 401, borrar token y redirigir
+   api.interceptors.response.use(
+     response =&gt; response,
+     error =&gt; {
+       if (error.response &amp;&amp; error.response.status === 401) {
+         localStorage.removeItem('access_token');
+         alert('Tu sesión ha expirado. Por favor, inicia sesión de nuevo.');
+         window.location.href = '/login';
+       }
+       return Promise.reject(error);
+     }
+   );</p>
+<p>export default api;
+   ```</p>
+<pre><code>* Gestiona token en cada petición y maneja 401 automáticamente.
 </code></pre>
 <ol>
 <li><strong><code>AuthContext.jsx</code></strong></li>
 </ol>
-<pre class="highlight"><code class="language-jsx">import React, { createContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../api/axiosConfig';
+<p>```jsx
+   import React, { createContext, useState, useEffect } from 'react';
+   import { useNavigate } from 'react-router-dom';
+   import api from '../api/axiosConfig';</p>
+<p>export const AuthContext = createContext();</p>
+<p>export const AuthProvider = ({ children }) =&gt; {
+     const [token, setToken] = useState(localStorage.getItem('access_token'));
+     const navigate = useNavigate();</p>
+<pre><code> useEffect(() =&gt; {
+   if (token) {
+     localStorage.setItem('access_token', token);
+   } else {
+     localStorage.removeItem('access_token');
+   }
+ }, [token]);
 
-export const AuthContext = createContext();
+ const login = async (email, password) =&gt; {
+   const res = await api.post('/auth/login', { email, password });
+   setToken(res.data.access_token);
+   navigate('/dashboard');
+ };
 
-export const AuthProvider = ({ children }) =&gt; {
-  const [token, setToken] = useState(localStorage.getItem('access_token'));
-  const navigate = useNavigate();
+ const register = async (email, password) =&gt; {
+   await api.post('/auth/register', { email, password });
+   navigate('/login');
+ };
 
-  useEffect(() =&gt; {
-    if (token) {
-      localStorage.setItem('access_token', token);
-    } else {
-      localStorage.removeItem('access_token');
-    }
-  }, [token]);
+ const logout = () =&gt; {
+   setToken(null);
+   navigate('/login');
+ };
 
-  const login = async (email, password) =&gt; {
-    const res = await api.post('/auth/login', { email, password });
-    setToken(res.data.access_token);
-    navigate('/dashboard');
-  };
-
-  const register = async (email, password) =&gt; {
-    await api.post('/auth/register', { email, password });
-    navigate('/login');
-  };
-
-  const logout = () =&gt; {
-    setToken(null);
-    navigate('/login');
-  };
-
-  return (
-    &lt;AuthContext.Provider value={{ token, login, register, logout }}&gt;
-      {children}
-    &lt;/AuthContext.Provider&gt;
-  );
-};</code></pre>
-<pre class="codehilite"><code>* Gestiona estado global de autenticación y métodos `login()`, `register()`, `logout()`.
+ return (
+   &lt;AuthContext.Provider value={{ token, login, register, logout }}&gt;
+     {children}
+   &lt;/AuthContext.Provider&gt;
+ );
+</code></pre>
+<p>};
+   ```</p>
+<pre><code>* Gestiona estado global de autenticación y métodos `login()`, `register()`, `logout()`.
 </code></pre>
 <ol>
 <li><strong><code>AppRouter.jsx</code></strong></li>
 </ol>
-<pre class="highlight"><code class="language-jsx">import React, { useContext } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
-import LoginPage from '../pages/LoginPage';
-import RegisterPage from '../pages/RegisterPage';
-import Dashboard from '../pages/Dashboard';
-import LogsPage from '../pages/LogsPage';
-import MainLayout from '../layouts/MainLayout';
-
-const RequireAuth = ({ children }) =&gt; {
-  const { token } = useContext(AuthContext);
-  const location = useLocation();
-  return token ? children : &lt;Navigate to="/login" state={{ from: location }} replace /&gt;;
-};
-
-const AppRouter = () =&gt; (
-  &lt;BrowserRouter&gt;
-    &lt;Routes&gt;
-      &lt;Route path="/login" element={&lt;LoginPage /&gt;} /&gt;
-      &lt;Route path="/register" element={&lt;RegisterPage /&gt;} /&gt;
-      &lt;Route path="/" element={&lt;RequireAuth&gt;&lt;MainLayout /&gt;&lt;/RequireAuth&gt;}&gt;
-        &lt;Route index element={&lt;Navigate to="/dashboard" replace /&gt;} /&gt;
-        &lt;Route path="dashboard" element={&lt;Dashboard /&gt;} /&gt;
-        &lt;Route path="logs" element={&lt;LogsPage /&gt;} /&gt;
-      &lt;/Route&gt;
-      &lt;Route path="*" element={&lt;Navigate to="/login" replace /&gt;} /&gt;
-    &lt;/Routes&gt;
-  &lt;/BrowserRouter&gt;
-);
-
-export default AppRouter;</code></pre>
-<pre class="codehilite"><code>* Define rutas públicas (`/login`, `/register`) y privadas (`/dashboard`, `/logs`) con `RequireAuth`.
+<p>```jsx
+   import React, { useContext } from 'react';
+   import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+   import { AuthContext } from '../contexts/AuthContext';
+   import LoginPage from '../pages/LoginPage';
+   import RegisterPage from '../pages/RegisterPage';
+   import Dashboard from '../pages/Dashboard';
+   import LogsPage from '../pages/LogsPage';
+   import MainLayout from '../layouts/MainLayout';</p>
+<p>const RequireAuth = ({ children }) =&gt; {
+     const { token } = useContext(AuthContext);
+     const location = useLocation();
+     return token ? children : <navigate from:="" location="" replace="" state="{{" to="/login" }}=""></navigate>;
+   };</p>
+<p>const AppRouter = () =&gt; (
+     <browserrouter>
+<routes>
+<route element="{\&lt;LoginPage" path="/login"></route>} /&gt;
+         <route element="{\&lt;RegisterPage" path="/register"></route>} /&gt;
+         <route element="{\&lt;RequireAuth" path="/">\<mainlayout></mainlayout>\}&gt;
+           <route element="{\&lt;Navigate" index="" replace="" to="/dashboard"></route>} /&gt;
+           <route element="{\&lt;Dashboard" path="dashboard"></route>} /&gt;
+           <route element="{\&lt;LogsPage" path="logs"></route>} /&gt;
+         </route>
+<route element="{\&lt;Navigate" path="*" replace="" to="/login"></route>} /&gt;
+       </routes>
+</browserrouter>
+   );</p>
+<p>export default AppRouter;
+   ```</p>
+<pre><code>* Define rutas públicas (`/login`, `/register`) y privadas (`/dashboard`, `/logs`) con `RequireAuth`.
 </code></pre>
 <ol>
 <li><strong><code>Dashboard.jsx</code></strong></li>
 </ol>
-<pre class="highlight"><code class="language-jsx">import React, { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
-import api from '../api/axiosConfig';
-import FileDetailModal from '../components/FileDetailModal';
+<p>```jsx
+   import React, { useState, useEffect, useContext } from 'react';
+   import { AuthContext } from '../contexts/AuthContext';
+   import api from '../api/axiosConfig';
+   import FileDetailModal from '../components/FileDetailModal';</p>
+<p>const Dashboard = () =&gt; {
+     const [configs, setConfigs] = useState([]);
+     const [selectedFile, setSelectedFile] = useState(null);
+     const [uploading, setUploading] = useState(false);
+     const [showModal, setShowModal] = useState(false);
+     const [currentConfig, setCurrentConfig] = useState(null);</p>
+<pre><code> const fetchConfigs = async () =&gt; {
+   const res = await api.get('/files/');
+   setConfigs(res.data);
+ };
 
-const Dashboard = () =&gt; {
-  const [configs, setConfigs] = useState([]);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [currentConfig, setCurrentConfig] = useState(null);
+ useEffect(() =&gt; {
+   fetchConfigs();
+ }, []);
 
-  const fetchConfigs = async () =&gt; {
-    const res = await api.get('/files/');
-    setConfigs(res.data);
-  };
+ const handleUpload = async () =&gt; {
+   if (!selectedFile) return;
+   setUploading(true);
+   const form = new FormData();
+   form.append('file', selectedFile);
+   const res = await api.post('/files/upload', form);
+   alert(`Fichero subido ID: ${res.data.file_config_id}`);
+   fetchConfigs();
+   setUploading(false);
+ };
 
-  useEffect(() =&gt; {
-    fetchConfigs();
-  }, []);
+ const handleValidate = async (fileName) =&gt; {
+   await api.post(`/files/push/${fileName}`);
+   alert('Enviado a validar');
+   fetchConfigs();
+ };
 
-  const handleUpload = async () =&gt; {
-    if (!selectedFile) return;
-    setUploading(true);
-    const form = new FormData();
-    form.append('file', selectedFile);
-    const res = await api.post('/files/upload', form);
-    alert(`Fichero subido ID: ${res.data.file_config_id}`);
-    fetchConfigs();
-    setUploading(false);
-  };
+ const handleDelete = async (id) =&gt; {
+   if (!window.confirm('¿Estás seguro?')) return;
+   await api.delete(`/files/${id}`);
+   alert('Configuración eliminada');
+   fetchConfigs();
+ };
 
-  const handleValidate = async (fileName) =&gt; {
-    await api.post(`/files/push/${fileName}`);
-    alert('Enviado a validar');
-    fetchConfigs();
-  };
-
-  const handleDelete = async (id) =&gt; {
-    if (!window.confirm('¿Estás seguro?')) return;
-    await api.delete(`/files/${id}`);
-    alert('Configuración eliminada');
-    fetchConfigs();
-  };
-
-  return (
-    &lt;div&gt;
-      &lt;h2&gt;Dashboard&lt;/h2&gt;
-      &lt;input type="file" onChange={e =&gt; setSelectedFile(e.target.files[0])} /&gt;
-      &lt;button onClick={handleUpload} disabled={uploading}&gt;
-        {uploading ? 'Subiendo...' : 'Subir Fichero'}
-      &lt;/button&gt;
-      &lt;table&gt;
-        &lt;thead&gt;
-          &lt;tr&gt;
-            &lt;th&gt;ID&lt;/th&gt;
-            &lt;th&gt;Fichero&lt;/th&gt;
-            &lt;th&gt;Has Header&lt;/th&gt;
-            &lt;th&gt;Delimiter&lt;/th&gt;
-            &lt;th&gt;Acciones&lt;/th&gt;
-          &lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody&gt;
-          {configs.map(cfg =&gt; (
-            &lt;tr key={cfg.id}&gt;
-              &lt;td&gt;{cfg.id}&lt;/td&gt;
-              &lt;td&gt;{cfg.file_name}&lt;/td&gt;
-              &lt;td&gt;{cfg.has_header ? 'Sí' : 'No'}&lt;/td&gt;
-              &lt;td&gt;{cfg.delimiter}&lt;/td&gt;
-              &lt;td&gt;
-                &lt;button onClick={() =&gt; handleValidate(cfg.file_name)}&gt;Enviando…&lt;/button&gt;
-                &lt;button onClick={() =&gt; { setCurrentConfig(cfg); setShowModal(true); }}&gt;Detalles&lt;/button&gt;
-                &lt;button onClick={() =&gt; handleDelete(cfg.id)}&gt;Eliminar&lt;/button&gt;
-              &lt;/td&gt;
-            &lt;/tr&gt;
-          ))}
-        &lt;/tbody&gt;
-      &lt;/table&gt;
-      {showModal &amp;&amp; (
-        &lt;FileDetailModal
-          config={currentConfig}
-          onClose={() =&gt; setShowModal(false)}
-          onRefresh={fetchConfigs}
-        /&gt;
-      )}
-    &lt;/div&gt;
-  );
-};
-
-export default Dashboard;</code></pre>
-<pre class="codehilite"><code>* Subida de fichero, lista de configuraciones con acciones (Validar, Detalles, Eliminar).
+ return (
+   &lt;div&gt;
+     &lt;h2&gt;Dashboard&lt;/h2&gt;
+     &lt;input type="file" onChange={e =&gt; setSelectedFile(e.target.files[0])} /&gt;
+     &lt;button onClick={handleUpload} disabled={uploading}&gt;
+       {uploading ? 'Subiendo...' : 'Subir Fichero'}
+     &lt;/button&gt;
+     &lt;table&gt;
+       &lt;thead&gt;
+         &lt;tr&gt;
+           &lt;th&gt;ID&lt;/th&gt;
+           &lt;th&gt;Fichero&lt;/th&gt;
+           &lt;th&gt;Has Header&lt;/th&gt;
+           &lt;th&gt;Delimiter&lt;/th&gt;
+           &lt;th&gt;Acciones&lt;/th&gt;
+         &lt;/tr&gt;
+       &lt;/thead&gt;
+       &lt;tbody&gt;
+         {configs.map(cfg =&gt; (
+           &lt;tr key={cfg.id}&gt;
+             &lt;td&gt;{cfg.id}&lt;/td&gt;
+             &lt;td&gt;{cfg.file_name}&lt;/td&gt;
+             &lt;td&gt;{cfg.has_header ? 'Sí' : 'No'}&lt;/td&gt;
+             &lt;td&gt;{cfg.delimiter}&lt;/td&gt;
+             &lt;td&gt;
+               &lt;button onClick={() =&gt; handleValidate(cfg.file_name)}&gt;Enviando…&lt;/button&gt;
+               &lt;button onClick={() =&gt; { setCurrentConfig(cfg); setShowModal(true); }}&gt;Detalles&lt;/button&gt;
+               &lt;button onClick={() =&gt; handleDelete(cfg.id)}&gt;Eliminar&lt;/button&gt;
+             &lt;/td&gt;
+           &lt;/tr&gt;
+         ))}
+       &lt;/tbody&gt;
+     &lt;/table&gt;
+     {showModal &amp;&amp; (
+       &lt;FileDetailModal
+         config={currentConfig}
+         onClose={() =&gt; setShowModal(false)}
+         onRefresh={fetchConfigs}
+       /&gt;
+     )}
+   &lt;/div&gt;
+ );
+</code></pre>
+<p>};</p>
+<p>export default Dashboard;
+   ```</p>
+<pre><code>* Subida de fichero, lista de configuraciones con acciones (Validar, Detalles, Eliminar).
 </code></pre>
 <ol>
 <li><strong><code>FileDetailModal.jsx</code></strong></li>
 </ol>
-<pre class="highlight"><code class="language-jsx">import React, { useState } from 'react';
-import api from '../api/axiosConfig';
+<p>```jsx
+   import React, { useState } from 'react';
+   import api from '../api/axiosConfig';</p>
+<p>const FileDetailModal = ({ config, onClose, onRefresh }) =&gt; {
+     const [delimiter, setDelimiter] = useState(config.delimiter);
+     const [quoteChar, setQuoteChar] = useState(config.quote_char);
+     const [escapeChar, setEscapeChar] = useState(config.escape_char);
+     const [hasHeader, setHasHeader] = useState(config.has_header);
+     const [dateFormat, setDateFormat] = useState(config.date_format);
+     const [timestampFormat, setTimestampFormat] = useState(config.timestamp_format);
+     const [partitionColumns, setPartitionColumns] = useState(config.partition_columns);
+     const [saving, setSaving] = useState(false);
+     const [validating, setValidating] = useState(false);
+     const [deleting, setDeleting] = useState(false);</p>
+<pre><code> const save = async () =&gt; {
+   setSaving(true);
+   await api.patch(`/files/${config.id}`, {
+     delimiter, quote_char: quoteChar, escape_char: escapeChar,
+     has_header: hasHeader, date_format: dateFormat,
+     timestamp_format: timestampFormat, partition_columns: partitionColumns
+   });
+   alert('Configuración actualizada');
+   setSaving(false);
+   onClose();
+   onRefresh();
+ };
 
-const FileDetailModal = ({ config, onClose, onRefresh }) =&gt; {
-  const [delimiter, setDelimiter] = useState(config.delimiter);
-  const [quoteChar, setQuoteChar] = useState(config.quote_char);
-  const [escapeChar, setEscapeChar] = useState(config.escape_char);
-  const [hasHeader, setHasHeader] = useState(config.has_header);
-  const [dateFormat, setDateFormat] = useState(config.date_format);
-  const [timestampFormat, setTimestampFormat] = useState(config.timestamp_format);
-  const [partitionColumns, setPartitionColumns] = useState(config.partition_columns);
-  const [saving, setSaving] = useState(false);
-  const [validating, setValidating] = useState(false);
-  const [deleting, setDeleting] = useState(false);
+ const validate = async () =&gt; {
+   setValidating(true);
+   await api.post(`/files/push/${config.file_name}`);
+   alert('Enviado a validar');
+   setValidating(false);
+   onClose();
+   onRefresh();
+ };
 
-  const save = async () =&gt; {
-    setSaving(true);
-    await api.patch(`/files/${config.id}`, {
-      delimiter, quote_char: quoteChar, escape_char: escapeChar,
-      has_header: hasHeader, date_format: dateFormat,
-      timestamp_format: timestampFormat, partition_columns: partitionColumns
-    });
-    alert('Configuración actualizada');
-    setSaving(false);
-    onClose();
-    onRefresh();
-  };
+ const downloadFile = async () =&gt; {
+   const res = await fetch(`http://localhost:8000/files/download/${config.file_name}`, {
+     headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` }
+   });
+   const blob = await res.blob();
+   const url = URL.createObjectURL(blob);
+   const a = document.createElement('a');
+   a.href = url;
+   a.download = config.file_name;
+   a.click();
+   URL.revokeObjectURL(url);
+ };
 
-  const validate = async () =&gt; {
-    setValidating(true);
-    await api.post(`/files/push/${config.file_name}`);
-    alert('Enviado a validar');
-    setValidating(false);
-    onClose();
-    onRefresh();
-  };
+ const remove = async () =&gt; {
+   if (!window.confirm('¿Estás seguro?')) return;
+   setDeleting(true);
+   await api.delete(`/files/${config.id}`);
+   alert('Configuración eliminada');
+   setDeleting(false);
+   onClose();
+   onRefresh();
+ };
 
-  const downloadFile = async () =&gt; {
-    const res = await fetch(`http://localhost:8000/files/download/${config.file_name}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` }
-    });
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = config.file_name;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
+ const overlayStyle = {
+   position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+   backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+   justifyContent: 'center', alignItems: 'center'
+ };
+ const modalStyle = {
+   background: '#fff', padding: '1rem', borderRadius: '8px',
+   position: 'relative', width: '500px'
+ };
 
-  const remove = async () =&gt; {
-    if (!window.confirm('¿Estás seguro?')) return;
-    setDeleting(true);
-    await api.delete(`/files/${config.id}`);
-    alert('Configuración eliminada');
-    setDeleting(false);
-    onClose();
-    onRefresh();
-  };
-
-  const overlayStyle = {
-    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
-    justifyContent: 'center', alignItems: 'center'
-  };
-  const modalStyle = {
-    background: '#fff', padding: '1rem', borderRadius: '8px',
-    position: 'relative', width: '500px'
-  };
-
-  return (
-    &lt;div style={overlayStyle} onClick={onClose}&gt;
-      &lt;div style={modalStyle} onClick={e =&gt; e.stopPropagation()}&gt;
-        &lt;h3&gt;Detalles Fichero&lt;/h3&gt;
-        &lt;label&gt;Delimiter:&lt;/label&gt;
-        &lt;select value={delimiter} onChange={e =&gt; setDelimiter(e.target.value)}&gt;
-          &lt;option value=","&gt;Comma&lt;/option&gt;
-          &lt;option value=";"&gt;Semicolon&lt;/option&gt;
-          &lt;option value="\t"&gt;Tab&lt;/option&gt;
-          &lt;option value="|"&gt;Pipe&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;label&gt;Quote Character:&lt;/label&gt;
-        &lt;select value={quoteChar} onChange={e =&gt; setQuoteChar(e.target.value)}&gt;
-          &lt;option value={'"'}&gt;Double&lt;/option&gt;
-          &lt;option value="'"&gt;Single&lt;/option&gt;
-          &lt;option value=""&gt;None&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;label&gt;Escape Character:&lt;/label&gt;
-        &lt;select value={escapeChar} onChange={e =&gt; setEscapeChar(e.target.value)}&gt;
-          &lt;option value="\\"&gt;Backslash&lt;/option&gt;
-          &lt;option value={'"'}&gt;Double&lt;/option&gt;
-          &lt;option value=""&gt;None&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;label&gt;Has Header:&lt;/label&gt;
-        &lt;input type="checkbox" checked={hasHeader} onChange={e =&gt; setHasHeader(e.target.checked)} /&gt;
-        &lt;label&gt;Date Format:&lt;/label&gt;
-        &lt;select value={dateFormat} onChange={e =&gt; setDateFormat(e.target.value)}&gt;
-          &lt;option value="yyyy-MM-dd"&gt;YYYY-MM-DD&lt;/option&gt;
-          &lt;option value="dd/MM/yyyy"&gt;DD/MM/YYYY&lt;/option&gt;
-          &lt;option value="MM-dd-yyyy"&gt;MM-DD-YYYY&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;label&gt;Timestamp Format:&lt;/label&gt;
-        &lt;select value={timestampFormat} onChange={e =&gt; setTimestampFormat(e.target.value)}&gt;
-          &lt;option value="yyyy-MM-dd HH:mm:ss"&gt;YYYY-MM-DD HH:mm:ss&lt;/option&gt;
-          &lt;option value="ISO 8601"&gt;ISO 8601&lt;/option&gt;
-          &lt;option value="Timestamp MS"&gt;Timestamp MS&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;label&gt;Partition Columns:&lt;/label&gt;
-        &lt;input
-          type="text"
-          value={partitionColumns || ''}
-          onChange={e =&gt; setPartitionColumns(e.target.value)}
-        /&gt;
-        &lt;div style={{ marginTop: '1rem' }}&gt;
-          &lt;button onClick={save} disabled={saving}&gt;
-            {saving ? 'Guardando...' : 'Guardar'}
-          &lt;/button&gt;
-          &lt;button onClick={validate} disabled={validating}&gt;
-            {validating ? 'Enviando…' : 'Validar'}
-          &lt;/button&gt;
-          &lt;button onClick={downloadFile}&gt;Descargar&lt;/button&gt;
-          &lt;button onClick={remove} disabled={deleting}&gt;
-            {deleting ? 'Eliminando…' : 'Eliminar'}
-          &lt;/button&gt;
-        &lt;/div&gt;
-        &lt;button onClick={onClose} style={{ position: 'absolute', top: '8px', right: '8px' }}&gt;×&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-};
-
-export default FileDetailModal;</code></pre>
-<pre class="codehilite"><code>* Modal para editar parámetros, validar, descargar y eliminar configuración.
+ return (
+   &lt;div style={overlayStyle} onClick={onClose}&gt;
+     &lt;div style={modalStyle} onClick={e =&gt; e.stopPropagation()}&gt;
+       &lt;h3&gt;Detalles Fichero&lt;/h3&gt;
+       &lt;label&gt;Delimiter:&lt;/label&gt;
+       &lt;select value={delimiter} onChange={e =&gt; setDelimiter(e.target.value)}&gt;
+         &lt;option value=","&gt;Comma&lt;/option&gt;
+         &lt;option value=";"&gt;Semicolon&lt;/option&gt;
+         &lt;option value="\t"&gt;Tab&lt;/option&gt;
+         &lt;option value="|"&gt;Pipe&lt;/option&gt;
+       &lt;/select&gt;
+       &lt;label&gt;Quote Character:&lt;/label&gt;
+       &lt;select value={quoteChar} onChange={e =&gt; setQuoteChar(e.target.value)}&gt;
+         &lt;option value={'"'}&gt;Double&lt;/option&gt;
+         &lt;option value="'"&gt;Single&lt;/option&gt;
+         &lt;option value=""&gt;None&lt;/option&gt;
+       &lt;/select&gt;
+       &lt;label&gt;Escape Character:&lt;/label&gt;
+       &lt;select value={escapeChar} onChange={e =&gt; setEscapeChar(e.target.value)}&gt;
+         &lt;option value="\\"&gt;Backslash&lt;/option&gt;
+         &lt;option value={'"'}&gt;Double&lt;/option&gt;
+         &lt;option value=""&gt;None&lt;/option&gt;
+       &lt;/select&gt;
+       &lt;label&gt;Has Header:&lt;/label&gt;
+       &lt;input type="checkbox" checked={hasHeader} onChange={e =&gt; setHasHeader(e.target.checked)} /&gt;
+       &lt;label&gt;Date Format:&lt;/label&gt;
+       &lt;select value={dateFormat} onChange={e =&gt; setDateFormat(e.target.value)}&gt;
+         &lt;option value="yyyy-MM-dd"&gt;YYYY-MM-DD&lt;/option&gt;
+         &lt;option value="dd/MM/yyyy"&gt;DD/MM/YYYY&lt;/option&gt;
+         &lt;option value="MM-dd-yyyy"&gt;MM-DD-YYYY&lt;/option&gt;
+       &lt;/select&gt;
+       &lt;label&gt;Timestamp Format:&lt;/label&gt;
+       &lt;select value={timestampFormat} onChange={e =&gt; setTimestampFormat(e.target.value)}&gt;
+         &lt;option value="yyyy-MM-dd HH:mm:ss"&gt;YYYY-MM-DD HH:mm:ss&lt;/option&gt;
+         &lt;option value="ISO 8601"&gt;ISO 8601&lt;/option&gt;
+         &lt;option value="Timestamp MS"&gt;Timestamp MS&lt;/option&gt;
+       &lt;/select&gt;
+       &lt;label&gt;Partition Columns:&lt;/label&gt;
+       &lt;input
+         type="text"
+         value={partitionColumns || ''}
+         onChange={e =&gt; setPartitionColumns(e.target.value)}
+       /&gt;
+       &lt;div style={{ marginTop: '1rem' }}&gt;
+         &lt;button onClick={save} disabled={saving}&gt;
+           {saving ? 'Guardando...' : 'Guardar'}
+         &lt;/button&gt;
+         &lt;button onClick={validate} disabled={validating}&gt;
+           {validating ? 'Enviando…' : 'Validar'}
+         &lt;/button&gt;
+         &lt;button onClick={downloadFile}&gt;Descargar&lt;/button&gt;
+         &lt;button onClick={remove} disabled={deleting}&gt;
+           {deleting ? 'Eliminando…' : 'Eliminar'}
+         &lt;/button&gt;
+       &lt;/div&gt;
+       &lt;button onClick={onClose} style={{ position: 'absolute', top: '8px', right: '8px' }}&gt;×&lt;/button&gt;
+     &lt;/div&gt;
+   &lt;/div&gt;
+ );
+</code></pre>
+<p>};</p>
+<p>export default FileDetailModal;
+   ```</p>
+<pre><code>* Modal para editar parámetros, validar, descargar y eliminar configuración.
 </code></pre>
 <ol>
 <li><strong><code>LogsPage.jsx</code></strong></li>
 </ol>
-<pre class="highlight"><code class="language-jsx">import React, { useState, useEffect } from 'react';
-import api from '../api/axiosConfig';
+<p>```jsx
+   import React, { useState, useEffect } from 'react';
+   import api from '../api/axiosConfig';</p>
+<p>const LogsPage = () =&gt; {
+     const [logs, setLogs] = useState([]);</p>
+<pre><code> const fetchLogs = async () =&gt; {
+   const res = await api.get('/files/logs');
+   setLogs(res.data);
+ };
 
-const LogsPage = () =&gt; {
-  const [logs, setLogs] = useState([]);
+ useEffect(() =&gt; {
+   fetchLogs();
+ }, []);
 
-  const fetchLogs = async () =&gt; {
-    const res = await api.get('/files/logs');
-    setLogs(res.data);
-  };
-
-  useEffect(() =&gt; {
-    fetchLogs();
-  }, []);
-
-  return (
-    &lt;div&gt;
-      &lt;h2&gt;Logs de Validación&lt;/h2&gt;
-      &lt;table&gt;
-        &lt;thead&gt;
-          &lt;tr&gt;
-            &lt;th&gt;ID&lt;/th&gt;
-            &lt;th&gt;Config ID&lt;/th&gt;
-            &lt;th&gt;Fichero&lt;/th&gt;
-            &lt;th&gt;Campo&lt;/th&gt;
-            &lt;th&gt;Entorno&lt;/th&gt;
-            &lt;th&gt;Flag&lt;/th&gt;
-            &lt;th&gt;Mensaje&lt;/th&gt;
-            &lt;th&gt;Fecha&lt;/th&gt;
-          &lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody&gt;
-          {logs.map(l =&gt; (
-            &lt;tr key={l.id}&gt;
-              &lt;td&gt;{l.id}&lt;/td&gt;
-              &lt;td&gt;{l.file_config_id}&lt;/td&gt;
-              &lt;td&gt;{l.file_name}&lt;/td&gt;
-              &lt;td&gt;{l.field_name}&lt;/td&gt;
-              &lt;td&gt;{l.environment}&lt;/td&gt;
-              &lt;td&gt;{l.validation_flag}&lt;/td&gt;
-              &lt;td&gt;{l.error_message}&lt;/td&gt;
-              &lt;td&gt;{new Date(l.logged_at).toLocaleDateString('es-ES')}&lt;/td&gt;
-            &lt;/tr&gt;
-          ))}
-        &lt;/tbody&gt;
-      &lt;/table&gt;
-    &lt;/div&gt;
-  );
-};
-
-export default LogsPage;</code></pre>
-<pre class="codehilite"><code>* Muestra los logs de validación y formatea la fecha a español.
+ return (
+   &lt;div&gt;
+     &lt;h2&gt;Logs de Validación&lt;/h2&gt;
+     &lt;table&gt;
+       &lt;thead&gt;
+         &lt;tr&gt;
+           &lt;th&gt;ID&lt;/th&gt;
+           &lt;th&gt;Config ID&lt;/th&gt;
+           &lt;th&gt;Fichero&lt;/th&gt;
+           &lt;th&gt;Campo&lt;/th&gt;
+           &lt;th&gt;Entorno&lt;/th&gt;
+           &lt;th&gt;Flag&lt;/th&gt;
+           &lt;th&gt;Mensaje&lt;/th&gt;
+           &lt;th&gt;Fecha&lt;/th&gt;
+         &lt;/tr&gt;
+       &lt;/thead&gt;
+       &lt;tbody&gt;
+         {logs.map(l =&gt; (
+           &lt;tr key={l.id}&gt;
+             &lt;td&gt;{l.id}&lt;/td&gt;
+             &lt;td&gt;{l.file_config_id}&lt;/td&gt;
+             &lt;td&gt;{l.file_name}&lt;/td&gt;
+             &lt;td&gt;{l.field_name}&lt;/td&gt;
+             &lt;td&gt;{l.environment}&lt;/td&gt;
+             &lt;td&gt;{l.validation_flag}&lt;/td&gt;
+             &lt;td&gt;{l.error_message}&lt;/td&gt;
+             &lt;td&gt;{new Date(l.logged_at).toLocaleDateString('es-ES')}&lt;/td&gt;
+           &lt;/tr&gt;
+         ))}
+       &lt;/tbody&gt;
+     &lt;/table&gt;
+   &lt;/div&gt;
+ );
+</code></pre>
+<p>};</p>
+<p>export default LogsPage;
+   ```</p>
+<pre><code>* Muestra los logs de validación y formatea la fecha a español.
 </code></pre>
 <hr/>
 <h3 id="44-organizacion-del-proyecto-patron">4.4 Organización del proyecto. Patrón<a class="headerlink" href="#44-organizacion-del-proyecto-patron" title="Permanent link">¶</a></h3>
 <p>Se propone la siguiente estructura monolítica (tres carpetas principales), aunque cada componente puede colocarse en repositorios separados según conveniencia:</p>
-<pre class="highlight"><code>FileMonitoringSystem/
+<pre><code>FileMonitoringSystem/
 ├── backend/                            ← Código FastAPI
 │   ├── app/
 │   │   ├── api/
@@ -1115,7 +1098,8 @@ export default LogsPage;</code></pre>
 │   └── workflows/
 │       └── mkdocs-deploy.yml           ← GitHub Action para desplegar en Pages
 │
-└── README-cluster.md                   ← Guía de cluster (si quieres)  </code></pre>
+└── README-cluster.md                   ← Guía de cluster (si quieres)  
+</code></pre>
 <ul>
 <li>El patrón es <strong>feature-based</strong>: cada carpeta agrupa archivos según responsabilidad (API, servicios, modelos, diagramas, etc.).</li>
 <li>Cada componente puede versionarse por separado y luego combinarse en un monorepo si se desea.</li>
@@ -1148,7 +1132,6 @@ export default LogsPage;</code></pre>
 <script>var base_url = ".";</script>
 <script src="js/theme_extra.js"></script>
 <script src="js/theme.js"></script>
-<script src="search/main.js"></script>
 <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
