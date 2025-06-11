@@ -1,11 +1,9 @@
+# mkdocs.yml
 site_name: "File Monitoring System"
 site_url: "https://juanradam.github.io/FileMonitoringSystem/"
 
-# MkDocs leerá los .md desde docs/ y generará el HTML en site/
 docs_dir: docs
 site_dir: site
-
-# Usamos URL con .html porque estamos en un subdirectorio de GitHub Pages
 use_directory_urls: false
 
 theme:
@@ -13,19 +11,19 @@ theme:
 
 plugins:
   - search
-  - mermaid2
-
+  - mermaid2                     # inyecta Mermaid.js en el HTML :contentReference[oaicite:0]{index=0}
 
 markdown_extensions:
   - toc:
       permalink: true
   - admonition
-  - pymdownx.superfences:
+  - pymdownx.superfences:        # gestiona todos los bloques fenced y preserva indentación
+      disable_indented_code_blocks: true  # evita que 4 espacios se consideren código :contentReference[oaicite:1]{index=1}
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:mermaid2.fence_mermaid  # Función de mkdocs-mermaid2-plugin :contentReference[oaicite:0]{index=0}
-  - pymdownx.highlight
+          format: !!python/name:mermaid2.fence_mermaid  # deja pasar los bloques mermaid al plugin :contentReference[oaicite:2]{index=2}
+  - pymdownx.highlight           # resalta sin reindentar
 
 nav:
   - Home: index.md
