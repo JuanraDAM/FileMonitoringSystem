@@ -6,21 +6,22 @@ site_dir: site
 use_directory_urls: false
 
 theme:
-  name: readthedocs     # ← tema Read the Docs, muy estable con código
+  name: mkdocs          # puedes usar 'mkdocs' o 'github' si lo tienes instalado
+
+plugins:
+  - search
+  - mermaid2            # si sigues queriendo Mermaid
 
 markdown_extensions:
-  - toc:
-      permalink: true   # añade enlaces “§” junto a cada título
-  - admonition         # para bloques tipo nota/advertencia
-  - fenced_code        # fuerza triple-backticks para todo bloque de código
-  - codehilite:
-      guess_lang: false # resaltado sin “adivinar” el lenguaje
+  #1) mdx_truly_sane_lists para listas profundizadas sin líos
+  - mdx_truly_sane_lists:
+      nested_indent: 2   # número de espacios para cada nivel (igual que GFM)
+      truly_sane: true
 
-nav:
-  - Home: index.md
-  - Introducción: 01-introduccion.md
-  - Especificación de Requisitos: 02-requisitos.md
-  - Diseño (Diagramas): 03-diseno.md
-  - Implementación (GIT): 04-implementacion.md
-  - Resultado (Manual de usuario): 05-resultado.md
-  - Conclusiones: 06-conclusiones.md
+  #2) el resto de tus extensiones habituales
+  - toc:
+      permalink: true
+  - admonition
+  - fenced_code
+  - codehilite:
+      guess_lang: false
