@@ -34,7 +34,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install mkdocs                  # el core de MkDocs
           pip install mkdocs-github           # ← el tema “GitHub”  
-          pip install mkdocs-mermaid2-plugin  # ← renderiza ```mermaid```  
           pip install pymdown-extensions      # ← superfences y más markdown_extensions
 
       - name: Build MkDocs site
