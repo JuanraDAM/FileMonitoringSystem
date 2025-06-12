@@ -6,9 +6,9 @@ site_dir: site
 use_directory_urls: false
 
 theme:
-  name: github
-  highlightjs: true
-  hljs_style: github
+  name: readthedocs
+#  highlightjs: true
+#  hljs_style: github
 
 plugins:
   - search
