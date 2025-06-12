@@ -32,9 +32,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs                  # el core de MkDocs
-          pip install mkdocs-github           # ← el tema “GitHub”  
-          pip install pymdown-extensions      # ← superfences y más markdown_extensions
+          pip install \
+            mkdocs \                  # core de MkDocs
+            mkdocs-github \           # tema “GitHub” de MkDocs
+            mkdocs-mermaid2-plugin \  # renderiza bloques ```mermaid```
+            mdx-truly-sane-lists \    # listas anidadas con indentado GFM
+            pymdown-extensions        # superfences, highlight, etc.
 
       - name: Build MkDocs site
         run: mkdocs build --clean

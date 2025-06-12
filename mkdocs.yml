@@ -1,21 +1,36 @@
 site_name: "File Monitoring System"
 site_url: "https://juanradam.github.io/FileMonitoringSystem/"
 
+# MkDocs leerá los .md desde docs/ y generará el HTML en site/
 docs_dir: docs
 site_dir: site
+
+# Evita URLs “bonitas” para que todo apunte a .html en Pages
 use_directory_urls: false
 
 theme:
-  name: mkdocs          # puedes usar 'mkdocs' o 'github' si lo tienes instalado
+  name: github         # tema GitHub para emular exactamente el look de los README
+  highlightjs: true    # usa Highlight.js como GitHub
+  hljs_style: github   # estilo de resaltado “GitHub”
 
 plugins:
-  - search
+  - search             # índice de búsqueda
+  - mermaid2           # renderiza tus diagramas ```mermaid```
 
 markdown_extensions:
-  #2) el resto de tus extensiones habituales
+  - mdx_truly_sane_lists  # indentado de 2 espacios para listas anidadas (como GFM)
   - toc:
-      permalink: true
-  - admonition
-  - fenced_code
+      permalink: true     # enlaces “§” junto a cada encabezado
+  - admonition            # bloques de nota/advertencia
+  - fenced_code           # obliga a triple-backticks para código
   - codehilite:
-      guess_lang: false
+      guess_lang: false   # resaltado sin adivinar lenguaje
+
+nav:
+  - Home: index.md
+  - Introducción: 01-introduccion.md
+  - Especificación de Requisitos: 02-requisitos.md
+  - Diseño (Diagramas): 03-diseno.md
+  - Implementación (GIT): 04-implementacion.md
+  - Resultado (Manual de usuario): 05-resultado.md
+  - Conclusiones: 06-conclusiones.md
