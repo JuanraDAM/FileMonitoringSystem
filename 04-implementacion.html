@@ -147,20 +147,30 @@ flowchart LR
 </div>
 <p>(Código de diagrama mermaid, renderizable en https://mermaid.js.org/)</p>
 <ul>
-<li><strong>Frontend (React + Vite)</strong><p>* Usuario interactúa con la UI, llama rutas REST al backend y muestra datos.
-* <strong>Backend (FastAPI)</strong></p>
-<p>* Exposición de endpoints <code>/auth</code>, <code>/files</code>, <code>/files/logs</code>.
-  * Usa <strong>SQLAlchemy Async + AsyncPG</strong> para comunicarse con PostgreSQL.
-  * Utiliza <strong>requests</strong> para llamar a WebHDFS (NameNode/DataNode).
-* <strong>PostgreSQL</strong></p>
-<p>* Almacena <code>users</code>, <code>file_configuration</code>, <code>trigger_control</code>, <code>negative_flag_logs</code>.
-  * Superset (opcional) también se conecta aquí para dashboards.
-* <strong>Motor Scala + Spark</strong></p>
-<p>* Se ejecuta como contenedor independiente, se conecta a HDFS (<code>hdfs://hadoop-namenode:9000</code>).
-  * Procesa ficheros mediante Spark Streaming en modo batch y escribe logs en PostgreSQL mediante JDBC.
-* <strong>HDFS (NameNode/DataNode)</strong></p>
-<p>* Almacena CSV en <code>/data/bank_accounts</code>.
-  * Motor de validaciones lee ficheros desde aquí y borra tras procesar.</p>
+<li><strong>Frontend (React + Vite)</strong><ul>
+<li>Usuario interactúa con la UI, llama rutas REST al backend y muestra datos.</li>
+</ul>
+</li>
+<li><strong>Backend (FastAPI)</strong><ul>
+<li>Exposición de endpoints <code>/auth</code>, <code>/files</code>, <code>/files/logs</code>.</li>
+<li>Usa <strong>SQLAlchemy Async + AsyncPG</strong> para comunicarse con PostgreSQL.</li>
+<li>Utiliza <strong>requests</strong> para llamar a WebHDFS (NameNode/DataNode).</li>
+</ul>
+</li>
+<li><strong>PostgreSQL</strong><ul>
+<li>Almacena <code>users</code>, <code>file_configuration</code>, <code>trigger_control</code>, <code>negative_flag_logs</code>.</li>
+<li>Superset (opcional) también se conecta aquí para dashboards.</li>
+</ul>
+</li>
+<li><strong>Motor Scala + Spark</strong><ul>
+<li>Se ejecuta como contenedor independiente, se conecta a HDFS (<code>hdfs://hadoop-namenode:9000</code>).</li>
+<li>Procesa ficheros mediante Spark Streaming en modo batch y escribe logs en PostgreSQL mediante JDBC.</li>
+</ul>
+</li>
+<li><strong>HDFS (NameNode/DataNode)</strong><ul>
+<li>Almacena CSV en <code>/data/bank_accounts</code>.</li>
+<li>Motor de validaciones lee ficheros desde aquí y borra tras procesar.</li>
+</ul>
 </li>
 </ul>
 <p><em>(Ver <code>docs/diagrama_arquitectura.png</code> para imagen detallada.)</em></p>
@@ -1044,7 +1054,7 @@ def executeFile(path: String, outputTable: String): Unit = {
 <hr/>
 <!--
   MkDocs version      : 1.6.1
-  Docs Build Date UTC : 2025-06-12 16:26:59.033264+00:00
+  Docs Build Date UTC : 2025-06-12 16:32:17.194299+00:00
   -->
 </div>
 <script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
