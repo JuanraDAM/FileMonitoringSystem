@@ -55,25 +55,20 @@ flowchart LR
 (Código de diagrama mermaid, renderizable en https://mermaid.js.org/)
 
 * **Frontend (React + Vite)**
-
-    * Usuario interactúa con la UI, llama rutas REST al backend y muestra datos.
+  * Usuario interactúa con la UI, llama rutas REST al backend y muestra datos.
 * **Backend (FastAPI)**
-
-    * Exposición de endpoints `/auth`, `/files`, `/files/logs`.
-    * Usa **SQLAlchemy Async + AsyncPG** para comunicarse con PostgreSQL.
-    * Utiliza **requests** para llamar a WebHDFS (NameNode/DataNode).
+  * Exposición de endpoints `/auth`, `/files`, `/files/logs`.
+  * Usa **SQLAlchemy Async + AsyncPG** para comunicarse con PostgreSQL.
+  * Utiliza **requests** para llamar a WebHDFS (NameNode/DataNode).
 * **PostgreSQL**
-
-    * Almacena `users`, `file_configuration`, `trigger_control`, `negative_flag_logs`.
-    * Superset (opcional) también se conecta aquí para dashboards.
+  * Almacena `users`, `file_configuration`, `trigger_control`, `negative_flag_logs`.
+  * Superset (opcional) también se conecta aquí para dashboards.
 * **Motor Scala + Spark**
-
-    * Se ejecuta como contenedor independiente, se conecta a HDFS (`hdfs://hadoop-namenode:9000`).
-    * Procesa ficheros mediante Spark Streaming en modo batch y escribe logs en PostgreSQL mediante JDBC.
+  * Se ejecuta como contenedor independiente, se conecta a HDFS (`hdfs://hadoop-namenode:9000`).
+  * Procesa ficheros mediante Spark Streaming en modo batch y escribe logs en PostgreSQL mediante JDBC.
 * **HDFS (NameNode/DataNode)**
-
-    * Almacena CSV en `/data/bank_accounts`.
-    * Motor de validaciones lee ficheros desde aquí y borra tras procesar.
+  * Almacena CSV en `/data/bank_accounts`.
+  * Motor de validaciones lee ficheros desde aquí y borra tras procesar.
 
 *(Ver `docs/diagrama_arquitectura.png` para imagen detallada.)*
 
