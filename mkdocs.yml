@@ -13,11 +13,6 @@ plugins:
   - mermaid2            # si sigues queriendo Mermaid
 
 markdown_extensions:
-  #1) mdx_truly_sane_lists para listas profundizadas sin líos
-  - mdx_truly_sane_lists:
-      nested_indent: 2   # número de espacios para cada nivel (igual que GFM)
-      truly_sane: true
-
   #2) el resto de tus extensiones habituales
   - toc:
       permalink: true
