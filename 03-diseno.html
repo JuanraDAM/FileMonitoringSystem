@@ -1,106 +1,151 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en">
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
+        
         <link rel="canonical" href="https://juanradam.github.io/FileMonitoringSystem/03-diseno.html">
         <link rel="shortcut icon" href="img/favicon.ico">
-        <title>03 diseno - File Monitoring System</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/fontawesome.min.css" rel="stylesheet">
-        <link href="css/brands.min.css" rel="stylesheet">
-        <link href="css/solid.min.css" rel="stylesheet">
-        <link href="css/v4-font-face.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
-        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
-        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
-    </head>
+        <title>Diseño (Diagramas) - File Monitoring System</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css">
+        <script src="js/theme.js" defer></script>
+      
+        <script> var base_url = "." </script>
+        <script src="search/main.js" defer></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">File Monitoring System</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="index.html" class="nav-link">Summary</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="01-introduccion.html" class="nav-link">01 introduccion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="02-requisitos.html" class="nav-link">02 requisitos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="03-diseno.html" class="nav-link active" aria-current="page">03 diseno</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="04-implementacion.html" class="nav-link">04 implementacion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="05-resultado.html" class="nav-link">05 resultado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="06-conclusiones.html" class="nav-link">06 conclusiones</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="02-requisitos.html" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="04-implementacion.html" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
+</head>
+<body>
+    <header class="header">
+        <a id="nav-toggle" class="pizza">&#9776;</a>
+        <div class="title">
+            <a href="/" class="logo">File Monitoring System </a>
+             
+            <div role="search" class="search">
+                <form><input type="search" placeholder="Search docs" id="mkdocs-search-query" /></form>
             </div>
         </div>
+         <a id="nav-scrh" class="scrh">&#8981;</a>
+    </header>
+    <div class="side" id="side">
+        <h2>Page</h2>
+        <ul>
+         
+              <!--
 
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+-->
 
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="2"><a href="#3-diseno-diagramas" class="nav-link">3. Diseño (Diagramas)</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
+<li >
+    <a href="index.html">Home</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="01-introduccion.html">Introducción</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="02-requisitos.html">Especificación de Requisitos</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li class="active">
+    <a href="03-diseno.html">Diseño (Diagramas)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="04-implementacion.html">Implementación (GIT)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="05-resultado.html">Resultado (Manual de usuario)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="06-conclusiones.html">Conclusiones</a>
+</li>
+
+         
         </ul>
+          <h2>Table Of Contents</h2>
+          <ul id="toc" class="current">
+            
+              <li><a href="#3-diseno-diagramas">3. Diseño (Diagramas)</a></li>
+              
+                  <li class="child"><a href="#31-casos-de-uso">3.1 Casos de uso</a></li>
+              
+                  <li class="child"><a href="#32-diagrama-entidad-relacion">3.2 Diagrama entidad-relación</a></li>
+              
+                  <li class="child"><a href="#33-diagrama-de-clases-del-modelo">3.3 Diagrama de clases del modelo</a></li>
+              
+                  <li class="child"><a href="#34-diagramas-de-secuencia">3.4 Diagramas de secuencia</a></li>
+              
+            
+        </ul>
+        <div class="about">
+            <hr/>
+            Built with 🛠 <a href="https://www.mkdocs.org">MkDocs</a> - 
+            Theme 🖤 <a href="https://github.com/g3xx/mkdocs-github">Github</a>.
+        </div>
     </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    <div class="spacer"><!-- i am margin --></div>
+    <div class="markdown-body">
+      
+        <div class="prev">
+          
+            <a href="02-requisitos.html" title="Especificación de Requisitos">&#8592; Previous Page</a>
+          
+        </div>
+         <div class="next">
+          
+        <a href="04-implementacion.html" title="Implementación (GIT)"/>Next Page &#8594;</a>
+          
+        </div>
+      
+      <div class="clear"></div>
+    <div id="mkdocs-search-results"></div>
 
-<h2 id="3-diseno-diagramas">3. Diseño (Diagramas)<a class="headerlink" href="#3-diseno-diagramas" title="Permanent link">&para;</a></h2>
+      
+        <div id="body">
+            <h2 id="3-diseno-diagramas">3. Diseño (Diagramas)<a class="headerlink" href="#3-diseno-diagramas" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>En la carpeta <code>docs/Img/</code> se incluyen todos los diagramas en PNG o PlantUML; aquí se describen y referencian los más relevantes.</p>
 </blockquote>
@@ -109,179 +154,129 @@
 <ol>
 <li>
 <p><strong>Registrar Usuario</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario no autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>Accede a <code>/register</code> (frontend).</li>
-<li>Completa email y contraseña, envía <code>POST /auth/register</code> (backend).</li>
-<li>Si éxito (201), frontend redirige a <code>/login</code>; si error, muestra mensaje en formulario.</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario no autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. Accede a `/register` (frontend).
+  2. Completa email y contraseña, envía `POST /auth/register` (backend).
+  3. Si éxito (201), frontend redirige a `/login`; si error, muestra mensaje en formulario.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Iniciar Sesión</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario no autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>Accede a <code>/login</code>.</li>
-<li>Completa credenciales, envía <code>POST /auth/login</code>.</li>
-<li>Si éxito (200), backend devuelve JWT; frontend guarda en <code>localStorage</code> y redirige a <code>/dashboard</code>.</li>
-<li>Si 401, muestra mensaje “Credenciales inválidas”.</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario no autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. Accede a `/login`.
+  2. Completa credenciales, envía `POST /auth/login`.
+  3. Si éxito (200), backend devuelve JWT; frontend guarda en `localStorage` y redirige a `/dashboard`.
+  4. Si 401, muestra mensaje “Credenciales inválidas”.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Cerrar Sesión</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>En navbar, pulsa <strong>Logout</strong>.</li>
-<li>Frontend elimina token y redirige a <code>/login</code>.</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. En navbar, pulsa **Logout**.
+  2. Frontend elimina token y redirige a `/login`.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Subir Fichero CSV</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>En <code>/dashboard</code>, selecciona CSV y pulsa <strong>Subir Fichero</strong>.</li>
-<li>Frontend muestra “Subiendo…”, envía <code>POST /files/upload</code> con <code>multipart/form-data</code>.</li>
-<li>Backend guarda el fichero en <code>uploaded_files/</code> y crea/actualiza registro en <code>file_configuration</code>.</li>
-<li>Backend responde <code>{ "file_config_id": X }</code>; frontend muestra alerta “Fichero subido ID: X” y refresca lista.</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. En `/dashboard`, selecciona CSV y pulsa **Subir Fichero**.
+  2. Frontend muestra “Subiendo…”, envía `POST /files/upload` con `multipart/form-data`.
+  3. Backend guarda el fichero en `uploaded_files/` y crea/actualiza registro en `file_configuration`.
+  4. Backend responde `{ &quot;file_config_id&quot;: X }`; frontend muestra alerta “Fichero subido ID: X” y refresca lista.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Listar Configuraciones</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>Al acceder a <code>/dashboard</code>, frontend hace <code>GET /files/</code>.</li>
-<li>Backend devuelve array de configuraciones; frontend muestra tabla con cada fila: ID, file_name, path, has_header, delimiter, etc.</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. Al acceder a `/dashboard`, frontend hace `GET /files/`.
+  2. Backend devuelve array de configuraciones; frontend muestra tabla con cada fila: ID, file\_name, path, has\_header, delimiter, etc.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Editar Configuración (Modal)</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>En <code>/dashboard</code>, pulsa <strong>Detalles</strong> en una fila.</li>
-<li>Abre modal con campos prellenados (<code>delimiter</code>, <code>quote_char</code>, <code>escape_char</code>, <code>has_header</code>, <code>date_format</code>, <code>timestamp_format</code>, <code>partition_columns</code>).</li>
-<li>Usuario modifica valores y pulsa <strong>Guardar</strong>; frontend muestra “Guardando…”, envía <code>PATCH /files/{id}</code>.</li>
-<li>Backend actualiza <code>file_configuration</code> y responde con objeto actualizado; frontend alerta “Configuración actualizada”, cierra modal y refresca lista.</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. En `/dashboard`, pulsa **Detalles** en una fila.
+  2. Abre modal con campos prellenados (`delimiter`, `quote_char`, `escape_char`, `has_header`, `date_format`, `timestamp_format`, `partition_columns`).
+  3. Usuario modifica valores y pulsa **Guardar**; frontend muestra “Guardando…”, envía `PATCH /files/{id}`.
+  4. Backend actualiza `file_configuration` y responde con objeto actualizado; frontend alerta “Configuración actualizada”, cierra modal y refresca lista.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Eliminar Configuración</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>En <code>/dashboard</code> o modal, pulsa <strong>Eliminar</strong>.</li>
-<li>Mostrar <code>window.confirm("¿Estás seguro?")</code>.</li>
-<li>Si confirma, frontend muestra “Eliminando…”, envía <code>DELETE /files/{id}</code>.</li>
-<li>Backend elimina registro; responde 204; frontend alerta “Configuración eliminada” y refresca lista.</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. En `/dashboard` o modal, pulsa **Eliminar**.
+  2. Mostrar `window.confirm(&quot;¿Estás seguro?&quot;)`.
+  3. Si confirma, frontend muestra “Eliminando…”, envía `DELETE /files/{id}`.
+  4. Backend elimina registro; responde 204; frontend alerta “Configuración eliminada” y refresca lista.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Descargar Fichero</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>En modal, pulsa <strong>Descargar</strong>.</li>
-<li>Frontend hace <code>fetch(downloadURL, { headers: { Authorization: Bearer &lt;token&gt; } })</code>.</li>
-<li>Recibe Blob, crea <code>&lt;a&gt;</code> con <code>URL.createObjectURL(blob)</code> y <code>download=file_name</code>, ejecuta <code>a.click()</code>.</li>
-<li>Usuario obtiene el fichero en su equipo.</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. En modal, pulsa **Descargar**.
+  2. Frontend hace `fetch(downloadURL, { headers: { Authorization: Bearer &lt;token&gt; } })`.
+  3. Recibe Blob, crea `&lt;a&gt;` con `URL.createObjectURL(blob)` y `download=file_name`, ejecuta `a.click()`.
+  4. Usuario obtiene el fichero en su equipo.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Enviar Fichero a HDFS (Backend → HDFS)</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>En <code>/dashboard</code>, pulsa <strong>Validar</strong> en una fila; frontend muestra “Enviando…”, envía <code>POST /files/push/{file_name}</code>.</li>
-<li>
-<p>Backend:</p>
-<ul>
-<li>Verifica que <code>uploaded_files/{file_name}</code> exista; si no, responde 404.</li>
-<li>Llama a WebHDFS NameNode para crear directorio <code>/data/bank_accounts</code> y ajustar permisos (<code>op=MKDIRS</code>, <code>op=SETPERM</code>).</li>
-<li>Inicia creación de fichero (<code>op=CREATE</code>), recibe redirección 307 con URL de DataNode; ajusta host/puerto y sube contenido.</li>
-<li>Devuelve <code>{ "message": "Pushed &lt;file_name&gt;" }</code>.
-        3. Frontend alerta “Enviado a validar” y refresca lista.</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. En `/dashboard`, pulsa **Validar** en una fila; frontend muestra “Enviando…”, envía `POST /files/push/{file_name}`.
+  2. Backend:
+
+      * Verifica que `uploaded_files/{file_name}` exista; si no, responde 404.
+      * Llama a WebHDFS NameNode para crear directorio `/data/bank_accounts` y ajustar permisos (`op=MKDIRS`, `op=SETPERM`).
+      * Inicia creación de fichero (`op=CREATE`), recibe redirección 307 con URL de DataNode; ajusta host/puerto y sube contenido.
+      * Devuelve `{ &quot;message&quot;: &quot;Pushed &lt;file_name&gt;&quot; }`.
+  3. Frontend alerta “Enviado a validar” y refresca lista.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Proceso de validación en Spark (motor)</strong></p>
-<ul>
-<li><strong>Actor:</strong> Sistema (motor de validaciones).</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>Motor arranca en contenedor Docker; sale de safe mode (<code>hdfs dfsadmin -safemode leave</code>), crea carpeta en HDFS y copia CSV.</li>
-<li><code>Main.scala</code> ejecuta bucle de polling sobre <code>/data/bank_accounts</code>.</li>
-<li>
-<p>Al detectar fichero, llama a <code>ExecutionManager.executeFile(path, outputTable)</code>.</p>
-<ul>
-<li><code>Reader.readFile(...)</code> carga CSV como DataFrame.</li>
-<li><code>FileSentinel.verifyFiles(...)</code> → si falla, <code>logTrigger(flag)</code> en <code>trigger_control</code> (flags 32,33,34).</li>
-<li><code>TypeValidator.verifyTyping(...)</code> → si falla, <code>logTrigger(...)</code> (flags 35-38).</li>
-<li><code>ReferentialIntegrityValidator.verifyIntegrity(...)</code> → si falla, <code>logTrigger(39)</code>.</li>
-<li><code>FunctionalValidator.verifyFunctional(...)</code> → si falla, <code>logTrigger(flags 40–49)</code>.</li>
-<li>Si todo OK, <code>logTrigger(2)</code>.
-        4. Borra el fichero de HDFS.</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Sistema (motor de validaciones).
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. Motor arranca en contenedor Docker; sale de safe mode (`hdfs dfsadmin -safemode leave`), crea carpeta en HDFS y copia CSV.
+  2. `Main.scala` ejecuta bucle de polling sobre `/data/bank_accounts`.
+  3. Al detectar fichero, llama a `ExecutionManager.executeFile(path, outputTable)`.
+
+      * `Reader.readFile(...)` carga CSV como DataFrame.
+      * `FileSentinel.verifyFiles(...)` → si falla, `logTrigger(flag)` en `trigger_control` (flags 32,33,34).
+      * `TypeValidator.verifyTyping(...)` → si falla, `logTrigger(...)` (flags 35-38).
+      * `ReferentialIntegrityValidator.verifyIntegrity(...)` → si falla, `logTrigger(39)`.
+      * `FunctionalValidator.verifyFunctional(...)` → si falla, `logTrigger(flags 40–49)`.
+      * Si todo OK, `logTrigger(2)`.
+  4. Borra el fichero de HDFS.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Consultar Logs de Validación</strong></p>
-<ul>
-<li><strong>Actor:</strong> Usuario autenticado.</li>
-<li>
-<p><strong>Flujo:</strong></p>
-<ol>
-<li>Accede a <code>/logs</code>; frontend ejecuta <code>GET /files/logs?environment=&amp;from_date=&amp;to_date=</code>.</li>
-<li>Backend filtra registros en <code>trigger_control</code> según parámetros y devuelve array de logs.</li>
-<li>Frontend formatea <code>logged_at</code> con <code>toLocaleDateString('es-ES')</code> y muestra tabla con columnas: ID, file_config_id, file_name, field_name, environment, validation_flag, error_message, fecha.</li>
-</ol>
-</li>
-</ul>
+<p>* <strong>Actor:</strong> Usuario autenticado.
+  * <strong>Flujo:</strong></p>
+<pre class="codehilite"><code>  1. Accede a `/logs`; frontend ejecuta `GET /files/logs?environment=&amp;from_date=&amp;to_date=`.
+  2. Backend filtra registros en `trigger_control` según parámetros y devuelve array de logs.
+  3. Frontend formatea `logged_at` con `toLocaleDateString('es-ES')` y muestra tabla con columnas: ID, file\_config\_id, file\_name, field\_name, environment, validation\_flag, error\_message, fecha.
+</code></pre>
+
 </li>
 </ol>
 <p><em>(Diagrams separados en docs/Img/Engine, docs/Img/Backend y docs/Img/Frontend respectivamente)</em></p>
@@ -300,55 +295,45 @@
 </ul>
 <p><strong>Otras tablas relacionadas:</strong></p>
 <ul>
-<li>
-<p><code>file_configuration</code></p>
-<ul>
-<li><code>id (serial PK)</code></li>
-<li><code>file_format (varchar)</code></li>
-<li><code>path (varchar)</code></li>
-<li><code>file_name (varchar)</code></li>
-<li><code>has_header (boolean)</code></li>
-<li><code>delimiter (varchar)</code></li>
-<li><code>quote_char (varchar)</code></li>
-<li><code>escape_char (varchar)</code></li>
-<li><code>date_format (varchar)</code></li>
-<li><code>timestamp_format (varchar)</code></li>
-<li><code>partition_columns (varchar, null)</code></li>
-<li><code>created_by (int FK → users.id)</code></li>
-<li><code>created_at (timestamp)</code></li>
-</ul>
+<li><code>file_configuration</code><p>* <code>id (serial PK)</code>
+  * <code>file_format (varchar)</code>
+  * <code>path (varchar)</code>
+  * <code>file_name (varchar)</code>
+  * <code>has_header (boolean)</code>
+  * <code>delimiter (varchar)</code>
+  * <code>quote_char (varchar)</code>
+  * <code>escape_char (varchar)</code>
+  * <code>date_format (varchar)</code>
+  * <code>timestamp_format (varchar)</code>
+  * <code>partition_columns (varchar, null)</code>
+  * <code>created_by (int FK → users.id)</code>
+  * <code>created_at (timestamp)</code></p>
 </li>
-<li>
-<p><code>semantic_layer</code></p>
-<ul>
-<li><code>id (serial PK)</code></li>
-<li><code>file_config_id (int FK → file_configuration.id)</code></li>
-<li><code>field_name (varchar)</code></li>
-<li><code>data_type (varchar)</code></li>
-<li><code>length (int)</code></li>
-<li><code>nullable (boolean)</code></li>
-<li><code>is_pk (boolean)</code></li>
-<li><code>format (varchar)</code></li>
 </ul>
+<ul>
+<li><code>semantic_layer</code><p>* <code>id (serial PK)</code>
+  * <code>file_config_id (int FK → file_configuration.id)</code>
+  * <code>field_name (varchar)</code>
+  * <code>data_type (varchar)</code>
+  * <code>length (int)</code>
+  * <code>nullable (boolean)</code>
+  * <code>is_pk (boolean)</code>
+  * <code>format (varchar)</code></p>
 </li>
-<li>
-<p><code>users</code> (backend/front-end)</p>
-<ul>
-<li><code>id (serial PK)</code></li>
-<li><code>email (varchar, unique)</code></li>
-<li><code>hashed_password (varchar)</code></li>
-<li><code>is_active (boolean, default true)</code></li>
-<li><code>created_at (timestamp)</code></li>
-<li><code>updated_at (timestamp)</code></li>
 </ul>
+<ul>
+<li><code>users</code> (backend/front-end)<p>* <code>id (serial PK)</code>
+  * <code>email (varchar, unique)</code>
+  * <code>hashed_password (varchar)</code>
+  * <code>is_active (boolean, default true)</code>
+  * <code>created_at (timestamp)</code>
+  * <code>updated_at (timestamp)</code></p>
 </li>
-<li>
-<p><code>negative_flag_logs</code> (opcional)</p>
-<ul>
-<li><code>id (serial PK)</code></li>
-<li><code>trigger_id (int FK → trigger_control.id)</code></li>
-<li>(otros campos de detalle)</li>
 </ul>
+<ul>
+<li><code>negative_flag_logs</code> (opcional)<p>* <code>id (serial PK)</code>
+  * <code>trigger_id (int FK → trigger_control.id)</code>
+  * (otros campos de detalle)</p>
 </li>
 </ul>
 <p><strong>Relaciones:</strong></p>
@@ -366,48 +351,36 @@
 <p>Se incluyen las clases más relevantes en los tres componentes.</p>
 <h4 id="331-motor-de-validaciones-scala">3.3.1 Motor de validaciones (Scala)<a class="headerlink" href="#331-motor-de-validaciones-scala" title="Permanent link">&para;</a></h4>
 <ul>
-<li>
-<p><strong>config</strong></p>
-<ul>
-<li><code>DbConfig.scala</code></li>
-<li><code>DBConnection.scala</code></li>
-<li><code>SparkSessionProvider.scala</code></li>
+<li><strong>config</strong><p>* <code>DbConfig.scala</code>
+  * <code>DBConnection.scala</code>
+  * <code>SparkSessionProvider.scala</code></p>
+</li>
 </ul>
-</li>
-<li>
-<p><strong>models</strong></p>
 <ul>
-<li><code>FileConfigurationCaseClass.scala</code></li>
-<li><code>SemanticLayerCaseClass.scala</code></li>
-</ul>
+<li><strong>models</strong><p>* <code>FileConfigurationCaseClass.scala</code>
+  * <code>SemanticLayerCaseClass.scala</code></p>
 </li>
-<li>
-<p><strong>services</strong></p>
+</ul>
 <ul>
-<li><code>ExecutionManager.scala</code></li>
-<li><code>TriggerIdManager.scala</code></li>
-</ul>
+<li><strong>services</strong><p>* <code>ExecutionManager.scala</code>
+  * <code>TriggerIdManager.scala</code></p>
 </li>
-<li>
-<p><strong>utils</strong></p>
+</ul>
 <ul>
-<li><code>Reader.scala</code></li>
-<li><code>Writer.scala</code></li>
-<li><code>FileManager.scala</code></li>
-</ul>
+<li><strong>utils</strong><p>* <code>Reader.scala</code>
+  * <code>Writer.scala</code>
+  * <code>FileManager.scala</code></p>
 </li>
-<li>
-<p><strong>validators</strong></p>
+</ul>
 <ul>
-<li><code>FileSentinel.scala</code></li>
-<li><code>TypeValidator.scala</code></li>
-<li><code>ReferentialIntegrityValidator.scala</code></li>
-<li><code>FunctionalValidator.scala</code></li>
+<li><strong>validators</strong><p>* <code>FileSentinel.scala</code>
+  * <code>TypeValidator.scala</code>
+  * <code>ReferentialIntegrityValidator.scala</code>
+  * <code>FunctionalValidator.scala</code></p>
+</li>
 </ul>
-</li>
-<li>
-<p><strong>Main.scala</strong>: configura el bucle de polling e invoca a <code>ExecutionManager</code>.</p>
-</li>
+<ul>
+<li><strong>Main.scala</strong>: configura el bucle de polling e invoca a <code>ExecutionManager</code>.</li>
 </ul>
 <p>Ejemplo de case class:</p>
 <pre class="codehilite"><code class="language-scala">package models
@@ -431,127 +404,83 @@ case class FileConfigurationCaseClass(
 <hr />
 <h4 id="332-frontend-react">3.3.2 Frontend (React)<a class="headerlink" href="#332-frontend-react" title="Permanent link">&para;</a></h4>
 <ul>
-<li>
-<p><strong>AuthContext.jsx</strong></p>
-<ul>
-<li>Propiedades: <code>user</code>, <code>token</code></li>
-<li>Métodos: <code>login()</code>, <code>register()</code>, <code>logout()</code></li>
-<li>
-<p><strong>FileConfig (modelo JS)</strong></p>
-</li>
-<li>
-<p>Propiedades: <code>id</code>, <code>fileName</code>, <code>path</code>, <code>hasHeader</code>, <code>delimiter</code>, <code>quoteChar</code>, <code>escapeChar</code>, <code>dateFormat</code>, <code>timestampFormat</code>, <code>partitionColumns</code></p>
-</li>
-<li>Métodos: <code>fetchAll()</code>, <code>create()</code>, <code>update()</code>, <code>delete()</code>, <code>pushToHDFS()</code>, <code>download()</code></li>
-<li>
-<p><strong>ValidationLog (modelo JS)</strong></p>
-</li>
-<li>
-<p>Propiedades: <code>id</code>, <code>fileConfigId</code>, <code>fileName</code>, <code>fieldName</code>, <code>environment</code>, <code>validationFlag</code>, <code>errorMessage</code>, <code>loggedAt</code></p>
-</li>
-<li>Métodos: <code>fetchAll()</code></li>
-<li>
-<p><strong>Componentes principales</strong></p>
-</li>
-<li>
-<p><code>AppRouter</code> (gestiona rutas con <code>RequireAuth</code>)</p>
-</li>
-<li><code>MainLayout</code> (Navbar + <code>&lt;Outlet /&gt;</code>)</li>
-<li><code>Dashboard</code> (muestra lista de configuraciones y acciones)</li>
-<li><code>FileDetailModal</code> (modal para editar/validar/eliminar/descargar)</li>
-<li><code>LogsPage</code> (muestra logs formateando <code>logged_at</code>)</li>
-</ul>
+<li><strong>AuthContext.jsx</strong><p>* Propiedades: <code>user</code>, <code>token</code>
+  * Métodos: <code>login()</code>, <code>register()</code>, <code>logout()</code>
+* <strong>FileConfig (modelo JS)</strong></p>
+<p>* Propiedades: <code>id</code>, <code>fileName</code>, <code>path</code>, <code>hasHeader</code>, <code>delimiter</code>, <code>quoteChar</code>, <code>escapeChar</code>, <code>dateFormat</code>, <code>timestampFormat</code>, <code>partitionColumns</code>
+  * Métodos: <code>fetchAll()</code>, <code>create()</code>, <code>update()</code>, <code>delete()</code>, <code>pushToHDFS()</code>, <code>download()</code>
+* <strong>ValidationLog (modelo JS)</strong></p>
+<p>* Propiedades: <code>id</code>, <code>fileConfigId</code>, <code>fileName</code>, <code>fieldName</code>, <code>environment</code>, <code>validationFlag</code>, <code>errorMessage</code>, <code>loggedAt</code>
+  * Métodos: <code>fetchAll()</code>
+* <strong>Componentes principales</strong></p>
+<p>* <code>AppRouter</code> (gestiona rutas con <code>RequireAuth</code>)
+  * <code>MainLayout</code> (Navbar + <code>&lt;Outlet /&gt;</code>)
+  * <code>Dashboard</code> (muestra lista de configuraciones y acciones)
+  * <code>FileDetailModal</code> (modal para editar/validar/eliminar/descargar)
+  * <code>LogsPage</code> (muestra logs formateando <code>logged_at</code>)</p>
 </li>
 </ul>
 <p><em>(Ver <code>docs/Img/Frontend/</code> para la imagen completa.)</em></p>
 <hr />
 <h4 id="333-backend-fastapi">3.3.3 Backend (FastAPI)<a class="headerlink" href="#333-backend-fastapi" title="Permanent link">&para;</a></h4>
 <ul>
-<li>
-<p><strong>models ORM (SQLAlchemy Async)</strong></p>
-<ul>
-<li>
-<p><code>User</code></p>
-<ul>
-<li><code>id: Integer PK</code></li>
-<li><code>email: String(255) UNIQUE NOT NULL</code></li>
-<li><code>hashed_password: String(255) NOT NULL</code></li>
-<li><code>is_active: Boolean NOT NULL DEFAULT True</code></li>
-<li><code>created_at: DateTime(timezone=True) DEFAULT now()</code></li>
-<li>
-<p><code>updated_at: DateTime(timezone=True)</code></p>
-<ul>
-<li><code>FileConfiguration</code></li>
-</ul>
-</li>
-<li>
-<p><code>id: Integer PK</code></p>
-</li>
-<li><code>file_format: String NOT NULL</code></li>
-<li><code>path: String NOT NULL</code></li>
-<li><code>file_name: String NOT NULL</code></li>
-<li><code>has_header: Boolean NOT NULL</code></li>
-<li><code>delimiter: String(1) NOT NULL</code></li>
-<li><code>quote_char: String(1) NOT NULL</code></li>
-<li><code>escape_char: String(1) NOT NULL</code></li>
-<li><code>date_format: String NOT NULL</code></li>
-<li><code>timestamp_format: String NOT NULL</code></li>
-<li>
-<p><code>partition_columns: String NULL</code></p>
-<ul>
-<li><code>TriggerControl</code></li>
-</ul>
-</li>
-<li>
-<p><code>id: Integer PK</code></p>
-</li>
-<li><code>file_config_id: Integer FK → FileConfiguration.id</code></li>
-<li><code>file_name: String NOT NULL</code></li>
-<li><code>field_name: String NOT NULL</code></li>
-<li><code>environment: String NOT NULL</code></li>
-<li><code>validation_flag: String NOT NULL</code></li>
-<li><code>error_message: Text NULL</code></li>
-<li>
-<p><code>logged_at: DateTime(timezone=True) DEFAULT now()</code></p>
-<ul>
-<li><code>NegativeFlagLog</code></li>
-</ul>
-</li>
-<li>
-<p><code>id: Integer PK</code></p>
-</li>
-<li><code>trigger_id: Integer FK → TriggerControl.id</code></li>
-<li>(otros campos específicos)</li>
-</ul>
+<li><strong>models ORM (SQLAlchemy Async)</strong><p>* <code>User</code></p>
+<pre class="codehilite"><code>  * `id: Integer PK`
+  * `email: String(255) UNIQUE NOT NULL`
+  * `hashed_password: String(255) NOT NULL`
+  * `is_active: Boolean NOT NULL DEFAULT True`
+  * `created_at: DateTime(timezone=True) DEFAULT now()`
+  * `updated_at: DateTime(timezone=True)`
+</code></pre>
+
+<p>* <code>FileConfiguration</code></p>
+<pre class="codehilite"><code>  * `id: Integer PK`
+  * `file_format: String NOT NULL`
+  * `path: String NOT NULL`
+  * `file_name: String NOT NULL`
+  * `has_header: Boolean NOT NULL`
+  * `delimiter: String(1) NOT NULL`
+  * `quote_char: String(1) NOT NULL`
+  * `escape_char: String(1) NOT NULL`
+  * `date_format: String NOT NULL`
+  * `timestamp_format: String NOT NULL`
+  * `partition_columns: String NULL`
+</code></pre>
+
+<p>* <code>TriggerControl</code></p>
+<pre class="codehilite"><code>  * `id: Integer PK`
+  * `file_config_id: Integer FK → FileConfiguration.id`
+  * `file_name: String NOT NULL`
+  * `field_name: String NOT NULL`
+  * `environment: String NOT NULL`
+  * `validation_flag: String NOT NULL`
+  * `error_message: Text NULL`
+  * `logged_at: DateTime(timezone=True) DEFAULT now()`
+</code></pre>
+
+<p>* <code>NegativeFlagLog</code></p>
+<pre class="codehilite"><code>  * `id: Integer PK`
+  * `trigger_id: Integer FK → TriggerControl.id`
+  * (otros campos específicos)
+</code></pre>
+
 </li>
 </ul>
-</li>
-<li>
-<p><strong>Clases de servicio</strong></p>
 <ul>
-<li>
-<p><code>file_service.py</code></p>
-<ul>
-<li>
-<p><code>save_and_register_file(file: UploadFile, db: AsyncSession) → int</code></p>
-<ul>
-<li><code>hdfs_sync.py</code></li>
-</ul>
-</li>
-<li>
-<p><code>push_file_to_hdfs(file_name: str)</code></p>
+<li><strong>Clases de servicio</strong><p>* <code>file_service.py</code></p>
+<pre class="codehilite"><code>  * `save_and_register_file(file: UploadFile, db: AsyncSession) → int`
+</code></pre>
+
+<p>* <code>hdfs_sync.py</code></p>
+<pre class="codehilite"><code>  * `push_file_to_hdfs(file_name: str)`
+</code></pre>
+
 </li>
 </ul>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Controladores (routers)</strong></p>
 <ul>
-<li><code>auth.py</code>: <code>/auth/register</code>, <code>/auth/login</code></li>
-<li><code>files.py</code>: <code>/files/upload</code>, <code>/files/push/{file_name}</code>, <code>/files/download/{file_name}</code>, <code>/files/</code>, <code>/files/{id}</code>, <code>/files/{id}</code> (GET, PATCH, DELETE), <code>/files/logs</code></li>
-<li><code>health.py</code>: <code>/health</code> (healthcheck)</li>
-</ul>
+<li><strong>Controladores (routers)</strong><p>* <code>auth.py</code>: <code>/auth/register</code>, <code>/auth/login</code>
+  * <code>files.py</code>: <code>/files/upload</code>, <code>/files/push/{file_name}</code>, <code>/files/download/{file_name}</code>, <code>/files/</code>, <code>/files/{id}</code>, <code>/files/{id}</code> (GET, PATCH, DELETE), <code>/files/logs</code>
+  * <code>health.py</code>: <code>/health</code> (healthcheck)</p>
 </li>
 </ul>
 <p><em>(Ver <code>docs/Img/Backend/</code> para la imagen completa.)</em></p>
@@ -562,58 +491,42 @@ case class FileConfigurationCaseClass(
 <ol>
 <li><strong>Usuario → Dashboard (Frontend):</strong> selecciona CSV y pulsa <strong>Subir Fichero</strong>.</li>
 <li><strong>Dashboard → Axios (<code>POST /files/upload</code>):</strong> envía <code>multipart/form-data</code> al backend.</li>
-<li>
-<p><strong>Backend (<code>files.py</code>) → <code>file_service.save_and_register_file()</code>:</strong></p>
-<ul>
-<li>Guarda CSV en <code>uploaded_files/</code>.</li>
-<li>Inserta/actualiza registro en <code>file_configuration</code>.</li>
-<li><strong>Backend → Dashboard:</strong> responde con <code>{ "file_config_id": X }</code> (201).</li>
-<li><strong>Dashboard:</strong> muestra alerta “Fichero subido ID: X” y llama <code>fetchConfigs()</code>.</li>
-</ul>
+<li><strong>Backend (<code>files.py</code>) → <code>file_service.save_and_register_file()</code>:</strong><p>* Guarda CSV en <code>uploaded_files/</code>.
+  * Inserta/actualiza registro en <code>file_configuration</code>.
+4. <strong>Backend → Dashboard:</strong> responde con <code>{ "file_config_id": X }</code> (201).
+5. <strong>Dashboard:</strong> muestra alerta “Fichero subido ID: X” y llama <code>fetchConfigs()</code>.</p>
 </li>
 </ol>
 <h4 id="342-secuencia-enviar-fichero-a-hdfs-frontend-backend-hdfs">3.4.2 Secuencia: Enviar fichero a HDFS (Frontend → Backend → HDFS)<a class="headerlink" href="#342-secuencia-enviar-fichero-a-hdfs-frontend-backend-hdfs" title="Permanent link">&para;</a></h4>
 <ol>
 <li><strong>Usuario → Dashboard:</strong> pulsa <strong>Validar</strong>.</li>
 <li><strong>Dashboard → Axios (<code>POST /files/push/{file_name}</code>):</strong> solicita al backend empuje a HDFS.</li>
-<li>
-<p><strong>Backend (<code>files.py</code>) → <code>hdfs_sync.push_file_to_hdfs(file_name)</code>:</strong></p>
-<ul>
-<li>Verifica existencia local en <code>uploaded_files/</code>.</li>
-<li>Llama a WebHDFS NameNode (<code>MKDIRS</code>, <code>SETPERM</code>).</li>
-<li>Llama <code>CREATE</code>, recibe 307 con header <code>Location</code> apuntando al DataNode.</li>
-<li>Ajusta URL para apuntar a <code>hdfs_datanode_host:hdfs_datanode_port</code>.</li>
-<li>Abre CSV y hace <code>PUT</code> a DataNode.</li>
-<li><strong>HDFS DataNode → Backend:</strong> responde 201 Created si éxito.</li>
-<li><strong>Backend → Dashboard:</strong> responde <code>{ "message": "Pushed &lt;file_name&gt;" }</code>.</li>
-<li><strong>Dashboard:</strong> muestra alerta “Enviado a validar” y llama <code>fetchConfigs()</code>.</li>
-</ul>
+<li><strong>Backend (<code>files.py</code>) → <code>hdfs_sync.push_file_to_hdfs(file_name)</code>:</strong><p>* Verifica existencia local en <code>uploaded_files/</code>.
+  * Llama a WebHDFS NameNode (<code>MKDIRS</code>, <code>SETPERM</code>).
+  * Llama <code>CREATE</code>, recibe 307 con header <code>Location</code> apuntando al DataNode.
+  * Ajusta URL para apuntar a <code>hdfs_datanode_host:hdfs_datanode_port</code>.
+  * Abre CSV y hace <code>PUT</code> a DataNode.
+4. <strong>HDFS DataNode → Backend:</strong> responde 201 Created si éxito.
+5. <strong>Backend → Dashboard:</strong> responde <code>{ "message": "Pushed &lt;file_name&gt;" }</code>.
+6. <strong>Dashboard:</strong> muestra alerta “Enviado a validar” y llama <code>fetchConfigs()</code>.</p>
 </li>
 </ol>
 <h4 id="343-secuencia-proceso-de-validacion-en-spark-motor">3.4.3 Secuencia: Proceso de validación en Spark (Motor)<a class="headerlink" href="#343-secuencia-proceso-de-validacion-en-spark-motor" title="Permanent link">&para;</a></h4>
 <ol>
-<li>
-<p><strong>Contenedor <code>validation-engine</code> → HDFS:</strong></p>
-<ul>
-<li>Ejecuta <code>hdfs dfsadmin -safemode leave</code>.</li>
-<li><code>hdfs dfs -mkdir -p /data/bank_accounts</code>.</li>
-<li><code>hdfs dfs -put -f /local_bank_accounts/*.csv /data/bank_accounts</code>.</li>
-<li>Ajusta permisos <code>hdfs dfs -chmod -R 777 /data/bank_accounts</code>.</li>
-<li><strong>Contenedor Spark (<code>spark-submit Main</code>) → HDFS.listStatus():</strong> detecta CSV.</li>
-<li>
-<p><strong>Main → ExecutionManager.executeFile(path, outputTable):</strong></p>
-</li>
-<li>
-<p>Llama <code>Reader.readFile(...)</code> → devuelve DataFrame particionado.</p>
-</li>
-<li>Llama <code>FileSentinel.verifyFiles(...)</code> → si falla, <code>logTrigger(flag)</code> y salir.</li>
-<li>Llama <code>TypeValidator.verifyTyping(...)</code> → si falla, <code>logTrigger(flag)</code> y salir.</li>
-<li>Llama <code>ReferentialIntegrityValidator.verifyIntegrity(...)</code> → si falla, <code>logTrigger(39)</code> y salir.</li>
-<li>Llama <code>FunctionalValidator.verifyFunctional(...)</code> → si falla, <code>logTrigger(flags 40–49)</code> y salir.</li>
-<li>Si todo OK, <code>logTrigger(2)</code>.</li>
-<li>Escribe logs en PostgreSQL (<code>df.write.mode("append").jdbc(...)</code>).</li>
-<li><code>HDFS.delete(path)</code>.</li>
-</ul>
+<li><strong>Contenedor <code>validation-engine</code> → HDFS:</strong><p>* Ejecuta <code>hdfs dfsadmin -safemode leave</code>.
+  * <code>hdfs dfs -mkdir -p /data/bank_accounts</code>.
+  * <code>hdfs dfs -put -f /local_bank_accounts/*.csv /data/bank_accounts</code>.
+  * Ajusta permisos <code>hdfs dfs -chmod -R 777 /data/bank_accounts</code>.
+2. <strong>Contenedor Spark (<code>spark-submit Main</code>) → HDFS.listStatus():</strong> detecta CSV.
+3. <strong>Main → ExecutionManager.executeFile(path, outputTable):</strong></p>
+<p>* Llama <code>Reader.readFile(...)</code> → devuelve DataFrame particionado.
+  * Llama <code>FileSentinel.verifyFiles(...)</code> → si falla, <code>logTrigger(flag)</code> y salir.
+  * Llama <code>TypeValidator.verifyTyping(...)</code> → si falla, <code>logTrigger(flag)</code> y salir.
+  * Llama <code>ReferentialIntegrityValidator.verifyIntegrity(...)</code> → si falla, <code>logTrigger(39)</code> y salir.
+  * Llama <code>FunctionalValidator.verifyFunctional(...)</code> → si falla, <code>logTrigger(flags 40–49)</code> y salir.
+  * Si todo OK, <code>logTrigger(2)</code>.
+  * Escribe logs en PostgreSQL (<code>df.write.mode("append").jdbc(...)</code>).
+  * <code>HDFS.delete(path)</code>.</p>
 </li>
 </ol>
 <h4 id="344-secuencia-listar-logs-de-validacion-frontend-backend-bd">3.4.4 Secuencia: Listar Logs de Validación (Frontend → Backend → BD)<a class="headerlink" href="#344-secuencia-listar-logs-de-validacion-frontend-backend-bd" title="Permanent link">&para;</a></h4>
@@ -625,82 +538,14 @@ case class FileConfigurationCaseClass(
 <li><strong>LogsPage:</strong> recorre cada registro y formatea <code>logged_at</code> con <code>toLocaleDateString('es-ES')</code>.</li>
 <li><strong>LogsPage:</strong> muestra tabla con columnas: ID, file_config_id, file_name, field_name, environment, validation_flag, error_message, fecha.</li>
 </ol>
-<hr /></div>
-            </div>
+<hr />
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script>
-            var base_url = ".",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+      
+      <hr/>
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2025-06-12 16:22:58.959858+00:00
+  -->
 </div>
-
-    </body>
+</body>
 </html>

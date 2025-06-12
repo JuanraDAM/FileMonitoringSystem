@@ -1,175 +1,196 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en">
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
+        
         <link rel="canonical" href="https://juanradam.github.io/FileMonitoringSystem/06-conclusiones.html">
         <link rel="shortcut icon" href="img/favicon.ico">
-        <title>06 conclusiones - File Monitoring System</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/fontawesome.min.css" rel="stylesheet">
-        <link href="css/brands.min.css" rel="stylesheet">
-        <link href="css/solid.min.css" rel="stylesheet">
-        <link href="css/v4-font-face.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
-        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
-        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
-    </head>
+        <title>Conclusiones - File Monitoring System</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css">
+        <script src="js/theme.js" defer></script>
+      
+        <script> var base_url = "." </script>
+        <script src="search/main.js" defer></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">File Monitoring System</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="index.html" class="nav-link">Summary</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="01-introduccion.html" class="nav-link">01 introduccion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="02-requisitos.html" class="nav-link">02 requisitos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="03-diseno.html" class="nav-link">03 diseno</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="04-implementacion.html" class="nav-link">04 implementacion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="05-resultado.html" class="nav-link">05 resultado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="06-conclusiones.html" class="nav-link active" aria-current="page">06 conclusiones</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="05-resultado.html" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
+</head>
+<body>
+    <header class="header">
+        <a id="nav-toggle" class="pizza">&#9776;</a>
+        <div class="title">
+            <a href="/" class="logo">File Monitoring System </a>
+             
+            <div role="search" class="search">
+                <form><input type="search" placeholder="Search docs" id="mkdocs-search-query" /></form>
             </div>
         </div>
+         <a id="nav-scrh" class="scrh">&#8981;</a>
+    </header>
+    <div class="side" id="side">
+        <h2>Page</h2>
+        <ul>
+         
+              <!--
 
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+-->
 
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="2"><a href="#6-conclusiones" class="nav-link">6. Conclusiones</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="2"><a href="#anexo-glosario-de-flags" class="nav-link">Anexo: Glosario de Flags</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
+<li >
+    <a href="index.html">Home</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="01-introduccion.html">Introducción</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="02-requisitos.html">Especificación de Requisitos</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="03-diseno.html">Diseño (Diagramas)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="04-implementacion.html">Implementación (GIT)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="05-resultado.html">Resultado (Manual de usuario)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li class="active">
+    <a href="06-conclusiones.html">Conclusiones</a>
+</li>
+
+         
         </ul>
+          <h2>Table Of Contents</h2>
+          <ul id="toc" class="current">
+            
+              <li><a href="#6-conclusiones">6. Conclusiones</a></li>
+              
+                  <li class="child"><a href="#61-dificultades">6.1 Dificultades</a></li>
+              
+                  <li class="child"><a href="#62-mejoras">6.2 Mejoras</a></li>
+              
+            
+              <li><a href="#anexo-glosario-de-flags">Anexo: Glosario de Flags</a></li>
+              
+            
+        </ul>
+        <div class="about">
+            <hr/>
+            Built with 🛠 <a href="https://www.mkdocs.org">MkDocs</a> - 
+            Theme 🖤 <a href="https://github.com/g3xx/mkdocs-github">Github</a>.
+        </div>
     </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    <div class="spacer"><!-- i am margin --></div>
+    <div class="markdown-body">
+      
+        <div class="prev">
+          
+            <a href="05-resultado.html" title="Resultado (Manual de usuario)">&#8592; Previous Page</a>
+          
+        </div>
+         <div class="next">
+          
+            Next Page &#8594;
+          
+        </div>
+      
+      <div class="clear"></div>
+    <div id="mkdocs-search-results"></div>
 
-<h2 id="6-conclusiones">6. Conclusiones<a class="headerlink" href="#6-conclusiones" title="Permanent link">&para;</a></h2>
+      
+        <div id="body">
+            <h2 id="6-conclusiones">6. Conclusiones<a class="headerlink" href="#6-conclusiones" title="Permanent link">&para;</a></h2>
 <h3 id="61-dificultades">6.1 Dificultades<a class="headerlink" href="#61-dificultades" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p><strong>ClusterID incompatibles (HDFS)</strong></p>
-<ul>
-<li>Al cambiar o recrear imágenes de Hadoop, DataNode arroja error de “Incompatible clusterIDs”.</li>
-<li>Solución: borrar volúmenes <code>hadoop-namenode</code> y <code>hdfs-data-datanode</code> antes de levantar.</li>
-</ul>
+<p>* Al cambiar o recrear imágenes de Hadoop, DataNode arroja error de “Incompatible clusterIDs”.
+  * Solución: borrar volúmenes <code>hadoop-namenode</code> y <code>hdfs-data-datanode</code> antes de levantar.</p>
 </li>
 <li>
 <p><strong>Safe Mode en HDFS</strong></p>
-<ul>
-<li>HDFS arranca en “safe mode” si detecta inconsistencias o falta de bloques.</li>
-<li>Se incorporó <code>hdfs dfsadmin -safemode leave</code> en el contenedor <code>validation-engine</code> para forzar la salida.</li>
-</ul>
+<p>* HDFS arranca en “safe mode” si detecta inconsistencias o falta de bloques.
+  * Se incorporó <code>hdfs dfsadmin -safemode leave</code> en el contenedor <code>validation-engine</code> para forzar la salida.</p>
 </li>
 <li>
 <p><strong>Manejo de redirección en WebHDFS</strong></p>
-<ul>
-<li>WebHDFS devuelve un redirect 307 con URL del DataNode; ajustar host y puerto es crítico.</li>
-<li>Se debió detectar y procesar manualmente el header <code>Location</code> antes de subir el contenido.</li>
-</ul>
+<p>* WebHDFS devuelve un redirect 307 con URL del DataNode; ajustar host y puerto es crítico.
+  * Se debió detectar y procesar manualmente el header <code>Location</code> antes de subir el contenido.</p>
 </li>
 <li>
 <p><strong>Tamaño de ficheros grandes</strong></p>
-<ul>
-<li>Al probar con CSV de varios GB, los DataNode se quedaban sin espacio y se excluían.</li>
-<li>Se recomendó montar <code>/tmp</code> de Spark Workers en volúmenes dedicados (<code>docker_validation_tmp</code>) o usar <code>tmpfs</code>.</li>
-</ul>
+<p>* Al probar con CSV de varios GB, los DataNode se quedaban sin espacio y se excluían.
+  * Se recomendó montar <code>/tmp</code> de Spark Workers en volúmenes dedicados (<code>docker_validation_tmp</code>) o usar <code>tmpfs</code>.</p>
 </li>
 <li>
 <p><strong>Coordinación entre frontend y backend (token y rutas)</strong></p>
-<ul>
-<li>La gestión de 401 Unauthorized requirió interceptores en Axios para borrar token y redirigir a login.</li>
-<li>Asegurarse de que todas las peticiones protegidas incluyeran el header <code>Authorization</code>.</li>
-</ul>
+<p>* La gestión de 401 Unauthorized requirió interceptores en Axios para borrar token y redirigir a login.
+  * Asegurarse de que todas las peticiones protegidas incluyeran el header <code>Authorization</code>.</p>
 </li>
 <li>
 <p><strong>Configuración de permisos HDFS desde FastAPI</strong></p>
-<ul>
-<li>Ejecutar comandos Hadoop desde contenedor Python (shell) generaba a veces problemas de path.</li>
-<li>Se optó por usar HTTP WebHDFS en lugar de comandos nativos en Python.</li>
-</ul>
+<p>* Ejecutar comandos Hadoop desde contenedor Python (shell) generaba a veces problemas de path.
+  * Se optó por usar HTTP WebHDFS en lugar de comandos nativos en Python.</p>
 </li>
 <li>
 <p><strong>SQLAlchemy Async y migraciones</strong></p>
-<ul>
-<li>Cambios frecuentes en el modelo de datos (por ejemplo, <code>TIMESTAMP</code> a <code>TIMESTAMPTZ</code>) implicaron migraciones manuales.</li>
-<li>No se incluyó un sistema de migraciones (Alembic), por lo que hubo que recrear tablas en producción.</li>
-</ul>
+<p>* Cambios frecuentes en el modelo de datos (por ejemplo, <code>TIMESTAMP</code> a <code>TIMESTAMPTZ</code>) implicaron migraciones manuales.
+  * No se incluyó un sistema de migraciones (Alembic), por lo que hubo que recrear tablas en producción.</p>
 </li>
 <li>
 <p><strong>Paginación y filtros en logs</strong></p>
-<ul>
-<li>Al crecer el número de logs, la consulta simple (<code>SELECT * FROM trigger_control</code>) se volvía lenta.</li>
-<li>Se implementaron filtros por fecha y entorno, pero falta paginación y límites por defecto.</li>
-</ul>
+<p>* Al crecer el número de logs, la consulta simple (<code>SELECT * FROM trigger_control</code>) se volvía lenta.
+  * Se implementaron filtros por fecha y entorno, pero falta paginación y límites por defecto.</p>
 </li>
 <li>
 <p><strong>Interfaz de usuario básica</strong></p>
-<ul>
-<li>Al usar CSS puro, costó diseñar un estilo consistente y responsivo.</li>
-<li>Se recomendó integrar un framework CSS (Tailwind, Material UI) para mejorar UX/UI.</li>
-</ul>
+<p>* Al usar CSS puro, costó diseñar un estilo consistente y responsivo.
+  * Se recomendó integrar un framework CSS (Tailwind, Material UI) para mejorar UX/UI.</p>
 </li>
 </ol>
 <hr />
@@ -177,68 +198,48 @@
 <ol>
 <li>
 <p><strong>Migrar a Spark Structured Streaming</strong></p>
-<ul>
-<li>Pasar de polling batch a procesamiento near‐real‐time con Structured Streaming y checkpoints.</li>
-</ul>
+<p>* Pasar de polling batch a procesamiento near‐real‐time con Structured Streaming y checkpoints.</p>
 </li>
 <li>
 <p><strong>Orquestación con Kubernetes</strong></p>
-<ul>
-<li>Desplegar Hadoop, Spark y el motor de validaciones en un clúster Kubernetes usando Helm charts y StatefulSets.</li>
-<li>Facilitar elasticidad y escalado automático de nodos.</li>
-</ul>
+<p>* Desplegar Hadoop, Spark y el motor de validaciones en un clúster Kubernetes usando Helm charts y StatefulSets.
+  * Facilitar elasticidad y escalado automático de nodos.</p>
 </li>
 <li>
 <p><strong>Monitorización con Prometheus &amp; Grafana</strong></p>
-<ul>
-<li>Exponer métricas de Spark, HDFS y PostgreSQL.</li>
-<li>Crear dashboards de latencia, tasas de error y uso de recursos.</li>
-</ul>
+<p>* Exponer métricas de Spark, HDFS y PostgreSQL.
+  * Crear dashboards de latencia, tasas de error y uso de recursos.</p>
 </li>
 <li>
 <p><strong>Alertas automáticas</strong></p>
-<ul>
-<li>Enviar notificaciones por correo o webhook cuando ocurran validaciones negativas (flags críticos).</li>
-</ul>
+<p>* Enviar notificaciones por correo o webhook cuando ocurran validaciones negativas (flags críticos).</p>
 </li>
 <li>
 <p><strong>Paginación y filtros avanzados en frontend</strong></p>
-<ul>
-<li>Añadir paginación en listas de configuraciones y logs.</li>
-<li>Filtros por fecha, entorno, flag de validación, nombre de fichero.</li>
-</ul>
+<p>* Añadir paginación en listas de configuraciones y logs.
+  * Filtros por fecha, entorno, flag de validación, nombre de fichero.</p>
 </li>
 <li>
 <p><strong>Soporte para formatos adicionales</strong></p>
-<ul>
-<li>Añadir validación y lectura de CSV comprimidos, Parquet, Avro u ORC.</li>
-<li>Implementar validaciones basadas en schemas Avro o JSON Schema.</li>
-</ul>
+<p>* Añadir validación y lectura de CSV comprimidos, Parquet, Avro u ORC.
+  * Implementar validaciones basadas en schemas Avro o JSON Schema.</p>
 </li>
 <li>
 <p><strong>Carga fragmentada (chunked upload)</strong></p>
-<ul>
-<li>Para CSV muy grandes, usar multipart upload o chunking en frontend/backend para evitar timeouts.</li>
-</ul>
+<p>* Para CSV muy grandes, usar multipart upload o chunking en frontend/backend para evitar timeouts.</p>
 </li>
 <li>
 <p><strong>Integración de notificaciones en tiempo real</strong></p>
-<ul>
-<li>Usar WebSockets o WebPubSub para notificar al frontend sobre el estado de la validación en tiempo real.</li>
-</ul>
+<p>* Usar WebSockets o WebPubSub para notificar al frontend sobre el estado de la validación en tiempo real.</p>
 </li>
 <li>
 <p><strong>Internacionalización (i18n)</strong></p>
-<ul>
-<li>Permitir cambiar idioma en frontend (ES, EN).</li>
-<li>Formateo de fechas y mensajes localizados.</li>
-</ul>
+<p>* Permitir cambiar idioma en frontend (ES, EN).
+  * Formateo de fechas y mensajes localizados.</p>
 </li>
 <li>
 <p><strong>Documentación de API con Swagger/Redoc</strong></p>
-<ul>
-<li>FastAPI ya genera documentación automática; extenderla con ejemplos de petición/respuesta y código de errores.</li>
-</ul>
+<p>* FastAPI ya genera documentación automática; extenderla con ejemplos de petición/respuesta y código de errores.</p>
 </li>
 </ol>
 <hr />
@@ -341,82 +342,14 @@
 </tr>
 </tbody>
 </table>
-<hr /></div>
-            </div>
+<hr />
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script>
-            var base_url = ".",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+      
+      <hr/>
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2025-06-12 16:22:59.101549+00:00
+  -->
 </div>
-
-    </body>
+</body>
 </html>

@@ -1,222 +1,231 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en">
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
+        
         <link rel="canonical" href="https://juanradam.github.io/FileMonitoringSystem/02-requisitos.html">
         <link rel="shortcut icon" href="img/favicon.ico">
-        <title>02 requisitos - File Monitoring System</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/fontawesome.min.css" rel="stylesheet">
-        <link href="css/brands.min.css" rel="stylesheet">
-        <link href="css/solid.min.css" rel="stylesheet">
-        <link href="css/v4-font-face.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
-        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
-        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
-    </head>
+        <title>Especificación de Requisitos - File Monitoring System</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css">
+        <script src="js/theme.js" defer></script>
+      
+        <script> var base_url = "." </script>
+        <script src="search/main.js" defer></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">File Monitoring System</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="index.html" class="nav-link">Summary</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="01-introduccion.html" class="nav-link">01 introduccion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="02-requisitos.html" class="nav-link active" aria-current="page">02 requisitos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="03-diseno.html" class="nav-link">03 diseno</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="04-implementacion.html" class="nav-link">04 implementacion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="05-resultado.html" class="nav-link">05 resultado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="06-conclusiones.html" class="nav-link">06 conclusiones</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="01-introduccion.html" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="03-diseno.html" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
+</head>
+<body>
+    <header class="header">
+        <a id="nav-toggle" class="pizza">&#9776;</a>
+        <div class="title">
+            <a href="/" class="logo">File Monitoring System </a>
+             
+            <div role="search" class="search">
+                <form><input type="search" placeholder="Search docs" id="mkdocs-search-query" /></form>
             </div>
         </div>
+         <a id="nav-scrh" class="scrh">&#8981;</a>
+    </header>
+    <div class="side" id="side">
+        <h2>Page</h2>
+        <ul>
+         
+              <!--
 
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+-->
 
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="2"><a href="#2-especificacion-de-requisitos" class="nav-link">2. Especificación de Requisitos</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
+<li >
+    <a href="index.html">Home</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="01-introduccion.html">Introducción</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li class="active">
+    <a href="02-requisitos.html">Especificación de Requisitos</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="03-diseno.html">Diseño (Diagramas)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="04-implementacion.html">Implementación (GIT)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="05-resultado.html">Resultado (Manual de usuario)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="06-conclusiones.html">Conclusiones</a>
+</li>
+
+         
         </ul>
+          <h2>Table Of Contents</h2>
+          <ul id="toc" class="current">
+            
+              <li><a href="#2-especificacion-de-requisitos">2. Especificación de Requisitos</a></li>
+              
+                  <li class="child"><a href="#21-requisitos-funcionales">2.1 Requisitos funcionales</a></li>
+              
+                  <li class="child"><a href="#22-requisitos-no-funcionales">2.2 Requisitos no funcionales</a></li>
+              
+            
+        </ul>
+        <div class="about">
+            <hr/>
+            Built with 🛠 <a href="https://www.mkdocs.org">MkDocs</a> - 
+            Theme 🖤 <a href="https://github.com/g3xx/mkdocs-github">Github</a>.
+        </div>
     </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    <div class="spacer"><!-- i am margin --></div>
+    <div class="markdown-body">
+      
+        <div class="prev">
+          
+            <a href="01-introduccion.html" title="Introducción">&#8592; Previous Page</a>
+          
+        </div>
+         <div class="next">
+          
+        <a href="03-diseno.html" title="Diseño (Diagramas)"/>Next Page &#8594;</a>
+          
+        </div>
+      
+      <div class="clear"></div>
+    <div id="mkdocs-search-results"></div>
 
-<h2 id="2-especificacion-de-requisitos">2. Especificación de Requisitos<a class="headerlink" href="#2-especificacion-de-requisitos" title="Permanent link">&para;</a></h2>
+      
+        <div id="body">
+            <h2 id="2-especificacion-de-requisitos">2. Especificación de Requisitos<a class="headerlink" href="#2-especificacion-de-requisitos" title="Permanent link">&para;</a></h2>
 <h3 id="21-requisitos-funcionales">2.1 Requisitos funcionales<a class="headerlink" href="#21-requisitos-funcionales" title="Permanent link">&para;</a></h3>
 <p>A continuación se listan los requisitos funcionales unificados, tomando en cuenta los tres componentes (frontend, backend, motor de validaciones):</p>
 <ol>
 <li>
 <p><strong>Autenticación de usuarios</strong></p>
-<ul>
-<li>RF1.1: Registro de usuario con email y contraseña (<code>POST /auth/register</code>).</li>
-<li>RF1.2: Login de usuario (<code>POST /auth/login</code>), devuelve JWT y redirige al dashboard.</li>
-<li>RF1.3: Logout que elimina el token de <code>localStorage</code> y redirige a <code>/login</code>.</li>
-<li>RF1.4: Cualquier petición protegida que retorne 401 Unauthorized debe borrar el token y redirigir a <code>/login</code>.</li>
-</ul>
+<p>* RF1.1: Registro de usuario con email y contraseña (<code>POST /auth/register</code>).
+  * RF1.2: Login de usuario (<code>POST /auth/login</code>), devuelve JWT y redirige al dashboard.
+  * RF1.3: Logout que elimina el token de <code>localStorage</code> y redirige a <code>/login</code>.
+  * RF1.4: Cualquier petición protegida que retorne 401 Unauthorized debe borrar el token y redirigir a <code>/login</code>.</p>
 </li>
 <li>
 <p><strong>Gestión de configuraciones de fichero (<code>file_configuration</code>)</strong></p>
-<ul>
-<li>RF2.1: Subir CSV al backend (<code>POST /files/upload</code>) con <code>multipart/form-data</code>.</li>
-<li>RF2.2: Al subir, insertar o actualizar parámetros en <code>file_configuration</code> (has_header, delimiter, quote_char, escape_char, date_format, timestamp_format, partition_columns).</li>
-<li>RF2.3: Listar configuraciones (<code>GET /files/</code>), mostrar ID, file_name, path, has_header, delimiter, quote_char, escape_char, date_format, timestamp_format, partition_columns.</li>
-<li>RF2.4: Obtener detalles de una configuración (<code>GET /files/{id}</code>), editar parámetros (<code>PATCH /files/{id}</code>), eliminar configuración (<code>DELETE /files/{id}</code>).</li>
-<li>RF2.5: Descargar CSV original desde backend (<code>GET /files/download/{file_name}</code>).</li>
-</ul>
+<p>* RF2.1: Subir CSV al backend (<code>POST /files/upload</code>) con <code>multipart/form-data</code>.
+  * RF2.2: Al subir, insertar o actualizar parámetros en <code>file_configuration</code> (has_header, delimiter, quote_char, escape_char, date_format, timestamp_format, partition_columns).
+  * RF2.3: Listar configuraciones (<code>GET /files/</code>), mostrar ID, file_name, path, has_header, delimiter, quote_char, escape_char, date_format, timestamp_format, partition_columns.
+  * RF2.4: Obtener detalles de una configuración (<code>GET /files/{id}</code>), editar parámetros (<code>PATCH /files/{id}</code>), eliminar configuración (<code>DELETE /files/{id}</code>).
+  * RF2.5: Descargar CSV original desde backend (<code>GET /files/download/{file_name}</code>).</p>
 </li>
 <li>
 <p><strong>Sincronización con HDFS</strong></p>
-<ul>
-<li>RF3.1: Enviar fichero desde backend a HDFS (<code>POST /files/push/{file_name}</code>), creando directorio en HDFS (<code>op=MKDIRS</code>), ajustando permisos (<code>op=SETPERM</code>) y subiendo contenido (<code>op=CREATE</code>).</li>
-<li>RF3.2: Backend debe manejar redireccionamiento 307 de NameNode a DataNode, adaptando la URL de destino.</li>
-<li>RF3.3: Validar existencia local del fichero antes de empujar; si no existe, responder 404.</li>
-</ul>
+<p>* RF3.1: Enviar fichero desde backend a HDFS (<code>POST /files/push/{file_name}</code>), creando directorio en HDFS (<code>op=MKDIRS</code>), ajustando permisos (<code>op=SETPERM</code>) y subiendo contenido (<code>op=CREATE</code>).
+  * RF3.2: Backend debe manejar redireccionamiento 307 de NameNode a DataNode, adaptando la URL de destino.
+  * RF3.3: Validar existencia local del fichero antes de empujar; si no existe, responder 404.</p>
 </li>
 <li>
 <p><strong>Proceso de validación (motor Scala/Spark)</strong></p>
-<ul>
-<li>RF4.1: Monitorizar HDFS en <code>/data/bank_accounts</code>; detectar nuevos ficheros en polling batch.</li>
-<li>RF4.2: Por cada fichero detectado, procesarlo de forma independiente.</li>
-<li>
-<p>RF4.3: Validación estructural:</p>
-<ul>
-<li>Verificar delimitador, encabezados y número de columnas según <code>file_configuration</code>.</li>
-<li>
-<p>Flags:</p>
-<ul>
-<li>32: Delimiter mismatch</li>
-<li>33: Header mismatch</li>
-<li>34: Column count per row mismatch<ul>
-<li>RF4.4: Validación tipológica:</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>Comprobar tipos, rangos (fechas, números), formatos de texto según <code>semantic_layer</code>.</p>
-</li>
-<li>
-<p>Flags:</p>
-<ul>
-<li>35: Tipo inválido</li>
-<li>36: Nulo indebido</li>
-<li>37: Longitud excedida</li>
-<li>38: Formato texto inválido<ul>
-<li>RF4.5: Integridad referencial:</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>Verificar unicidad de claves primarias según metadatos.</p>
-</li>
-<li>
-<p>Flag:</p>
-<ul>
-<li>39: Duplicado PK<ul>
-<li>RF4.6: Validación de negocio:</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>Reglas específicas del dominio bancario:</p>
-<ul>
-<li>Formato de cuenta (<code>^[A-Za-z0-9]{10}$</code> → 40).</li>
-<li><code>credit_score</code> entre 300 y 850 → 41.</li>
-<li><code>risk_score</code> entre 0 y 100 → 42.</li>
-<li>Mayor de 18 años (DOB) → 43.</li>
-<li>Si <code>status</code>=“Active”, <code>balance</code>&gt;=0; si “Closed”, <code>balance</code>=0 → 44/45.</li>
-<li>Si <code>account_type</code>=“Checking”, <code>interest_rate</code>=0 → 46.</li>
-<li><code>overdraft_limit</code>&gt;=0 y válido → 47.</li>
-<li>Si <code>is_joint_account</code>=“Yes”, <code>num_transactions</code>&gt;=2 → 48.</li>
-<li>Si <code>num_transactions</code>=0, <code>avg_transaction_amount</code>=0 → 49.<ul>
-<li>RF4.7: Registrar resultados en <code>trigger_control</code> (timestamp, file_config_id, file_name, field_name, environment, validation_flag, error_message).</li>
-<li>RF4.8: Tras procesar (OK o KO), borrar el fichero de HDFS para evitar reprocesamiento.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>* RF4.1: Monitorizar HDFS en <code>/data/bank_accounts</code>; detectar nuevos ficheros en polling batch.
+  * RF4.2: Por cada fichero detectado, procesarlo de forma independiente.
+  * RF4.3: Validación estructural:</p>
+<pre class="codehilite"><code>  * Verificar delimitador, encabezados y número de columnas según `file_configuration`.
+  * Flags:
+
+      * 32: Delimiter mismatch
+      * 33: Header mismatch
+      * 34: Column count per row mismatch
+</code></pre>
+
+<p>* RF4.4: Validación tipológica:</p>
+<pre class="codehilite"><code>  * Comprobar tipos, rangos (fechas, números), formatos de texto según `semantic_layer`.
+  * Flags:
+
+      * 35: Tipo inválido
+      * 36: Nulo indebido
+      * 37: Longitud excedida
+      * 38: Formato texto inválido
+</code></pre>
+
+<p>* RF4.5: Integridad referencial:</p>
+<pre class="codehilite"><code>  * Verificar unicidad de claves primarias según metadatos.
+  * Flag:
+
+      * 39: Duplicado PK
+</code></pre>
+
+<p>* RF4.6: Validación de negocio:</p>
+<pre class="codehilite"><code>  * Reglas específicas del dominio bancario:
+
+      * Formato de cuenta (`^[A-Za-z0-9]{10}$` → 40).
+      * `credit_score` entre 300 y 850 → 41.
+      * `risk_score` entre 0 y 100 → 42.
+      * Mayor de 18 años (DOB) → 43.
+      * Si `status`=“Active”, `balance`&gt;=0; si “Closed”, `balance`=0 → 44/45.
+      * Si `account_type`=“Checking”, `interest_rate`=0 → 46.
+      * `overdraft_limit`&gt;=0 y válido → 47.
+      * Si `is_joint_account`=“Yes”, `num_transactions`&gt;=2 → 48.
+      * Si `num_transactions`=0, `avg_transaction_amount`=0 → 49.
+</code></pre>
+
+<p>* RF4.7: Registrar resultados en <code>trigger_control</code> (timestamp, file_config_id, file_name, field_name, environment, validation_flag, error_message).
+  * RF4.8: Tras procesar (OK o KO), borrar el fichero de HDFS para evitar reprocesamiento.</p>
 </li>
 <li>
 <p><strong>Visualización de logs de validación</strong></p>
-<ul>
-<li>RF5.1: Listar logs (<code>GET /files/logs</code>) filtrables por <code>environment</code>, <code>from_date</code> y <code>to_date</code>.</li>
-<li>RF5.2: Formatear <code>logged_at</code> a <code>DD/MM/YYYY, hh:mm:ss</code> en zona Madrid.</li>
-<li>RF5.3: Mostrar tabla con columnas: ID, file_config_id, file_name, field_name, environment, validation_flag, error_message, fecha.</li>
-</ul>
+<p>* RF5.1: Listar logs (<code>GET /files/logs</code>) filtrables por <code>environment</code>, <code>from_date</code> y <code>to_date</code>.
+  * RF5.2: Formatear <code>logged_at</code> a <code>DD/MM/YYYY, hh:mm:ss</code> en zona Madrid.
+  * RF5.3: Mostrar tabla con columnas: ID, file_config_id, file_name, field_name, environment, validation_flag, error_message, fecha.</p>
 </li>
 <li>
 <p><strong>UX/UI del frontend</strong></p>
-<ul>
-<li>RF6.1: Formularios de registro/login con validación de campos obligatorios.</li>
-<li>RF6.2: Indicadores de carga en botones (“Subiendo…”, “Enviando…”, “Guardando…”, “Eliminando…”).</li>
-<li>RF6.3: Modal de detalles que se cierra al hacer clic fuera o en botón “×”.</li>
-<li>RF6.4: Alertas (<code>alert()</code>) para notificar éxito o error.</li>
-<li>RF6.5: Navbar con enlaces en negrita (<strong>Dashboard</strong>, <strong>Logs</strong>) y botón <strong>Logout</strong> en color naranja.</li>
-</ul>
+<p>* RF6.1: Formularios de registro/login con validación de campos obligatorios.
+  * RF6.2: Indicadores de carga en botones (“Subiendo…”, “Enviando…”, “Guardando…”, “Eliminando…”).
+  * RF6.3: Modal de detalles que se cierra al hacer clic fuera o en botón “×”.
+  * RF6.4: Alertas (<code>alert()</code>) para notificar éxito o error.
+  * RF6.5: Navbar con enlaces en negrita (<strong>Dashboard</strong>, <strong>Logs</strong>) y botón <strong>Logout</strong> en color naranja.</p>
 </li>
 </ol>
 <hr />
@@ -224,135 +233,53 @@
 <ol>
 <li>
 <p><strong>Seguridad</strong></p>
-<ul>
-<li>RNF1.1: JWT con expiración configurable; token almacenado en <code>localStorage</code>.</li>
-<li>RNF1.2: Backend protege rutas con dependencia <code>get_current_user</code>; reacciona a 401 borrando token en frontend.</li>
-<li>RNF1.3: HDFS: al crear directorios, aplicar <code>chmod -R 777</code> para permitir lectura/escritura a todos los usuarios.</li>
-<li>RNF1.4: Contraseñas hasheadas con bcrypt.</li>
-</ul>
+<p>* RNF1.1: JWT con expiración configurable; token almacenado en <code>localStorage</code>.
+  * RNF1.2: Backend protege rutas con dependencia <code>get_current_user</code>; reacciona a 401 borrando token en frontend.
+  * RNF1.3: HDFS: al crear directorios, aplicar <code>chmod -R 777</code> para permitir lectura/escritura a todos los usuarios.
+  * RNF1.4: Contraseñas hasheadas con bcrypt.</p>
 </li>
 <li>
 <p><strong>Rendimiento</strong></p>
-<ul>
-<li>RNF2.1: El motor de validaciones debe procesar &gt;1M filas por partición en &lt; 1 minuto.</li>
-<li>RNF2.2: Uso óptimo de particiones en Spark y <code>fetchSize</code> en conexiones JDBC.</li>
-<li>RNF2.3: El frontend debe cargar en &lt;2 s en producción básica.</li>
-</ul>
+<p>* RNF2.1: El motor de validaciones debe procesar &gt;1M filas por partición en &lt; 1 minuto.
+  * RNF2.2: Uso óptimo de particiones en Spark y <code>fetchSize</code> en conexiones JDBC.
+  * RNF2.3: El frontend debe cargar en &lt;2 s en producción básica.</p>
 </li>
 <li>
 <p><strong>Escalabilidad</strong></p>
-<ul>
-<li>RNF3.1: Motor de validaciones diseñado para aumentar nodos Spark sin cambios en el código.</li>
-<li>RNF3.2: Backend asíncrono (FastAPI + SQLAlchemy Async) para operaciones I/O intensivo.</li>
-<li>RNF3.3: Posibilidad de migrar a Spark Structured Streaming en el futuro.</li>
-</ul>
+<p>* RNF3.1: Motor de validaciones diseñado para aumentar nodos Spark sin cambios en el código.
+  * RNF3.2: Backend asíncrono (FastAPI + SQLAlchemy Async) para operaciones I/O intensivo.
+  * RNF3.3: Posibilidad de migrar a Spark Structured Streaming en el futuro.</p>
 </li>
 <li>
 <p><strong>Disponibilidad</strong></p>
-<ul>
-<li>RNF4.1: El motor debe mantenerse activo 24/7; al iniciar, ejecutar <code>hdfs dfsadmin -safemode leave</code>.</li>
-<li>RNF4.2: Contenedores orquestados con Docker Compose deben reiniciarse automáticamente si fallan.</li>
-</ul>
+<p>* RNF4.1: El motor debe mantenerse activo 24/7; al iniciar, ejecutar <code>hdfs dfsadmin -safemode leave</code>.
+  * RNF4.2: Contenedores orquestados con Docker Compose deben reiniciarse automáticamente si fallan.</p>
 </li>
 <li>
 <p><strong>Mantenibilidad</strong></p>
-<ul>
-<li>RNF5.1: Arquitectura modular (SOLID, Clean Architecture).</li>
-<li>RNF5.2: Código documentado con ScalaDoc (motor).</li>
-<li>RNF5.3: Separación de capas (API, servicios, modelos, configuraciones) tanto en backend como en frontend.</li>
-</ul>
+<p>* RNF5.1: Arquitectura modular (SOLID, Clean Architecture).
+  * RNF5.2: Código documentado con ScalaDoc (motor).
+  * RNF5.3: Separación de capas (API, servicios, modelos, configuraciones) tanto en backend como en frontend.</p>
 </li>
 <li>
 <p><strong>Compatibilidad</strong></p>
-<ul>
-<li>RNF6.1: Frontend soporta navegadores modernos (Chrome, Firefox, Edge).</li>
-<li>RNF6.2: No se requiere soporte para Internet Explorer.</li>
-</ul>
+<p>* RNF6.1: Frontend soporta navegadores modernos (Chrome, Firefox, Edge).
+  * RNF6.2: No se requiere soporte para Internet Explorer.</p>
 </li>
 <li>
 <p><strong>Tolerancia a fallos</strong></p>
-<ul>
-<li>RNF7.1: Capturar excepciones en motor (sin detener el bucle principal) y registrar errores.</li>
-<li>RNF7.2: En backend, manejar timeouts y errores de WebHDFS con lógica de reintentos básica.</li>
-</ul>
+<p>* RNF7.1: Capturar excepciones en motor (sin detener el bucle principal) y registrar errores.
+  * RNF7.2: En backend, manejar timeouts y errores de WebHDFS con lógica de reintentos básica.</p>
 </li>
 </ol>
-<hr /></div>
-            </div>
+<hr />
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script>
-            var base_url = ".",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+      
+      <hr/>
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2025-06-12 16:22:58.956722+00:00
+  -->
 </div>
-
-    </body>
+</body>
 </html>

@@ -1,106 +1,149 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en">
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
+        
         <link rel="canonical" href="https://juanradam.github.io/FileMonitoringSystem/01-introduccion.html">
         <link rel="shortcut icon" href="img/favicon.ico">
-        <title>01 introduccion - File Monitoring System</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/fontawesome.min.css" rel="stylesheet">
-        <link href="css/brands.min.css" rel="stylesheet">
-        <link href="css/solid.min.css" rel="stylesheet">
-        <link href="css/v4-font-face.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
-        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
-        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
-    </head>
+        <title>Introducción - File Monitoring System</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css">
+        <script src="js/theme.js" defer></script>
+      
+        <script> var base_url = "." </script>
+        <script src="search/main.js" defer></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">File Monitoring System</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="index.html" class="nav-link">Summary</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="01-introduccion.html" class="nav-link active" aria-current="page">01 introduccion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="02-requisitos.html" class="nav-link">02 requisitos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="03-diseno.html" class="nav-link">03 diseno</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="04-implementacion.html" class="nav-link">04 implementacion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="05-resultado.html" class="nav-link">05 resultado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="06-conclusiones.html" class="nav-link">06 conclusiones</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="index.html" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="02-requisitos.html" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
+</head>
+<body>
+    <header class="header">
+        <a id="nav-toggle" class="pizza">&#9776;</a>
+        <div class="title">
+            <a href="/" class="logo">File Monitoring System </a>
+             
+            <div role="search" class="search">
+                <form><input type="search" placeholder="Search docs" id="mkdocs-search-query" /></form>
             </div>
         </div>
+         <a id="nav-scrh" class="scrh">&#8981;</a>
+    </header>
+    <div class="side" id="side">
+        <h2>Page</h2>
+        <ul>
+         
+              <!--
 
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+-->
 
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="2"><a href="#1-introduccion" class="nav-link">1. Introducción</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
+<li >
+    <a href="index.html">Home</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li class="active">
+    <a href="01-introduccion.html">Introducción</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="02-requisitos.html">Especificación de Requisitos</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="03-diseno.html">Diseño (Diagramas)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="04-implementacion.html">Implementación (GIT)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="05-resultado.html">Resultado (Manual de usuario)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="06-conclusiones.html">Conclusiones</a>
+</li>
+
+         
         </ul>
+          <h2>Table Of Contents</h2>
+          <ul id="toc" class="current">
+            
+              <li><a href="#1-introduccion">1. Introducción</a></li>
+              
+                  <li class="child"><a href="#11-resumen-del-proyecto">1.1 Resumen del proyecto</a></li>
+              
+                  <li class="child"><a href="#12-explicacion-de-la-aplicacion">1.2 Explicación de la aplicación</a></li>
+              
+                  <li class="child"><a href="#13-resumen-de-tecnologias-utilizadas">1.3 Resumen de tecnologías utilizadas</a></li>
+              
+            
+        </ul>
+        <div class="about">
+            <hr/>
+            Built with 🛠 <a href="https://www.mkdocs.org">MkDocs</a> - 
+            Theme 🖤 <a href="https://github.com/g3xx/mkdocs-github">Github</a>.
+        </div>
     </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    <div class="spacer"><!-- i am margin --></div>
+    <div class="markdown-body">
+      
+        <div class="prev">
+          
+            <a href="index.html" title="Home">&#8592; Previous Page</a>
+          
+        </div>
+         <div class="next">
+          
+        <a href="02-requisitos.html" title="Especificación de Requisitos"/>Next Page &#8594;</a>
+          
+        </div>
+      
+      <div class="clear"></div>
+    <div id="mkdocs-search-results"></div>
 
-<h2 id="1-introduccion">1. Introducción<a class="headerlink" href="#1-introduccion" title="Permanent link">&para;</a></h2>
+      
+        <div id="body">
+            <h2 id="1-introduccion">1. Introducción<a class="headerlink" href="#1-introduccion" title="Permanent link">&para;</a></h2>
 <h3 id="11-resumen-del-proyecto">1.1 Resumen del proyecto<a class="headerlink" href="#11-resumen-del-proyecto" title="Permanent link">&para;</a></h3>
 <p>El <strong>File Monitoring System</strong> es una solución integral para la ingesta, validación y visualización de ficheros bancarios en un entorno Big Data. Consta de tres componentes principales:</p>
 <ol>
@@ -114,89 +157,63 @@
 <ol>
 <li>
 <p><strong>Usuario (frontend)</strong></p>
-<ul>
-<li>Se registra o inicia sesión mediante JWT (FastAPI).</li>
-<li>Accede a un dashboard donde puede subir un fichero CSV y gestionar metadatos de parseo (delimiter, quote_char, date_format, etc.).</li>
-<li>Al pulsar “Validar”, el frontend envía el CSV al backend y éste lo almacena localmente y registra la configuración en la tabla <code>file_configuration</code> de PostgreSQL.</li>
-</ul>
+<p>* Se registra o inicia sesión mediante JWT (FastAPI).
+  * Accede a un dashboard donde puede subir un fichero CSV y gestionar metadatos de parseo (delimiter, quote_char, date_format, etc.).
+  * Al pulsar “Validar”, el frontend envía el CSV al backend y éste lo almacena localmente y registra la configuración en la tabla <code>file_configuration</code> de PostgreSQL.</p>
 </li>
 <li>
 <p><strong>Backend (FastAPI)</strong></p>
-<ul>
-<li>Recibe el CSV (<code>POST /files/upload</code>) y guarda el archivo en la carpeta local <code>uploaded_files/</code>.</li>
-<li>Crea o actualiza un registro en la tabla <code>file_configuration</code> con parámetros de parseo.</li>
-<li>
-<p>Cuando el usuario solicita “Enviar a HDFS” (<code>POST /files/push/{file_name}</code>), el backend:</p>
-<ol>
-<li>Verifica que el archivo existe en <code>uploaded_files/</code>.</li>
-<li>Llama a WebHDFS (NameNode) para crear el directorio <code>/data/bank_accounts</code> y ajustar permisos (<code>op=MKDIRS</code>, <code>op=SETPERM</code>).</li>
-<li>Solicita la creación del fichero en HDFS (<code>op=CREATE</code>), recuerda el redireccionamiento 307 a DataNode, ajusta la URL y sube el contenido.</li>
-<li>Responde al frontend con un mensaje de éxito.</li>
-</ol>
-</li>
-</ul>
+<p>* Recibe el CSV (<code>POST /files/upload</code>) y guarda el archivo en la carpeta local <code>uploaded_files/</code>.
+  * Crea o actualiza un registro en la tabla <code>file_configuration</code> con parámetros de parseo.
+  * Cuando el usuario solicita “Enviar a HDFS” (<code>POST /files/push/{file_name}</code>), el backend:</p>
+<pre class="codehilite"><code>  1. Verifica que el archivo existe en `uploaded_files/`.
+  2. Llama a WebHDFS (NameNode) para crear el directorio `/data/bank_accounts` y ajustar permisos (`op=MKDIRS`, `op=SETPERM`).
+  3. Solicita la creación del fichero en HDFS (`op=CREATE`), recuerda el redireccionamiento 307 a DataNode, ajusta la URL y sube el contenido.
+  4. Responde al frontend con un mensaje de éxito.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Motor de validaciones (Scala + Spark)</strong></p>
-<ul>
-<li>
-<p>Se ejecuta en un contenedor Docker con Spark y SBT. En el <code>ENTRYPOINT</code>, al arrancar:</p>
-<ol>
-<li>Ejecuta <code>hdfs dfsadmin -safemode leave</code> para salir de safe mode.</li>
-<li>Crea la carpeta <code>/data/bank_accounts</code> en HDFS (si no existe).</li>
-<li>Copia los CSV desde un volumen local (<code>/local_bank_accounts</code>) a HDFS.</li>
-<li>
-<p>Inicia <code>spark-submit</code> que corre la clase <code>Main.scala</code>.</p>
-<ul>
-<li><strong>Main.scala</strong>:</li>
-</ul>
-</li>
-<li>
-<p>Configura un bucle de polling que observa el directorio HDFS (<code>/data/bank_accounts</code>).</p>
-</li>
-<li>Al detectar un fichero, llama a <code>ExecutionManager.executeFile(path, outputTable)</code>.</li>
-<li>
-<p>Dentro de <code>ExecutionManager</code>:</p>
-<ul>
-<li>Lee el CSV con <code>Reader.readFile(...)</code> en un DataFrame particionado.</li>
-<li>
-<p>Aplica validadores en cascada:</p>
-<ol>
-<li><strong>FileSentinel</strong>: validación estructural (delimitador, headers, número de columnas).</li>
-<li><strong>TypeValidator</strong>: validación tipológica (tipos, rangos, formato de fecha, nullability).</li>
-<li><strong>ReferentialIntegrityValidator</strong>: integridad referencial (unicidad de claves primarias según metadatos).</li>
-<li><strong>FunctionalValidator</strong>: reglas de negocio (formato cuenta, rangos de credit_score, balance según estado, etc.).
-            * Si falla alguna validación, registra el flag correspondiente en la tabla <code>trigger_control</code> en PostgreSQL y detiene el procesamiento.
-            * Si pasa todo, registra flag “2” (OK).
-            * Borra el fichero de HDFS para evitar reprocesamientos.</li>
-</ol>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
+<p>* Se ejecuta en un contenedor Docker con Spark y SBT. En el <code>ENTRYPOINT</code>, al arrancar:</p>
+<pre class="codehilite"><code>  1. Ejecuta `hdfs dfsadmin -safemode leave` para salir de safe mode.
+  2. Crea la carpeta `/data/bank_accounts` en HDFS (si no existe).
+  3. Copia los CSV desde un volumen local (`/local_bank_accounts`) a HDFS.
+  4. Inicia `spark-submit` que corre la clase `Main.scala`.
+</code></pre>
+
+<p>* <strong>Main.scala</strong>:</p>
+<pre class="codehilite"><code>  1. Configura un bucle de polling que observa el directorio HDFS (`/data/bank_accounts`).
+  2. Al detectar un fichero, llama a `ExecutionManager.executeFile(path, outputTable)`.
+  3. Dentro de `ExecutionManager`:
+
+      * Lee el CSV con `Reader.readFile(...)` en un DataFrame particionado.
+      * Aplica validadores en cascada:
+
+          1. **FileSentinel**: validación estructural (delimitador, headers, número de columnas).
+          2. **TypeValidator**: validación tipológica (tipos, rangos, formato de fecha, nullability).
+          3. **ReferentialIntegrityValidator**: integridad referencial (unicidad de claves primarias según metadatos).
+          4. **FunctionalValidator**: reglas de negocio (formato cuenta, rangos de credit\_score, balance según estado, etc.).
+      * Si falla alguna validación, registra el flag correspondiente en la tabla `trigger_control` en PostgreSQL y detiene el procesamiento.
+      * Si pasa todo, registra flag “2” (OK).
+      * Borra el fichero de HDFS para evitar reprocesamientos.
+</code></pre>
+
 </li>
 <li>
 <p><strong>Base de datos (PostgreSQL)</strong></p>
-<ul>
-<li>Contiene tablas:<ul>
-<li><code>users</code>: para gestionar cuentas de usuario (backend y frontend).</li>
-<li><code>file_configuration</code>: configura parámetros de parseo de cada CSV.</li>
-<li><code>semantic_layer</code>: metadatos de cada campo (tipo de dato, longitud, nullable, PK, formato) utilizados en las validaciones tipológicas y referenciales.</li>
-<li><code>trigger_control</code>: almacena logs de validación (timestamp, file_config_id, field_name, environment, validation_flag, error_message).</li>
-<li><code>negative_flag_logs</code> (opcional): detalles adicionales de validaciones negativas.</li>
-</ul>
-</li>
-</ul>
+<p>* Contiene tablas:
+      * <code>users</code>: para gestionar cuentas de usuario (backend y frontend).
+      * <code>file_configuration</code>: configura parámetros de parseo de cada CSV.
+      * <code>semantic_layer</code>: metadatos de cada campo (tipo de dato, longitud, nullable, PK, formato) utilizados en las validaciones tipológicas y referenciales.
+      * <code>trigger_control</code>: almacena logs de validación (timestamp, file_config_id, field_name, environment, validation_flag, error_message).
+      * <code>negative_flag_logs</code> (opcional): detalles adicionales de validaciones negativas.</p>
 </li>
 <li>
 <p><strong>Visualización de resultados</strong></p>
-<ul>
-<li>El usuario, desde el frontend, accede a <code>/logs</code> y obtiene los registros de validación (<code>GET /files/logs</code>).</li>
-<li>El backend formatea la fecha (<code>logged_at</code>) al formato <code>DD/MM/YYYY, hh:mm:ss</code> en zona Madrid.</li>
-<li>El frontend muestra una tabla con campos: ID, file_config_id, file_name, field_name, environment, validation_flag, error_message, fecha.</li>
-</ul>
+<p>* El usuario, desde el frontend, accede a <code>/logs</code> y obtiene los registros de validación (<code>GET /files/logs</code>).
+  * El backend formatea la fecha (<code>logged_at</code>) al formato <code>DD/MM/YYYY, hh:mm:ss</code> en zona Madrid.
+  * El frontend muestra una tabla con campos: ID, file_config_id, file_name, field_name, environment, validation_flag, error_message, fecha.</p>
 </li>
 </ol>
 <hr />
@@ -207,112 +224,32 @@
 <li><strong>HDFS (Hadoop 3.x)</strong></li>
 <li><strong>SBT</strong> (gestor de proyectos Scala)</li>
 <li><strong>Kryo</strong> (serializador personalizado en Spark)</li>
-<li>
-<p><strong>Docker &amp; Docker Compose</strong></p>
-<ul>
-<li>Contenedores: Spark Master/Workers (bitnami/spark), Hadoop NameNode/DataNode (bde2020), PostgreSQL (postgres\:latest), Kafka/Zookeeper (wurstmeister), Superset (dockerfile custom).</li>
-<li><strong>PostgreSQL 13</strong> (logs y metadatos)</li>
-<li>
-<p><strong>FastAPI</strong> (Python 3.12)</p>
-</li>
-<li>
-<p><strong>Uvicorn</strong> (servidor ASGI)</p>
-</li>
-<li><strong>SQLAlchemy Async + AsyncPG</strong></li>
-<li><strong>Pydantic Settings</strong></li>
-<li><strong>python-jose</strong>, <strong>passlib[bcrypt]</strong> (JWT y hashing de contraseñas)</li>
-<li><strong>requests</strong> (llamadas a WebHDFS)</li>
-<li>
-<p><strong>React 18+</strong> (frontend) con <strong>Vite</strong></p>
-</li>
-<li>
-<p><strong>React Router v6</strong></p>
-</li>
-<li><strong>Axios</strong> (con interceptores de token y 401)</li>
-<li><strong>Context API</strong> (AuthContext)</li>
-<li><strong>CSS puro</strong></li>
-<li><strong>Superset</strong> (opcional, para dashboards de logs)</li>
-<li><strong>Git / GitHub</strong> (control de versiones)</li>
-<li><strong>PlantUML</strong> (diagramas UML en bruto para generar ER, clases y secuencias)</li>
-</ul>
+<li><strong>Docker &amp; Docker Compose</strong><p>* Contenedores: Spark Master/Workers (bitnami/spark), Hadoop NameNode/DataNode (bde2020), PostgreSQL (postgres\:latest), Kafka/Zookeeper (wurstmeister), Superset (dockerfile custom).
+* <strong>PostgreSQL 13</strong> (logs y metadatos)
+* <strong>FastAPI</strong> (Python 3.12)</p>
+<p>* <strong>Uvicorn</strong> (servidor ASGI)
+  * <strong>SQLAlchemy Async + AsyncPG</strong>
+  * <strong>Pydantic Settings</strong>
+  * <strong>python-jose</strong>, <strong>passlib[bcrypt]</strong> (JWT y hashing de contraseñas)
+  * <strong>requests</strong> (llamadas a WebHDFS)
+* <strong>React 18+</strong> (frontend) con <strong>Vite</strong></p>
+<p>* <strong>React Router v6</strong>
+  * <strong>Axios</strong> (con interceptores de token y 401)
+  * <strong>Context API</strong> (AuthContext)
+  * <strong>CSS puro</strong>
+* <strong>Superset</strong> (opcional, para dashboards de logs)
+* <strong>Git / GitHub</strong> (control de versiones)
+* <strong>PlantUML</strong> (diagramas UML en bruto para generar ER, clases y secuencias)</p>
 </li>
 </ul>
-<hr /></div>
-            </div>
+<hr />
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script>
-            var base_url = ".",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+      
+      <hr/>
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2025-06-12 16:22:58.953668+00:00
+  -->
 </div>
-
-    </body>
+</body>
 </html>

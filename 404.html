@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en">
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,153 +11,127 @@
         
         
         
+        
         <link rel="shortcut icon" href="/FileMonitoringSystem/img/favicon.ico">
         <title>File Monitoring System</title>
-        <link href="/FileMonitoringSystem/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/FileMonitoringSystem/css/fontawesome.min.css" rel="stylesheet">
-        <link href="/FileMonitoringSystem/css/brands.min.css" rel="stylesheet">
-        <link href="/FileMonitoringSystem/css/solid.min.css" rel="stylesheet">
-        <link href="/FileMonitoringSystem/css/v4-font-face.min.css" rel="stylesheet">
-        <link href="/FileMonitoringSystem/css/base.css" rel="stylesheet">
-        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
-        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
-    </head>
+        <link rel="stylesheet" href="/FileMonitoringSystem/css/theme.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css">
+        <script src="/FileMonitoringSystem/js/theme.js" defer></script>
+      
+        <script> var base_url = "/FileMonitoringSystem/" </script>
+        <script src="/FileMonitoringSystem/search/main.js" defer></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="/FileMonitoringSystem/index.html">File Monitoring System</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="/FileMonitoringSystem/index.html" class="nav-link">Summary</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/FileMonitoringSystem/01-introduccion.html" class="nav-link">01 introduccion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/FileMonitoringSystem/02-requisitos.html" class="nav-link">02 requisitos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/FileMonitoringSystem/03-diseno.html" class="nav-link">03 diseno</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/FileMonitoringSystem/04-implementacion.html" class="nav-link">04 implementacion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/FileMonitoringSystem/05-resultado.html" class="nav-link">05 resultado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/FileMonitoringSystem/06-conclusiones.html" class="nav-link">06 conclusiones</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+</head>
+<body>
+    <header class="header">
+        <a id="nav-toggle" class="pizza">&#9776;</a>
+        <div class="title">
+            <a href="/" class="logo">File Monitoring System </a>
+             
+            <div role="search" class="search">
+                <form><input type="search" placeholder="Search docs" id="mkdocs-search-query" /></form>
             </div>
         </div>
+         <a id="nav-scrh" class="scrh">&#8981;</a>
+    </header>
+    <div class="side" id="side">
+        <h2>Page</h2>
+        <ul>
+         
+              <!--
 
-        <div class="container">
-            <div class="row">
+-->
 
-    <div class="row-fluid">
+<li >
+    <a href="/FileMonitoringSystem/index.html">Home</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="/FileMonitoringSystem/01-introduccion.html">Introducción</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="/FileMonitoringSystem/02-requisitos.html">Especificación de Requisitos</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="/FileMonitoringSystem/03-diseno.html">Diseño (Diagramas)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="/FileMonitoringSystem/04-implementacion.html">Implementación (GIT)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="/FileMonitoringSystem/05-resultado.html">Resultado (Manual de usuario)</a>
+</li>
+
+         
+              <!--
+
+-->
+
+<li >
+    <a href="/FileMonitoringSystem/06-conclusiones.html">Conclusiones</a>
+</li>
+
+         
+        </ul>
+          <h2>Table Of Contents</h2>
+          <ul id="toc" class="current">
+            
+        </ul>
+        <div class="about">
+            <hr/>
+            Built with 🛠 <a href="https://www.mkdocs.org">MkDocs</a> - 
+            Theme 🖤 <a href="https://github.com/g3xx/mkdocs-github">Github</a>.
+        </div>
+    </div>
+    <div class="spacer"><!-- i am margin --></div>
+    <div class="markdown-body">
+      
+      <div class="clear"></div>
+    <div id="mkdocs-search-results"></div>
+
+      
       <div id="main-content" class="span12">
         <h1 id="404-page-not-found" style="text-align: center">404</h1>
         <p style="text-align: center"><strong>Page not found</strong></p>
       </div>
-    </div>
 
-
-            </div>
-        </div>
-
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script src="/FileMonitoringSystem/js/bootstrap.bundle.min.js"></script>
-        <script>
-            var base_url = "/FileMonitoringSystem/",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="/FileMonitoringSystem/js/base.js"></script>
-        <script src="/FileMonitoringSystem/search/main.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+      <hr/>
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2025-06-12 16:22:58.930426+00:00
+  -->
 </div>
-
-    </body>
+</body>
 </html>
