@@ -10,7 +10,6 @@ theme:
 
 plugins:
   - search
-  - mermaid2            # si sigues queriendo Mermaid
 
 markdown_extensions:
   #2) el resto de tus extensiones habituales
