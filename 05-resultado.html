@@ -183,21 +183,23 @@
 <p><code>bash
    docker-compose up -d</code></p>
 <p>Esto arrancará:</p>
-<pre><code>* PostgreSQL (para Superset y tablas de validación).
+<pre class="codehilite"><code>* PostgreSQL (para Superset y tablas de validación).
 * Superset (opcional, UI de dashboards).
 * Zookeeper + Kafka (opcional).
 * Hadoop NameNode + DataNode.
 * Spark Master + Spark Workers.
 * Contenedor `validation-engine` (motor de validaciones).
 </code></pre>
+
 <ol>
 <li><strong>Verificar estado</strong>:</li>
 </ol>
 <p><code>bash
    docker-compose ps</code></p>
-<pre><code>* Esperar a que contenedores se vuelvan `healthy`.
+<pre class="codehilite"><code>* Esperar a que contenedores se vuelvan `healthy`.
 * Si HDFS arranca en safe mode, `validation-engine` ejecutará automáticamente `hdfs dfsadmin -safemode leave`.
 </code></pre>
+
 <h4 id="522-inicializar-el-backend-fastapi">5.2.2 Inicializar el backend (FastAPI)<a class="headerlink" href="#522-inicializar-el-backend-fastapi" title="Permanent link">&para;</a></h4>
 <ol>
 <li>Entrar a la carpeta <code>backend/</code>:</li>
@@ -209,7 +211,7 @@
 3. Levantar el servidor local:</p>
 <p><code>bash
    uvicorn main:app --reload --host 0.0.0.0 --port 8000</code></p>
-<pre><code>* La API estará disponible en `http://localhost:8000`.
+<pre class="codehilite"><code>* La API estará disponible en `http://localhost:8000`.
 * Endpoints principales:
 
     * `/auth/register`
@@ -220,6 +222,7 @@
     * `/files/` (GET, POST, PATCH, DELETE)
     * `/files/logs`
 </code></pre>
+
 <h4 id="523-inicializar-el-frontend-react">5.2.3 Inicializar el frontend (React)<a class="headerlink" href="#523-inicializar-el-frontend-react" title="Permanent link">&para;</a></h4>
 <ol>
 <li>En otra terminal, entrar a <code>frontend/</code>:</li>

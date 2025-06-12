@@ -120,7 +120,7 @@
               
                 <h2 id="4-implementacion-git">4. Implementación (GIT)<a class="headerlink" href="#4-implementacion-git" title="Permanent link">&para;</a></h2>
 <h3 id="41-diagrama-de-arquitectura">4.1 Diagrama de arquitectura<a class="headerlink" href="#41-diagrama-de-arquitectura" title="Permanent link">&para;</a></h3>
-<pre><code class="language-mermaid">---
+<pre class="codehilite"><code class="language-mermaid">---
 config:
   layout: dagre
 ---
@@ -168,6 +168,7 @@ flowchart LR
   style Persistencia fill:#ffe599,stroke:#333,stroke-width:1px
   style Procesamiento fill:#f4cccc,stroke:#333,stroke-width:1px
 </code></pre>
+
 <p>(Código de diagrama mermaid, renderizable en https://mermaid.js.org/)</p>
 <ul>
 <li>
@@ -342,9 +343,10 @@ flowchart LR
      --conf spark.hadoop.fs.defaultFS=hdfs://hadoop-namenode:9000 \
      /app/app.jar
    ```</p>
-<pre><code>* **Stage 1:** instala SBT, compila fat JAR con todas las dependencias.
+<pre class="codehilite"><code>* **Stage 1:** instala SBT, compila fat JAR con todas las dependencias.
 * **Stage 2:** parte de una imagen oficial de Spark; copia JAR, `db.properties` y `application.conf`; expone variables de entorno y lanza `spark-submit`.
 </code></pre>
+
 <ol>
 <li><strong>Script de reconstrucción (<code>scripts/rebuild_and_run.sh</code>)</strong></li>
 </ol>
@@ -360,8 +362,9 @@ flowchart LR
    docker-compose build validation-engine
    docker-compose up --abort-on-container-exit validation-engine
    ```</p>
-<pre><code>* Compila el JAR, crea la red `superset-net` y levanta únicamente el contenedor del motor de validaciones (asume que los demás servicios están corriendo).
+<pre class="codehilite"><code>* Compila el JAR, crea la red `superset-net` y levanta únicamente el contenedor del motor de validaciones (asume que los demás servicios están corriendo).
 </code></pre>
+
 <hr />
 <h4 id="432-backend-fastapi">4.3.2 Backend (FastAPI)<a class="headerlink" href="#432-backend-fastapi" title="Permanent link">&para;</a></h4>
 <ol>
@@ -375,7 +378,7 @@ flowchart LR
        postgres_host: str
        postgres_port: int
        postgres_db: str</p>
-<pre><code>   hdfs_host: str
+<pre class="codehilite"><code>   hdfs_host: str
    hdfs_port: int
    hdfs_dir: str
    hdfs_user: str
@@ -388,11 +391,13 @@ flowchart LR
    access_token_expire_minutes: int
 
    class Config:
-       env_file = ".env"
+       env_file = &quot;.env&quot;
 </code></pre>
+
 <p>```</p>
-<pre><code>* Carga variables desde `.env` y construye `database_url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}"`.
+<pre class="codehilite"><code>* Carga variables desde `.env` y construye `database_url = f&quot;postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}&quot;`.
 </code></pre>
+
 <ol>
 <li><strong>Seguridad (<code>app/core/security.py</code>)</strong></li>
 </ol>
@@ -433,8 +438,9 @@ flowchart LR
            raise credentials_exception
        return user
    ```</p>
-<pre><code>* Define hashing de contraseñas, creación de JWT, y dependencia `get_current_user` que valida el token y extrae `sub`.
+<pre class="codehilite"><code>* Define hashing de contraseñas, creación de JWT, y dependencia `get_current_user` que valida el token y extrae `sub`.
 </code></pre>
+
 <ol>
 <li><strong>Servicio de ficheros (<code>app/services/file_service.py</code>)</strong></li>
 </ol>
@@ -473,8 +479,9 @@ flowchart LR
            await db.flush()
            return new_cfg.id
    ```</p>
-<pre><code>* Guarda el CSV en disco local y crea/actualiza el registro en `file_configuration`.
+<pre class="codehilite"><code>* Guarda el CSV en disco local y crea/actualiza el registro en `file_configuration`.
 </code></pre>
+
 <ol>
 <li><strong>Servicio HDFS (<code>app/services/hdfs_sync.py</code>)</strong></li>
 </ol>
@@ -487,31 +494,33 @@ flowchart LR
        local_path = os.path.join(settings.upload_dir, file_name)
        if not os.path.exists(local_path):
            raise HTTPException(status_code=404, detail=f"Local not found: {local_path}")</p>
-<pre><code>   # 1) MKDIRS
-   mkdir_url = f"http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}?op=MKDIRS&amp;user.name={settings.hdfs_user}"
+<pre class="codehilite"><code>   # 1) MKDIRS
+   mkdir_url = f&quot;http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}?op=MKDIRS&amp;user.name={settings.hdfs_user}&quot;
    resp = requests.put(mkdir_url)
    resp.raise_for_status()
 
    # 2) SETPERM
-   perm_url = f"http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}?op=SETPERM&amp;permission=777&amp;user.name={settings.hdfs_user}"
+   perm_url = f&quot;http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}?op=SETPERM&amp;permission=777&amp;user.name={settings.hdfs_user}&quot;
    resp = requests.put(perm_url)
    resp.raise_for_status()
 
    # 3) CREATE (NameNode → 307 → Location → DataNode)
-   create_url = f"http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}/{file_name}?op=CREATE&amp;overwrite=true&amp;user.name={settings.hdfs_user}"
+   create_url = f&quot;http://{settings.hdfs_host}:{settings.hdfs_port}/webhdfs/v1{settings.hdfs_dir}/{file_name}?op=CREATE&amp;overwrite=true&amp;user.name={settings.hdfs_user}&quot;
    resp = requests.put(create_url, allow_redirects=False)
-   location = resp.headers.get("Location")
+   location = resp.headers.get(&quot;Location&quot;)
    if not location:
-       raise HTTPException(status_code=500, detail="HDFS create failed: no redirect")
+       raise HTTPException(status_code=500, detail=&quot;HDFS create failed: no redirect&quot;)
    # Ajustar URL al DataNode
-   upload_url = location.replace(f"{settings.hdfs_host}:{settings.hdfs_port}", f"{settings.hdfs_datanode_host}:{settings.hdfs_datanode_port}")
-   with open(local_path, "rb") as f:
+   upload_url = location.replace(f&quot;{settings.hdfs_host}:{settings.hdfs_port}&quot;, f&quot;{settings.hdfs_datanode_host}:{settings.hdfs_datanode_port}&quot;)
+   with open(local_path, &quot;rb&quot;) as f:
        resp2 = requests.put(upload_url, data=f)
        resp2.raise_for_status()
 </code></pre>
+
 <p>```</p>
-<pre><code>* Gestiona la secuencia WebHDFS (MKDIRS, SETPERM, CREATE → 307 → PUT a DataNode).
+<pre class="codehilite"><code>* Gestiona la secuencia WebHDFS (MKDIRS, SETPERM, CREATE → 307 → PUT a DataNode).
 </code></pre>
+
 <ol>
 <li><strong>Rutas de archivos (<code>app/api/files.py</code>)</strong></li>
 </ol>
@@ -584,8 +593,9 @@ flowchart LR
        logs = result.scalars().all()
        return logs
    ```</p>
-<pre><code>* Endpoints para CRUD de configuraciones, subida, push a HDFS, descarga y consulta de logs.
+<pre class="codehilite"><code>* Endpoints para CRUD de configuraciones, subida, push a HDFS, descarga y consulta de logs.
 </code></pre>
+
 <hr />
 <h4 id="433-frontend-react-vite">4.3.3 Frontend (React + Vite)<a class="headerlink" href="#433-frontend-react-vite" title="Permanent link">&para;</a></h4>
 <ol>
@@ -618,8 +628,9 @@ flowchart LR
    );</p>
 <p>export default api;
    ```</p>
-<pre><code>* Gestiona token en cada petición y maneja 401 automáticamente.
+<pre class="codehilite"><code>* Gestiona token en cada petición y maneja 401 automáticamente.
 </code></pre>
+
 <ol>
 <li><strong><code>AuthContext.jsx</code></strong></li>
 </ol>
@@ -631,7 +642,7 @@ flowchart LR
 <p>export const AuthProvider = ({ children }) =&gt; {
      const [token, setToken] = useState(localStorage.getItem('access_token'));
      const navigate = useNavigate();</p>
-<pre><code> useEffect(() =&gt; {
+<pre class="codehilite"><code> useEffect(() =&gt; {
    if (token) {
      localStorage.setItem('access_token', token);
    } else {
@@ -661,10 +672,12 @@ flowchart LR
    &lt;/AuthContext.Provider&gt;
  );
 </code></pre>
+
 <p>};
    ```</p>
-<pre><code>* Gestiona estado global de autenticación y métodos `login()`, `register()`, `logout()`.
+<pre class="codehilite"><code>* Gestiona estado global de autenticación y métodos `login()`, `register()`, `logout()`.
 </code></pre>
+
 <ol>
 <li><strong><code>AppRouter.jsx</code></strong></li>
 </ol>
@@ -698,8 +711,9 @@ flowchart LR
    );</p>
 <p>export default AppRouter;
    ```</p>
-<pre><code>* Define rutas públicas (`/login`, `/register`) y privadas (`/dashboard`, `/logs`) con `RequireAuth`.
+<pre class="codehilite"><code>* Define rutas públicas (`/login`, `/register`) y privadas (`/dashboard`, `/logs`) con `RequireAuth`.
 </code></pre>
+
 <ol>
 <li><strong><code>Dashboard.jsx</code></strong></li>
 </ol>
@@ -714,7 +728,7 @@ flowchart LR
      const [uploading, setUploading] = useState(false);
      const [showModal, setShowModal] = useState(false);
      const [currentConfig, setCurrentConfig] = useState(null);</p>
-<pre><code> const fetchConfigs = async () =&gt; {
+<pre class="codehilite"><code> const fetchConfigs = async () =&gt; {
    const res = await api.get('/files/');
    setConfigs(res.data);
  };
@@ -750,7 +764,7 @@ flowchart LR
  return (
    &lt;div&gt;
      &lt;h2&gt;Dashboard&lt;/h2&gt;
-     &lt;input type="file" onChange={e =&gt; setSelectedFile(e.target.files[0])} /&gt;
+     &lt;input type=&quot;file&quot; onChange={e =&gt; setSelectedFile(e.target.files[0])} /&gt;
      &lt;button onClick={handleUpload} disabled={uploading}&gt;
        {uploading ? 'Subiendo...' : 'Subir Fichero'}
      &lt;/button&gt;
@@ -790,11 +804,13 @@ flowchart LR
    &lt;/div&gt;
  );
 </code></pre>
+
 <p>};</p>
 <p>export default Dashboard;
    ```</p>
-<pre><code>* Subida de fichero, lista de configuraciones con acciones (Validar, Detalles, Eliminar).
+<pre class="codehilite"><code>* Subida de fichero, lista de configuraciones con acciones (Validar, Detalles, Eliminar).
 </code></pre>
+
 <ol>
 <li><strong><code>FileDetailModal.jsx</code></strong></li>
 </ol>
@@ -812,7 +828,7 @@ flowchart LR
      const [saving, setSaving] = useState(false);
      const [validating, setValidating] = useState(false);
      const [deleting, setDeleting] = useState(false);</p>
-<pre><code> const save = async () =&gt; {
+<pre class="codehilite"><code> const save = async () =&gt; {
    setSaving(true);
    await api.patch(`/files/${config.id}`, {
      delimiter, quote_char: quoteChar, escape_char: escapeChar,
@@ -873,40 +889,40 @@ flowchart LR
        &lt;h3&gt;Detalles Fichero&lt;/h3&gt;
        &lt;label&gt;Delimiter:&lt;/label&gt;
        &lt;select value={delimiter} onChange={e =&gt; setDelimiter(e.target.value)}&gt;
-         &lt;option value=","&gt;Comma&lt;/option&gt;
-         &lt;option value=";"&gt;Semicolon&lt;/option&gt;
-         &lt;option value="\t"&gt;Tab&lt;/option&gt;
-         &lt;option value="|"&gt;Pipe&lt;/option&gt;
+         &lt;option value=&quot;,&quot;&gt;Comma&lt;/option&gt;
+         &lt;option value=&quot;;&quot;&gt;Semicolon&lt;/option&gt;
+         &lt;option value=&quot;\t&quot;&gt;Tab&lt;/option&gt;
+         &lt;option value=&quot;|&quot;&gt;Pipe&lt;/option&gt;
        &lt;/select&gt;
        &lt;label&gt;Quote Character:&lt;/label&gt;
        &lt;select value={quoteChar} onChange={e =&gt; setQuoteChar(e.target.value)}&gt;
-         &lt;option value={'"'}&gt;Double&lt;/option&gt;
-         &lt;option value="'"&gt;Single&lt;/option&gt;
-         &lt;option value=""&gt;None&lt;/option&gt;
+         &lt;option value={'&quot;'}&gt;Double&lt;/option&gt;
+         &lt;option value=&quot;'&quot;&gt;Single&lt;/option&gt;
+         &lt;option value=&quot;&quot;&gt;None&lt;/option&gt;
        &lt;/select&gt;
        &lt;label&gt;Escape Character:&lt;/label&gt;
        &lt;select value={escapeChar} onChange={e =&gt; setEscapeChar(e.target.value)}&gt;
-         &lt;option value="\\"&gt;Backslash&lt;/option&gt;
-         &lt;option value={'"'}&gt;Double&lt;/option&gt;
-         &lt;option value=""&gt;None&lt;/option&gt;
+         &lt;option value=&quot;\\&quot;&gt;Backslash&lt;/option&gt;
+         &lt;option value={'&quot;'}&gt;Double&lt;/option&gt;
+         &lt;option value=&quot;&quot;&gt;None&lt;/option&gt;
        &lt;/select&gt;
        &lt;label&gt;Has Header:&lt;/label&gt;
-       &lt;input type="checkbox" checked={hasHeader} onChange={e =&gt; setHasHeader(e.target.checked)} /&gt;
+       &lt;input type=&quot;checkbox&quot; checked={hasHeader} onChange={e =&gt; setHasHeader(e.target.checked)} /&gt;
        &lt;label&gt;Date Format:&lt;/label&gt;
        &lt;select value={dateFormat} onChange={e =&gt; setDateFormat(e.target.value)}&gt;
-         &lt;option value="yyyy-MM-dd"&gt;YYYY-MM-DD&lt;/option&gt;
-         &lt;option value="dd/MM/yyyy"&gt;DD/MM/YYYY&lt;/option&gt;
-         &lt;option value="MM-dd-yyyy"&gt;MM-DD-YYYY&lt;/option&gt;
+         &lt;option value=&quot;yyyy-MM-dd&quot;&gt;YYYY-MM-DD&lt;/option&gt;
+         &lt;option value=&quot;dd/MM/yyyy&quot;&gt;DD/MM/YYYY&lt;/option&gt;
+         &lt;option value=&quot;MM-dd-yyyy&quot;&gt;MM-DD-YYYY&lt;/option&gt;
        &lt;/select&gt;
        &lt;label&gt;Timestamp Format:&lt;/label&gt;
        &lt;select value={timestampFormat} onChange={e =&gt; setTimestampFormat(e.target.value)}&gt;
-         &lt;option value="yyyy-MM-dd HH:mm:ss"&gt;YYYY-MM-DD HH:mm:ss&lt;/option&gt;
-         &lt;option value="ISO 8601"&gt;ISO 8601&lt;/option&gt;
-         &lt;option value="Timestamp MS"&gt;Timestamp MS&lt;/option&gt;
+         &lt;option value=&quot;yyyy-MM-dd HH:mm:ss&quot;&gt;YYYY-MM-DD HH:mm:ss&lt;/option&gt;
+         &lt;option value=&quot;ISO 8601&quot;&gt;ISO 8601&lt;/option&gt;
+         &lt;option value=&quot;Timestamp MS&quot;&gt;Timestamp MS&lt;/option&gt;
        &lt;/select&gt;
        &lt;label&gt;Partition Columns:&lt;/label&gt;
        &lt;input
-         type="text"
+         type=&quot;text&quot;
          value={partitionColumns || ''}
          onChange={e =&gt; setPartitionColumns(e.target.value)}
        /&gt;
@@ -927,11 +943,13 @@ flowchart LR
    &lt;/div&gt;
  );
 </code></pre>
+
 <p>};</p>
 <p>export default FileDetailModal;
    ```</p>
-<pre><code>* Modal para editar parámetros, validar, descargar y eliminar configuración.
+<pre class="codehilite"><code>* Modal para editar parámetros, validar, descargar y eliminar configuración.
 </code></pre>
+
 <ol>
 <li><strong><code>LogsPage.jsx</code></strong></li>
 </ol>
@@ -940,7 +958,7 @@ flowchart LR
    import api from '../api/axiosConfig';</p>
 <p>const LogsPage = () =&gt; {
      const [logs, setLogs] = useState([]);</p>
-<pre><code> const fetchLogs = async () =&gt; {
+<pre class="codehilite"><code> const fetchLogs = async () =&gt; {
    const res = await api.get('/files/logs');
    setLogs(res.data);
  };
@@ -983,15 +1001,17 @@ flowchart LR
    &lt;/div&gt;
  );
 </code></pre>
+
 <p>};</p>
 <p>export default LogsPage;
    ```</p>
-<pre><code>* Muestra los logs de validación y formatea la fecha a español.
+<pre class="codehilite"><code>* Muestra los logs de validación y formatea la fecha a español.
 </code></pre>
+
 <hr />
 <h3 id="44-organizacion-del-proyecto-patron">4.4 Organización del proyecto. Patrón<a class="headerlink" href="#44-organizacion-del-proyecto-patron" title="Permanent link">&para;</a></h3>
 <p>Se propone la siguiente estructura monolítica (tres carpetas principales), aunque cada componente puede colocarse en repositorios separados según conveniencia:</p>
-<pre><code>FileMonitoringSystem/
+<pre class="codehilite"><code>FileMonitoringSystem/
 ├── backend/                            ← Código FastAPI
 │   ├── app/
 │   │   ├── api/
@@ -1112,6 +1132,7 @@ flowchart LR
 │
 └── README-cluster.md                   ← Guía de cluster (si quieres)  
 </code></pre>
+
 <ul>
 <li>El patrón es <strong>feature-based</strong>: cada carpeta agrupa archivos según responsabilidad (API, servicios, modelos, diagramas, etc.).</li>
 <li>Cada componente puede versionarse por separado y luego combinarse en un monorepo si se desea.</li>
