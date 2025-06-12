@@ -143,91 +143,82 @@ A continuación se describen los pasos para levantar cada componente y usar el s
 #### 5.2.4 Flujo de usuario
 
 1. **Registro/Login**
-
-    * Acceder a `http://localhost:5173/register` para crear cuenta.
-    * Luego `http://localhost:5173/login` para iniciar sesión.
+  * Acceder a `http://localhost:5173/register` para crear cuenta.
+  * Luego `http://localhost:5173/login` para iniciar sesión.
 
 2. **Dashboard**
+  * Subir CSV: seleccionar un archivo y pulsar **Subir Fichero**.
+  * Aparecerá alerta con el ID de configuración.
+  * La tabla mostrará todas las configuraciones; cada fila ofrece botones:
 
-    * Subir CSV: seleccionar un archivo y pulsar **Subir Fichero**.
-    * Aparecerá alerta con el ID de configuración.
-    * La tabla mostrará todas las configuraciones; cada fila ofrece botones:
-
-        * **Validar**: envía el CSV a HDFS y lanza validación en Spark.
-        * **Detalles**: abre modal para editar metadatos, validar, descargar o eliminar.
-        * **Eliminar**: borra configuración de la base de datos.
+    * **Validar**: envía el CSV a HDFS y lanza validación en Spark.
+    * **Detalles**: abre modal para editar metadatos, validar, descargar o eliminar.
+    * **Eliminar**: borra configuración de la base de datos.
 
 3. **Visualizar logs**
-
-    * Acceder a `http://localhost:5173/logs` para ver resultados de validación.
-    * La tabla mostrará los últimos logs, con fecha formateada a `DD/MM/YYYY`.
+  * Acceder a `http://localhost:5173/logs` para ver resultados de validación.
+  * La tabla mostrará los últimos logs, con fecha formateada a `DD/MM/YYYY`.
 
 4. **Superset (opcional)**
-
-    * Superset corre en `http://localhost:8088`.
-    * Iniciar sesión con credenciales creadas en `docker-compose.yml` (admin / 1234).
-    * Configurar una conexión a PostgreSQL (`superset-db:5432`) para leer tablas `trigger_control` y crear dashboards de calidad de datos.
+  * Superset corre en `http://localhost:8088`.
+  * Iniciar sesión con credenciales creadas en `docker-compose.yml` (admin / 1234).
+  * Configurar una conexión a PostgreSQL (`superset-db:5432`) para leer tablas `trigger_control` y crear dashboards de calidad de datos.
 
 ---
 
 ### 5.3 Configuración adicional
 
 1. **Variables de entorno (backend)**
+  * En `backend/.env`:
 
-    * En `backend/.env`:
-
-      ```
-      # PostgreSQL
-      POSTGRES_USER=superset
-      POSTGRES_PASSWORD=superset
-      POSTGRES_HOST=postgres
-      POSTGRES_PORT=5432
-      POSTGRES_DB=superset
+  ```
+  # PostgreSQL
+  POSTGRES_USER=superset
+  POSTGRES_PASSWORD=superset
+  POSTGRES_HOST=postgres
+  POSTGRES_PORT=5432
+  POSTGRES_DB=superset
  
-      # HDFS
-      HDFS_HOST=hadoop-namenode
-      HDFS_PORT=9870
-      HDFS_DIR=/data/bank_accounts
-      HDFS_USER=hdfs
-      HDFS_DATANODE_HOST=hadoop-datanode
-      HDFS_DATANODE_PORT=9864
+  # HDFS
+  HDFS_HOST=hadoop-namenode
+  HDFS_PORT=9870
+  HDFS_DIR=/data/bank_accounts
+  HDFS_USER=hdfs
+  HDFS_DATANODE_HOST=hadoop-datanode
+  HDFS_DATANODE_PORT=9864
  
-      # Carpeta local de uploads
-      UPLOAD_DIR=uploaded_files
+  # Carpeta local de uploads
+  UPLOAD_DIR=uploaded_files
  
-      # JWT
-      JWT_SECRET_KEY=TuSecretoUltraSeguro123!
-      JWT_ALGORITHM=HS256
-      ACCESS_TOKEN_EXPIRE_MINUTES=60
-      ```
+  # JWT
+  JWT_SECRET_KEY=TuSecretoUltraSeguro123!
+  JWT_ALGORITHM=HS256
+  ACCESS_TOKEN_EXPIRE_MINUTES=60
+  ```
 
 2. **Permisos en HDFS**
+  * El contenedor `validation-engine` se encarga de ajustar permisos con `hdfs dfs -chmod -R 777 /data/bank_accounts`.
+  * Si se prefiere, desde cualquier contenedor con cliente Hadoop:
 
-    * El contenedor `validation-engine` se encarga de ajustar permisos con `hdfs dfs -chmod -R 777 /data/bank_accounts`.
-    * Si se prefiere, desde cualquier contenedor con cliente Hadoop:
-
-      ```bash
-      hdfs dfs -chmod -R 777 /data/bank_accounts
-      ```
+    ```bash
+    hdfs dfs -chmod -R 777 /data/bank_accounts
+    ```
 
 3. **Descargas y backups**
+  * Para exportar la base de datos PostgreSQL:
 
-    * Para exportar la base de datos PostgreSQL:
+  ```bash
+  docker exec -t superset-db pg_dumpall -c -U superset > dump_$(date +%F).sql
+  ```
+  * Para restaurar:
 
-      ```bash
-      docker exec -t superset-db pg_dumpall -c -U superset > dump_$(date +%F).sql
-      ```
-    * Para restaurar:
-
-      ```bash
-      docker exec -i superset-db psql -U superset < dump_YYYY-MM-DD.sql
-      ```
+    ```bash
+    docker exec -i superset-db psql -U superset < dump_YYYY-MM-DD.sql
+    ```
 
 4. **Personalizar Spark**
-
-    * Variables de entorno para Spark Master/Workers (en `docker-compose.yml`):
-
-        * `SPARK_WORKER_MEMORY`, `SPARK_WORKER_CORES`, `SPARK_LOCAL_DIRS`.
-    * Ajustar `spark.executor.memory` y `spark.driver.memory` en `spark-submit` si se procesan CSV muy grandes.
+  * Variables de entorno para Spark Master/Workers (en `docker-compose.yml`):
+    * `SPARK_WORKER_MEMORY`, `SPARK_WORKER_CORES`, `SPARK_LOCAL_DIRS`.
+  * Ajustar `spark.executor.memory` y `spark.driver.memory` en `spark-submit` si se procesan CSV muy grandes.
 
 ---

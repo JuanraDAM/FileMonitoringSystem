@@ -262,24 +262,20 @@ case class FileConfigurationCaseClass(
 #### 3.3.2 Frontend (React)
 
 * **AuthContext.jsx**
-
-    * Propiedades: `user`, `token`
-    * Métodos: `login()`, `register()`, `logout()`
+  * Propiedades: `user`, `token`
+  * Métodos: `login()`, `register()`, `logout()`
 * **FileConfig (modelo JS)**
-
-    * Propiedades: `id`, `fileName`, `path`, `hasHeader`, `delimiter`, `quoteChar`, `escapeChar`, `dateFormat`, `timestampFormat`, `partitionColumns`
-    * Métodos: `fetchAll()`, `create()`, `update()`, `delete()`, `pushToHDFS()`, `download()`
+  * Propiedades: `id`, `fileName`, `path`, `hasHeader`, `delimiter`, `quoteChar`, `escapeChar`, `dateFormat`, `timestampFormat`, `partitionColumns`
+  * Métodos: `fetchAll()`, `create()`, `update()`, `delete()`, `pushToHDFS()`, `download()`
 * **ValidationLog (modelo JS)**
-
-    * Propiedades: `id`, `fileConfigId`, `fileName`, `fieldName`, `environment`, `validationFlag`, `errorMessage`, `loggedAt`
-    * Métodos: `fetchAll()`
+  * Propiedades: `id`, `fileConfigId`, `fileName`, `fieldName`, `environment`, `validationFlag`, `errorMessage`, `loggedAt`
+  * Métodos: `fetchAll()`
 * **Componentes principales**
-
-    * `AppRouter` (gestiona rutas con `RequireAuth`)
-    * `MainLayout` (Navbar + `<Outlet />`)
-    * `Dashboard` (muestra lista de configuraciones y acciones)
-    * `FileDetailModal` (modal para editar/validar/eliminar/descargar)
-    * `LogsPage` (muestra logs formateando `logged_at`)
+  * `AppRouter` (gestiona rutas con `RequireAuth`)
+  * `MainLayout` (Navbar + `<Outlet />`)
+  * `Dashboard` (muestra lista de configuraciones y acciones)
+  * `FileDetailModal` (modal para editar/validar/eliminar/descargar)
+  * `LogsPage` (muestra logs formateando `logged_at`)
 
 *(Ver `docs/Img/Frontend/` para la imagen completa.)*
 
