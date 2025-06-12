@@ -1,20 +1,20 @@
 site_name: "File Monitoring System"
 site_url: "https://juanradam.github.io/FileMonitoringSystem/"
 
-# MkDocs leerá los .md desde docs/ y generará el HTML en site/
 docs_dir: docs
 site_dir: site
-
-# Usamos URL con .html porque estamos en un subdirectorio de GitHub Pages
 use_directory_urls: false
 
 theme:
-  name: readthedocs
+  name: readthedocs     # ← tema Read the Docs, muy estable con código
 
 markdown_extensions:
   - toc:
-      permalink: true
-  - admonition
+      permalink: true   # añade enlaces “§” junto a cada título
+  - admonition         # para bloques tipo nota/advertencia
+  - fenced_code        # fuerza triple-backticks para todo bloque de código
+  - codehilite:
+      guess_lang: false # resaltado sin “adivinar” el lenguaje
 
 nav:
   - Home: index.md
