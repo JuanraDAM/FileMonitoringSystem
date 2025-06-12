@@ -377,20 +377,28 @@ case class FileConfigurationCaseClass(
 <hr />
 <h4 id="332-frontend-react">3.3.2 Frontend (React)<a class="headerlink" href="#332-frontend-react" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>AuthContext.jsx</strong><p>* Propiedades: <code>user</code>, <code>token</code>
-  * Métodos: <code>login()</code>, <code>register()</code>, <code>logout()</code>
-* <strong>FileConfig (modelo JS)</strong></p>
-<p>* Propiedades: <code>id</code>, <code>fileName</code>, <code>path</code>, <code>hasHeader</code>, <code>delimiter</code>, <code>quoteChar</code>, <code>escapeChar</code>, <code>dateFormat</code>, <code>timestampFormat</code>, <code>partitionColumns</code>
-  * Métodos: <code>fetchAll()</code>, <code>create()</code>, <code>update()</code>, <code>delete()</code>, <code>pushToHDFS()</code>, <code>download()</code>
-* <strong>ValidationLog (modelo JS)</strong></p>
-<p>* Propiedades: <code>id</code>, <code>fileConfigId</code>, <code>fileName</code>, <code>fieldName</code>, <code>environment</code>, <code>validationFlag</code>, <code>errorMessage</code>, <code>loggedAt</code>
-  * Métodos: <code>fetchAll()</code>
-* <strong>Componentes principales</strong></p>
-<p>* <code>AppRouter</code> (gestiona rutas con <code>RequireAuth</code>)
-  * <code>MainLayout</code> (Navbar + <code>&lt;Outlet /&gt;</code>)
-  * <code>Dashboard</code> (muestra lista de configuraciones y acciones)
-  * <code>FileDetailModal</code> (modal para editar/validar/eliminar/descargar)
-  * <code>LogsPage</code> (muestra logs formateando <code>logged_at</code>)</p>
+<li><strong>AuthContext.jsx</strong><ul>
+<li>Propiedades: <code>user</code>, <code>token</code></li>
+<li>Métodos: <code>login()</code>, <code>register()</code>, <code>logout()</code></li>
+</ul>
+</li>
+<li><strong>FileConfig (modelo JS)</strong><ul>
+<li>Propiedades: <code>id</code>, <code>fileName</code>, <code>path</code>, <code>hasHeader</code>, <code>delimiter</code>, <code>quoteChar</code>, <code>escapeChar</code>, <code>dateFormat</code>, <code>timestampFormat</code>, <code>partitionColumns</code></li>
+<li>Métodos: <code>fetchAll()</code>, <code>create()</code>, <code>update()</code>, <code>delete()</code>, <code>pushToHDFS()</code>, <code>download()</code></li>
+</ul>
+</li>
+<li><strong>ValidationLog (modelo JS)</strong><ul>
+<li>Propiedades: <code>id</code>, <code>fileConfigId</code>, <code>fileName</code>, <code>fieldName</code>, <code>environment</code>, <code>validationFlag</code>, <code>errorMessage</code>, <code>loggedAt</code></li>
+<li>Métodos: <code>fetchAll()</code></li>
+</ul>
+</li>
+<li><strong>Componentes principales</strong><ul>
+<li><code>AppRouter</code> (gestiona rutas con <code>RequireAuth</code>)</li>
+<li><code>MainLayout</code> (Navbar + <code>&lt;Outlet /&gt;</code>)</li>
+<li><code>Dashboard</code> (muestra lista de configuraciones y acciones)</li>
+<li><code>FileDetailModal</code> (modal para editar/validar/eliminar/descargar)</li>
+<li><code>LogsPage</code> (muestra logs formateando <code>logged_at</code>)</li>
+</ul>
 </li>
 </ul>
 <p><em>(Ver <code>docs/Img/Frontend/</code> para la imagen completa.)</em></p>

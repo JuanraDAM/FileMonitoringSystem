@@ -243,30 +243,40 @@ npm install</code>
 <ol>
 <li>
 <p><strong>Registro/Login</strong></p>
-<p>* Acceder a <code>http://localhost:5173/register</code> para crear cuenta.
-  * Luego <code>http://localhost:5173/login</code> para iniciar sesión.</p>
+<ul>
+<li>Acceder a <code>http://localhost:5173/register</code> para crear cuenta.</li>
+<li>Luego <code>http://localhost:5173/login</code> para iniciar sesión.</li>
+</ul>
 </li>
 <li>
 <p><strong>Dashboard</strong></p>
-<p>* Subir CSV: seleccionar un archivo y pulsar <strong>Subir Fichero</strong>.
-  * Aparecerá alerta con el ID de configuración.
-  * La tabla mostrará todas las configuraciones; cada fila ofrece botones:</p>
-<pre class="codehilite"><code>  * **Validar**: envía el CSV a HDFS y lanza validación en Spark.
-  * **Detalles**: abre modal para editar metadatos, validar, descargar o eliminar.
-  * **Eliminar**: borra configuración de la base de datos.
-</code></pre>
-
+<ul>
+<li>Subir CSV: seleccionar un archivo y pulsar <strong>Subir Fichero</strong>.</li>
+<li>Aparecerá alerta con el ID de configuración.</li>
+<li>
+<p>La tabla mostrará todas las configuraciones; cada fila ofrece botones:</p>
+<ul>
+<li><strong>Validar</strong>: envía el CSV a HDFS y lanza validación en Spark.</li>
+<li><strong>Detalles</strong>: abre modal para editar metadatos, validar, descargar o eliminar.</li>
+<li><strong>Eliminar</strong>: borra configuración de la base de datos.</li>
+</ul>
+</li>
+</ul>
 </li>
 <li>
 <p><strong>Visualizar logs</strong></p>
-<p>* Acceder a <code>http://localhost:5173/logs</code> para ver resultados de validación.
-  * La tabla mostrará los últimos logs, con fecha formateada a <code>DD/MM/YYYY</code>.</p>
+<ul>
+<li>Acceder a <code>http://localhost:5173/logs</code> para ver resultados de validación.</li>
+<li>La tabla mostrará los últimos logs, con fecha formateada a <code>DD/MM/YYYY</code>.</li>
+</ul>
 </li>
 <li>
 <p><strong>Superset (opcional)</strong></p>
-<p>* Superset corre en <code>http://localhost:8088</code>.
-  * Iniciar sesión con credenciales creadas en <code>docker-compose.yml</code> (admin / 1234).
-  * Configurar una conexión a PostgreSQL (<code>superset-db:5432</code>) para leer tablas <code>trigger_control</code> y crear dashboards de calidad de datos.</p>
+<ul>
+<li>Superset corre en <code>http://localhost:8088</code>.</li>
+<li>Iniciar sesión con credenciales creadas en <code>docker-compose.yml</code> (admin / 1234).</li>
+<li>Configurar una conexión a PostgreSQL (<code>superset-db:5432</code>) para leer tablas <code>trigger_control</code> y crear dashboards de calidad de datos.</li>
+</ul>
 </li>
 </ol>
 <hr />
@@ -274,66 +284,62 @@ npm install</code>
 <ol>
 <li>
 <p><strong>Variables de entorno (backend)</strong></p>
-<p>* En <code>backend/.env</code>:</p>
-<pre class="codehilite"><code>```
-# PostgreSQL
-POSTGRES_USER=superset
+<ul>
+<li>En <code>backend/.env</code>:</li>
+</ul>
+<p>```</p>
+<h1 id="postgresql">PostgreSQL<a class="headerlink" href="#postgresql" title="Permanent link">&para;</a></h1>
+<p>POSTGRES_USER=superset
 POSTGRES_PASSWORD=superset
 POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
-POSTGRES_DB=superset
-
-# HDFS
-HDFS_HOST=hadoop-namenode
+POSTGRES_DB=superset</p>
+<h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
+<p>HDFS_HOST=hadoop-namenode
 HDFS_PORT=9870
 HDFS_DIR=/data/bank_accounts
 HDFS_USER=hdfs
 HDFS_DATANODE_HOST=hadoop-datanode
-HDFS_DATANODE_PORT=9864
-
-# Carpeta local de uploads
-UPLOAD_DIR=uploaded_files
-
-# JWT
-JWT_SECRET_KEY=TuSecretoUltraSeguro123!
+HDFS_DATANODE_PORT=9864</p>
+<h1 id="carpeta-local-de-uploads">Carpeta local de uploads<a class="headerlink" href="#carpeta-local-de-uploads" title="Permanent link">&para;</a></h1>
+<p>UPLOAD_DIR=uploaded_files</p>
+<h1 id="jwt">JWT<a class="headerlink" href="#jwt" title="Permanent link">&para;</a></h1>
+<p>JWT_SECRET_KEY=TuSecretoUltraSeguro123!
 JWT_ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
-```
-</code></pre>
-
+```</p>
 </li>
 <li>
 <p><strong>Permisos en HDFS</strong></p>
-<p>* El contenedor <code>validation-engine</code> se encarga de ajustar permisos con <code>hdfs dfs -chmod -R 777 /data/bank_accounts</code>.
-  * Si se prefiere, desde cualquier contenedor con cliente Hadoop:</p>
-<pre class="codehilite"><code>```bash
-hdfs dfs -chmod -R 777 /data/bank_accounts
-```
-</code></pre>
-
+<ul>
+<li>El contenedor <code>validation-engine</code> se encarga de ajustar permisos con <code>hdfs dfs -chmod -R 777 /data/bank_accounts</code>.</li>
+<li>
+<p>Si se prefiere, desde cualquier contenedor con cliente Hadoop:</p>
+<p><code>bash
+hdfs dfs -chmod -R 777 /data/bank_accounts</code></p>
+</li>
+</ul>
 </li>
 <li>
 <p><strong>Descargas y backups</strong></p>
-<p>* Para exportar la base de datos PostgreSQL:</p>
-<pre class="codehilite"><code>```bash
-docker exec -t superset-db pg_dumpall -c -U superset &gt; dump_$(date +%F).sql
-```
-</code></pre>
-
-<p>* Para restaurar:</p>
-<pre class="codehilite"><code>```bash
-docker exec -i superset-db psql -U superset &lt; dump_YYYY-MM-DD.sql
-```
-</code></pre>
-
+<ul>
+<li>Para exportar la base de datos PostgreSQL:</li>
+</ul>
+<p><code>bash
+docker exec -t superset-db pg_dumpall -c -U superset &gt; dump_$(date +%F).sql</code>
+* Para restaurar:</p>
+<p><code>bash
+  docker exec -i superset-db psql -U superset &lt; dump_YYYY-MM-DD.sql</code></p>
 </li>
 <li>
 <p><strong>Personalizar Spark</strong></p>
-<p>* Variables de entorno para Spark Master/Workers (en <code>docker-compose.yml</code>):</p>
-<pre class="codehilite"><code>  * `SPARK_WORKER_MEMORY`, `SPARK_WORKER_CORES`, `SPARK_LOCAL_DIRS`.
-</code></pre>
-
-<p>* Ajustar <code>spark.executor.memory</code> y <code>spark.driver.memory</code> en <code>spark-submit</code> si se procesan CSV muy grandes.</p>
+<ul>
+<li>Variables de entorno para Spark Master/Workers (en <code>docker-compose.yml</code>):<ul>
+<li><code>SPARK_WORKER_MEMORY</code>, <code>SPARK_WORKER_CORES</code>, <code>SPARK_LOCAL_DIRS</code>.</li>
+</ul>
+</li>
+<li>Ajustar <code>spark.executor.memory</code> y <code>spark.driver.memory</code> en <code>spark-submit</code> si se procesan CSV muy grandes.</li>
+</ul>
 </li>
 </ol>
 <hr />
