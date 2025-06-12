@@ -15,10 +15,19 @@ plugins:
   - mermaid2
 
 markdown_extensions:
-  - mdx_truly_sane_lists
+  # 1) Truly Sane Lists para listas anidadas (2 espacios por nivel)
+  - mdx_truly_sane_lists:
+      nested_indent: 2
+      truly_sane: true
+
+  # 2) Índice en página y permalinks
   - toc:
       permalink: true
+
+  # 3) Admoniciones (notas, advertencias…)
   - admonition
+
+  # 4) Bloques de código “fenced” y resaltado
   - fenced_code
   - codehilite:
       guess_lang: false
