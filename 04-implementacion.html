@@ -1,100 +1,116 @@
 <!DOCTYPE html>
 
-<html lang="en">
-<!--[if lt IE 9]>
-        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-    <![endif]-->
+<html class="writer-html5" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://juanradam.github.io/FileMonitoringSystem/04-implementacion.html" rel="canonical"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://juanradam.github.io/FileMonitoringSystem/04-implementacion.html" rel="canonical"/>
 <link href="img/favicon.ico" rel="shortcut icon"/>
 <title>Implementación (GIT) - File Monitoring System</title>
 <link href="css/theme.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" rel="stylesheet"/>
-<script defer="" src="js/theme.js"></script>
-<script> var base_url = "." </script>
-<script defer="" src="search/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<link href="css/theme_extra.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
+<script>
+        // Current page data
+        var mkdocs_page_name = "Implementaci\u00f3n (GIT)";
+        var mkdocs_page_input_path = "04-implementacion.md";
+        var mkdocs_page_url = "/FileMonitoringSystem/04-implementacion.html";
+      </script>
+<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 </head>
-<body>
-<header class="header">
-<a class="pizza" id="nav-toggle">☰</a>
-<div class="title">
-<a class="logo" href="/">File Monitoring System </a>
-<div class="search" role="search">
-<form><input id="mkdocs-search-query" placeholder="Search docs" type="search"/></form>
+<body class="wy-body-for-nav" role="document">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side stickynav" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index.html"> File Monitoring System
+        </a><div role="search">
+<form action="./search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" title="Type search term here" type="text"/>
+</form>
 </div>
 </div>
-<a class="scrh" id="nav-scrh">⌕</a>
-</header>
-<div class="side" id="side">
-<h2>Page</h2>
+<div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
 <ul>
-<!--
--->
-<li>
-<a href="index.html">Home</a>
-</li>
-<!--
--->
-<li>
-<a href="01-introduccion.html">Introducción</a>
-</li>
-<!--
--->
-<li>
-<a href="02-requisitos.html">Especificación de Requisitos</a>
-</li>
-<!--
--->
-<li>
-<a href="03-diseno.html">Diseño (Diagramas)</a>
-</li>
-<!--
--->
-<li class="active">
-<a href="04-implementacion.html">Implementación (GIT)</a>
-</li>
-<!--
--->
-<li>
-<a href="05-resultado.html">Resultado (Manual de usuario)</a>
-</li>
-<!--
--->
-<li>
-<a href="06-conclusiones.html">Conclusiones</a>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
 </li>
 </ul>
-<h2>Table Of Contents</h2>
-<ul class="current" id="toc">
-<li><a href="#4-implementacion-git">4. Implementación (GIT)</a></li>
-<li class="child"><a href="#41-diagrama-de-arquitectura">4.1 Diagrama de arquitectura</a></li>
-<li class="child"><a href="#42-tecnologias">4.2 Tecnologías</a></li>
-<li class="child"><a href="#43-codigo-explicacion-de-las-partes-mas-interesantes">4.3 Código (Explicación de las partes más interesantes)</a></li>
-<li class="child"><a href="#44-organizacion-del-proyecto-patron">4.4 Organización del proyecto. Patrón</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="01-introduccion.html">Introducción</a>
+</li>
 </ul>
-<div class="about">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="02-requisitos.html">Especificación de Requisitos</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="03-diseno.html">Diseño (Diagramas)</a>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal current" href="#">Implementación (GIT)</a>
+<ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="#41-diagrama-de-arquitectura">4.1 Diagrama de arquitectura</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#42-tecnologias">4.2 Tecnologías</a>
+<ul>
+<li class="toctree-l3"><a class="reference internal" href="#421-motor-de-validaciones-scala-spark">4.2.1 Motor de validaciones (Scala + Spark)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#422-backend-fastapi">4.2.2 Backend (FastAPI)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#423-frontend-react">4.2.3 Frontend (React)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#424-base-de-datos-y-otros">4.2.4 Base de datos y otros</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#43-codigo-explicacion-de-las-partes-mas-interesantes">4.3 Código (Explicación de las partes más interesantes)</a>
+<ul>
+<li class="toctree-l3"><a class="reference internal" href="#431-motor-de-validaciones-scala">4.3.1 Motor de validaciones (Scala)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#432-backend-fastapi">4.3.2 Backend (FastAPI)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#433-frontend-react-vite">4.3.3 Frontend (React + Vite)</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#44-organizacion-del-proyecto-patron">4.4 Organización del proyecto. Patrón</a>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="05-resultado.html">Resultado (Manual de usuario)</a>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="06-conclusiones.html">Conclusiones</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="Mobile navigation menu" class="wy-nav-top" role="navigation">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index.html">File Monitoring System</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content"><div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Docs" class="icon icon-home" href="index.html"></a></li>
+<li class="breadcrumb-item active">Implementación (GIT)</li>
+<li class="wy-breadcrumbs-aside">
+</li>
+</ul>
 <hr/>
-            Built with 🛠 <a href="https://www.mkdocs.org">MkDocs</a> - 
-            Theme 🖤 <a href="https://github.com/g3xx/mkdocs-github">Github</a>.
-        </div>
 </div>
-<div class="spacer"><!-- i am margin --></div>
-<div class="markdown-body">
-<div class="prev">
-<a href="03-diseno.html" title="Diseño (Diagramas)">← Previous Page</a>
-</div>
-<div class="next">
-<a href="05-resultado.html" title="Resultado (Manual de usuario)"></a>Next Page →
-</div>
-<div class="clear"></div>
-<div id="mkdocs-search-results"></div>
-<div id="body">
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div class="section" itemprop="articleBody">
 <h2 id="4-implementacion-git">4. Implementación (GIT)<a class="headerlink" href="#4-implementacion-git" title="Permanent link">¶</a></h2>
 <h3 id="41-diagrama-de-arquitectura">4.1 Diagrama de arquitectura<a class="headerlink" href="#41-diagrama-de-arquitectura" title="Permanent link">¶</a></h3>
 <div class="mermaid">---
@@ -1051,12 +1067,38 @@ def executeFile(path: String, outputTable: String): Unit = {
 </ul>
 <hr/>
 </div>
-<hr/>
-<!--
-  MkDocs version      : 1.6.1
-  Docs Build Date UTC : 2025-06-12 16:32:17.194299+00:00
-  -->
+</div><footer>
+<div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
+<a class="btn btn-neutral float-left" href="03-diseno.html" title="Diseño (Diagramas)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+<a class="btn btn-neutral float-right" href="05-resultado.html" title="Resultado (Manual de usuario)">Next <span class="icon icon-circle-arrow-right"></span></a>
 </div>
+<hr/>
+<div role="contentinfo">
+<!-- Copyright etc -->
+</div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="Versions" class="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span><a href="03-diseno.html" style="color: #fcfcfc">« Previous</a></span>
+<span><a href="05-resultado.html" style="color: #fcfcfc">Next »</a></span>
+</span>
+</div>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script>var base_url = ".";</script>
+<script src="js/theme_extra.js"></script>
+<script src="js/theme.js"></script>
+<script src="search/main.js"></script>
+<script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
 <script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
 mermaid.initialize({});</script></body>
 </html>
